@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 // ── Floating legal icon watermarks ──────────────────────────────
 const LEGAL_ICONS = [
@@ -43,13 +44,15 @@ const DocIcon = ({ size }) => (
 )
 const ICONS = [ScalesIcon, GavelIcon, ColumnIcon, DocIcon, ScalesIcon, GavelIcon, ColumnIcon, DocIcon, ScalesIcon, GavelIcon]
 
-// ── Shield Logo ──────────────────────────────────────────────────
-const ShieldLogo = ({ size = 40 }) => (
-  <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
-    <path d="M20 2L4 9v10c0 9.4 6.8 18.2 16 20 9.2-1.8 16-10.6 16-20V9L20 2z" fill="#1c1a17" />
-    <path d="M20 2L4 9v10c0 9.4 6.8 18.2 16 20 9.2-1.8 16-10.6 16-20V9L20 2z" stroke="#b5924c" strokeWidth="1.5" fill="none" />
-    <text x="20" y="26" textAnchor="middle" fill="#b5924c" fontSize="16" fontWeight="bold" fontFamily="Georgia, serif">K</text>
-  </svg>
+// ── Logo Component ──────────────────────────────────────────────────
+const KarrarLogo = ({ size = 40 }) => (
+  <Image
+    src="/karrar-logo.png"
+    alt="Karrar.ai"
+    width={size}
+    height={size}
+    priority
+  />
 )
 
 // ── Animated counter ─────────────────────────────────────────────
@@ -263,7 +266,7 @@ export default function KarrarLanding() {
       }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", height: 68, gap: 24 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-            <ShieldLogo size={36} />
+            <KarrarLogo size={36} />
             <span style={{ fontFamily: "Playfair Display, serif", fontSize: 20, fontWeight: 700, color: "#1c1a17" }}>Karrar.ai</span>
           </div>
           <div style={{ flex: 1, display: "flex", justifyContent: "center", gap: 32 }}>
@@ -298,7 +301,7 @@ export default function KarrarLanding() {
               <span style={{ fontSize: 12, color: "#b5924c", fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.06em" }}>Hackanova 5.0 · Agentic AI Track</span>
             </div>
             <div className="fade-up-2" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-              <ShieldLogo size={52} />
+              <KarrarLogo size={52} />
               <span style={{ fontFamily: "Playfair Display, serif", fontSize: 22, fontWeight: 700, letterSpacing: "0.04em", color: "#7a7068" }}>Karrar.ai</span>
             </div>
             <h1 className="fade-up-3" style={{ fontFamily: "Playfair Display, serif", fontSize: "clamp(44px, 5vw, 68px)", fontWeight: 900, lineHeight: 1.1, marginBottom: 20 }}>
@@ -578,7 +581,7 @@ export default function KarrarLanding() {
       <section style={{ padding: "80px 32px", background: "#1c1a17", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(181,146,76,0.1) 1px, transparent 1px)", backgroundSize: "24px 24px", pointerEvents: "none" }} />
         <div style={{ position: "relative" }}>
-          <ShieldLogo size={56} />
+          <KarrarLogo size={56} />
           <h2 style={{ fontFamily: "Playfair Display, serif", fontSize: 48, fontWeight: 900, color: "#f5f0e8", marginTop: 20, marginBottom: 16 }}>
             Sign with <span style={{ color: "#b5924c", fontStyle: "italic" }}>Clarity.</span>
           </h2>
@@ -598,7 +601,7 @@ export default function KarrarLanding() {
           <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                <ShieldLogo size={32} />
+                <KarrarLogo size={32} />
                 <span style={{ fontFamily: "Playfair Display, serif", fontSize: 18, fontWeight: 700, color: "#f5f0e8" }}>Karrar.ai</span>
               </div>
               <p style={{ fontSize: 14, lineHeight: 1.7, color: "#555", maxWidth: 260 }}>India's first multi-agent legal AI for contracts. Built for freelancers, founders, and SMEs.</p>
