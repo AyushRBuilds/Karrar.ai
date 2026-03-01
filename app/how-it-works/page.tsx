@@ -1,0 +1,140 @@
+'use client'
+
+import { LandingNavbar } from '@/components/landing/Navbar'
+import { Footer } from '@/components/landing/Footer'
+
+export default function HowItWorksPage() {
+  const steps = [
+    {
+      number: '1',
+      title: 'Upload Your Contract',
+      description: 'Drag and drop or upload any PDF contract - NDA, MSA, employment agreement, etc.',
+      icon: '📄'
+    },
+    {
+      number: '2',
+      title: 'Agents Analyze',
+      description: 'Our 6 specialized AI agents work in parallel to audit, extract, and score the contract.',
+      icon: '🔍'
+    },
+    {
+      number: '3',
+      title: 'Get Insights',
+      description: 'Receive risk analysis, compliance checks, entity extraction, and clause summaries instantly.',
+      icon: '📊'
+    },
+    {
+      number: '4',
+      title: 'Generate Counter-Terms',
+      description: 'Get AI-generated counter-terms tailored to Indian law and your interests.',
+      icon: '✍️'
+    },
+    {
+      number: '5',
+      title: 'Download Report',
+      description: 'Export a comprehensive, branded report with all analysis and recommendations.',
+      icon: '📥'
+    },
+    {
+      number: '6',
+      title: 'Negotiate Confidently',
+      description: 'Use insights and counter-terms to negotiate better deals backed by legal expertise.',
+      icon: '⚖️'
+    }
+  ]
+
+  return (
+    <main className="bg-[#f5f0e8]">
+      <LandingNavbar />
+
+      {/* Hero */}
+      <section className="py-20 px-6 text-center">
+        <h1 className="text-5xl font-serif font-bold text-[#1c1a17] mb-4 max-w-3xl mx-auto">
+          How Karrar.ai Works
+        </h1>
+        <p className="text-xl text-[#7a7068] max-w-2xl mx-auto">
+          From contract upload to informed negotiation in minutes.
+        </p>
+      </section>
+
+      {/* Steps Grid */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {steps.map((step) => (
+            <div key={step.number} className="relative">
+              {/* Connecting lines - desktop only */}
+              {parseInt(step.number) < 6 && parseInt(step.number) % 3 !== 0 && (
+                <div className="hidden lg:block absolute -right-4 top-8 w-8 h-0.5 bg-[#e0d9ce]"></div>
+              )}
+              {parseInt(step.number) <= 3 && (
+                <div className="hidden lg:block absolute left-1/2 -bottom-8 w-0.5 h-8 bg-[#e0d9ce]"></div>
+              )}
+
+              <div className="bg-white rounded-xl p-8 text-center">
+                <div className="text-5xl mb-4">{step.icon}</div>
+                <div className="w-10 h-10 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-serif font-bold text-lg mx-auto mb-4">
+                  {step.number}
+                </div>
+                <h3 className="text-lg font-serif font-bold text-[#1c1a17] mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-[#7a7068]">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-white py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-serif font-bold text-[#1c1a17] mb-12 text-center">
+            What Our Agents Do
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">🔍</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Contract Auditor</h3>
+              <p className="text-[#7a7068]">Analyzes every clause for legal risks, unfair terms, and potential liabilities under Indian law.</p>
+            </div>
+
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">✍️</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Counter-Term Generator</h3>
+              <p className="text-[#7a7068]">Generates fair, negotiation-ready counter-terms for every risky or unfavorable clause.</p>
+            </div>
+
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">⚖️</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Compliance Checker</h3>
+              <p className="text-[#7a7068]">Ensures full compliance with Indian labor laws, commercial regulations, and contractual standards.</p>
+            </div>
+
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">🏢</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Entity Extractor</h3>
+              <p className="text-[#7a7068]">Automatically identifies and catalogues all parties, stakeholders, and entities mentioned in the contract.</p>
+            </div>
+
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">📝</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Clause Summarizer</h3>
+              <p className="text-[#7a7068]">Translates legal jargon into plain English summaries anyone can understand instantly.</p>
+            </div>
+
+            <div className="p-8 border border-[#e0d9ce] rounded-xl">
+              <div className="text-3xl mb-4">📊</div>
+              <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-2">Risk Scorer</h3>
+              <p className="text-[#7a7068]">Assigns risk scores to clauses on a 1-10 scale with detailed explanations for each rating.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}

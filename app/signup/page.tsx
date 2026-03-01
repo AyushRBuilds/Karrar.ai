@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useAuth } from '@/context/auth-context';
 import { PasswordInput } from '@/components/ui/PasswordInput';
 import { LegalWatermark } from '@/components/ui/LegalWatermark';
 import { showToast } from '@/components/ui/Toast';
+import { useAuth } from '@/context/auth-context';
 
-export default function LoginPage() {
+export default function SignupPage() {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -20,14 +22,31 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (!fullName.trim()) {
+      setError('Please enter your full name');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
+      // Demo: Just log them in directly
       await login(email, password);
-      showToast('Welcome back, John! 👋', 'success');
+      showToast('Account created successfully!', 'success');
       router.push('/home');
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Login failed';
+      const errorMsg = err instanceof Error ? err.message : 'Signup failed';
       setError(errorMsg);
       showToast(errorMsg, 'error');
     } finally {
@@ -35,7 +54,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleSignup = () => {
     showToast('Google authentication coming soon', 'info');
   };
 
@@ -44,7 +63,7 @@ export default function LoginPage() {
       <LegalWatermark />
 
       <div className="w-full max-w-md relative z-10">
-        {/* Login Card */}
+        {/* Signup Card */}
         <div className="card bg-white p-8 md:p-12">
           {/* Logo */}
           <div className="flex justify-center mb-8">
@@ -67,7 +86,7 @@ export default function LoginPage() {
 
           {/* Heading */}
           <h2 className="text-center text-2xl font-serif font-bold text-[#1c1a17] mb-8">
-            Welcome Back
+            Create Your Account
           </h2>
 
           {/* Error Message */}
@@ -79,6 +98,21 @@ export default function LoginPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Full Name Field */}
+            <div>
+              <label className="block text-sm font-medium text-[#1c1a17] mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="John Doe"
+                className="input-field w-full"
+                required
+              />
+            </div>
+
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-[#1c1a17] mb-2">
@@ -106,29 +140,25 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-[#7a7068]">
-                <input type="checkbox" className="w-4 h-4 rounded border-[#e0d9ce]" />
-                Remember me
+            {/* Confirm Password Field */}
+            <div>
+              <label className="block text-sm font-medium text-[#1c1a17] mb-2">
+                Confirm Password
               </label>
-              <Link href="/forgot-password" className="text-sm text-[#b5924c] hover:text-[#1c1a17]">
-                Forgot Password?
-              </Link>
+              <PasswordInput
+                value={confirmPassword}
+                onChange={setConfirmPassword}
+                placeholder="••••••••"
+              />
             </div>
 
-            {/* Demo Hint */}
-            <div className="bg-[#e8d9b8] border border-[#b5924c] rounded-lg p-3 text-xs text-[#1c1a17] font-medium">
-              💡 Demo: demo@karrar.ai / karrar2024
-            </div>
-
-            {/* Login Button */}
+            {/* Sign Up Button */}
             <button
               type="submit"
               disabled={isLoading}
               className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
@@ -142,7 +172,7 @@ export default function LoginPage() {
           {/* Google Button */}
           <button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignup}
             className="w-full border border-[#e0d9ce] py-3 rounded-lg font-medium text-[#1c1a17] hover:bg-[#f5f0e8] transition flex items-center justify-center gap-2"
           >
             <Image
@@ -171,11 +201,11 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Sign Up Link */}
+          {/* Login Link */}
           <div className="mt-8 text-center text-sm text-[#7a7068]">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-[#b5924c] font-semibold hover:text-[#1c1a17]">
-              Sign up →
+            Already have an account?{' '}
+            <Link href="/login" className="text-[#b5924c] font-semibold hover:text-[#1c1a17]">
+              Log in →
             </Link>
           </div>
         </div>

@@ -1,268 +1,230 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { useAuth } from '@/context/auth-context';
-import { redirect } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Menu, X, LogOut, Bell, Upload, Search, Home, FileText, Zap, BarChart3, Heart, Settings, HelpCircle } from 'lucide-react';
+import React, { useState } from 'react'
+import { AppNavbar } from '@/components/layout/AppLayout'
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import { StatsCard } from '@/components/ui/StatsCard'
+import { RiskBadge } from '@/components/ui/RiskBadge'
+
+const riskData = [
+  {
+    title: 'High Financial Liability',
+    risk: 8.4,
+    clause: 'Indemnification Clause',
+    excerpt: 'The indemnifying party shall hold harmless...'
+  },
+  {
+    title: 'Unfair Term',
+    risk: 7.6,
+    clause: 'Non-Compete Agreement',
+    excerpt: 'Party A shall not compete in any market...'
+  },
+  {
+    title: 'Unclear Clause',
+    risk: 6.9,
+    clause: 'Unclear Clause',
+    excerpt: 'The jurisdiction for dispute resolution...'
+  },
+  {
+    title: 'Standard Term',
+    risk: 3.2,
+    clause: 'Confidentiality Clause',
+    excerpt: 'Confidential information shall be protected...'
+  }
+]
 
 export default function DashboardPage() {
-  const { user, isAuthenticated, isLoading, logout } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#f5f0e8] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b5924c]"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    redirect('/login');
-  }
+  const [activeTab, setActiveTab] = useState('risks')
 
   return (
-    <div className="min-h-screen bg-[#f5f0e8]">
-      {/* Top Navbar */}
-      <nav className="bg-white border-b border-[#e8dcc8] sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 md:px-8 py-4">
-          {/* Left - Logo and Menu */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-[#2a2a2a]"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-            <div className="flex items-center gap-2">
-              <Image src="/logo.png" alt="Karrar.ai" width={32} height={32} className="h-8 w-auto" />
-              <span className="hidden sm:inline font-serif font-bold text-[#2a2a2a]">Karrar.ai</span>
-            </div>
-          </div>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-[#f5f0e8]">
+        <AppNavbar />
 
-          {/* Center - Navigation and Search */}
-          <div className="hidden md:flex items-center gap-8 flex-1 ml-12">
-            <a href="/dashboard" className="text-[#2a2a2a] font-medium border-b-2 border-[#b5924c]">Home</a>
-            <a href="#" className="text-[#a0826d] hover:text-[#2a2a2a]">Contracts</a>
-            <a href="#" className="text-[#a0826d] hover:text-[#2a2a2a]">Agents</a>
-            <a href="#" className="text-[#a0826d] hover:text-[#2a2a2a]">Reports</a>
-          </div>
+        <div className="flex">
+          <div className="hidden md:block w-64"></div>
 
-          {/* Search Bar - Hidden on mobile */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
-            <div className="flex items-center gap-2 bg-[#f5f0e8] px-4 py-2 rounded-lg flex-1">
-              <Search size={18} className="text-[#a0826d]" />
-              <input
-                type="text"
-                placeholder="Search contracts, entities, or tags..."
-                className="bg-transparent outline-none flex-1 text-sm text-[#2a2a2a] placeholder-[#a0826d]"
-              />
-            </div>
-          </div>
-
-          {/* Right - Notifications and Profile */}
-          <div className="flex items-center gap-4">
-            <button className="relative text-[#a0826d] hover:text-[#2a2a2a]">
-              <Bell size={20} />
-              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
-            </button>
-            <div className="flex items-center gap-3">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium text-[#2a2a2a]">{user?.name}</p>
-                <p className="text-xs text-[#a0826d]">{user?.email}</p>
+          <div className="flex-1 mt-20 md:mt-0 pt-6 pb-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Header */}
+              <div className="mb-8">
+                <h1 className="text-4xl font-serif font-bold text-[#1c1a17] mb-2">Dashboard</h1>
+                <p className="text-lg text-[#7a7068]">Audit, analyze, and negotiate your contracts effortlessly.</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-semibold">
-                {user?.name?.charAt(0).toUpperCase()}
+
+              {/* Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <StatsCard title="Total Contracts" value="3,468" />
+                <StatsCard title="High Risks" value="312" icon="🛡️" tint="red" />
+                <StatsCard title="Flagged Terms" value="564" icon="⚠️" tint="amber" />
               </div>
-              <button
-                onClick={() => {
-                  logout();
-                  redirect('/');
-                }}
-                className="ml-4 text-[#a0826d] hover:text-red-500 transition"
-                title="Logout"
-              >
-                <LogOut size={20} />
-              </button>
+
+              {/* Alert Banner */}
+              <div className="bg-[#fef9ee] border-l-4 border-[#f39c12] p-4 rounded-lg mb-8 flex items-start justify-between">
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">⚠️</span>
+                  <div>
+                    <p className="font-medium text-[#1c1a17]">Alert: Contract MSA_Company_X.pdf has 1 high risk & 3 moderate risks</p>
+                  </div>
+                </div>
+                <button className="text-[#b5924c] hover:text-[#1c1a17] font-medium text-sm">
+                  View Analysis →
+                </button>
+              </div>
+
+              {/* Two Column Layout */}
+              <div className="grid lg:grid-cols-3 gap-8">
+                {/* Left: Contract Analysis (60%) */}
+                <div className="lg:col-span-2">
+                  <div className="card bg-white p-6">
+                    {/* Tabs */}
+                    <div className="flex items-center gap-4 mb-6 border-b border-[#e0d9ce]">
+                      <button
+                        onClick={() => setActiveTab('risks')}
+                        className={`pb-4 font-medium transition ${
+                          activeTab === 'risks'
+                            ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
+                            : 'text-[#7a7068]'
+                        }`}
+                      >
+                        Risks
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('keypoints')}
+                        className={`pb-4 font-medium transition ${
+                          activeTab === 'keypoints'
+                            ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
+                            : 'text-[#7a7068]'
+                        }`}
+                      >
+                        Key Points
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('alerts')}
+                        className={`pb-4 font-medium transition ${
+                          activeTab === 'alerts'
+                            ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
+                            : 'text-[#7a7068]'
+                        }`}
+                      >
+                        Alerts
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="space-y-4">
+                      {riskData.map((item, idx) => (
+                        <div key={idx} className="border border-[#e0d9ce] rounded-lg p-4 hover:bg-[#f5f0e8] transition">
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-start gap-3 flex-1">
+                              <div className="text-2xl">
+                                {item.risk >= 8 ? '🔴' : item.risk >= 6 ? '🟡' : item.risk >= 3 ? '⚪' : '🟢'}
+                              </div>
+                              <div>
+                                <h3 className="font-serif font-bold text-[#1c1a17]">{item.title}</h3>
+                                <p className="text-sm text-[#b5924c] font-medium">{item.clause}</p>
+                              </div>
+                            </div>
+                            <RiskBadge score={item.risk} size="lg" />
+                          </div>
+                          <p className="text-sm text-[#7a7068] mb-3 italic">"{item.excerpt}"</p>
+                          <button className="text-[#b5924c] hover:text-[#1c1a17] text-sm font-medium">
+                            Suggest Counter-Terms →
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Panels (40%) */}
+                <div className="space-y-6">
+                  {/* Risk Breakdown */}
+                  <div className="card bg-white p-6">
+                    <h3 className="font-serif font-bold text-[#1c1a17] mb-4">Risk Breakdown</h3>
+                    <div className="flex items-center justify-center mb-4">
+                      <div className="w-32 h-32 rounded-full border-8 border-[#27ae60] flex items-center justify-center">
+                        <div className="text-center">
+                          <p className="text-2xl font-serif font-bold text-[#27ae60]">70%</p>
+                          <p className="text-xs text-[#7a7068]">Safe</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-[#c0392b]"></span>
+                          High Risk
+                        </span>
+                        <span className="font-bold">1%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-[#e67e22]"></span>
+                          Medium Risk
+                        </span>
+                        <span className="font-bold">17%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-[#7f8c8d]"></span>
+                          Low Risk
+                        </span>
+                        <span className="font-bold">13%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recent Activity */}
+                  <div className="card bg-white p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-serif font-bold text-[#1c1a17]">Recent Activity</h3>
+                      <button className="text-[#b5924c] hover:text-[#1c1a17] text-sm">Refresh ›</button>
+                    </div>
+                    <div className="space-y-3 text-sm">
+                      <div className="pb-3 border-b border-[#e0d9ce]">
+                        <p className="font-medium text-[#1c1a17]">📄 MSA_Company.X.pdf</p>
+                        <p className="text-xs text-[#7a7068]">13 min ago</p>
+                      </div>
+                      <div className="pb-3 border-b border-[#e0d9ce]">
+                        <p className="font-medium text-[#1c1a17]">📄 Freelancer NDA.docx</p>
+                        <p className="text-xs text-[#7a7068]">1 hour ago</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-[#1c1a17]">📄 Freelancer Z</p>
+                        <p className="text-xs text-[#7a7068]">2 hours ago</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Top Entities */}
+                  <div className="card bg-white p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-serif font-bold text-[#1c1a17]">Top Entities</h3>
+                      <button className="text-[#b5924c] hover:text-[#1c1a17] text-sm">Manage ›</button>
+                    </div>
+                    <div className="space-y-3 text-sm">
+                      <div className="pb-3 border-b border-[#e0d9ce]">
+                        <p className="font-medium text-[#1c1a17]">🇮🇳 Company.X</p>
+                        <p className="text-xs text-[#7a7068]">13 min ago</p>
+                      </div>
+                      <div className="pb-3 border-b border-[#e0d9ce]">
+                        <p className="font-medium text-[#1c1a17]">👤 Freelancer Y</p>
+                        <p className="text-xs text-[#7a7068]">1 hour ago</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-[#1c1a17]">📋 Employment Contract</p>
+                        <p className="text-xs text-[#7a7068]">3 hours ago</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </nav>
-
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} hidden md:block bg-white border-r border-[#e8dcc8] transition-all duration-300 overflow-hidden`}>
-          <div className="p-6 space-y-8">
-            {/* Navigation Links */}
-            <nav className="space-y-2">
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#2a2a2a] bg-[#f5f0e8] rounded-lg border-l-4 border-[#b5924c] font-medium">
-                <Home size={20} />
-                <span>Home</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d] hover:bg-[#f5f0e8] rounded-lg transition">
-                <FileText size={20} />
-                <span>Contracts</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d] hover:bg-[#f5f0e8] rounded-lg transition">
-                <Zap size={20} />
-                <span>Agents</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d] hover:bg-[#f5f0e8] rounded-lg transition">
-                <BarChart3 size={20} />
-                <span>Reports</span>
-              </a>
-            </nav>
-
-            {/* Favorites Section */}
-            <div>
-              <h3 className="text-xs font-semibold text-[#a0826d] uppercase tracking-wide mb-3">Favorites</h3>
-              <div className="space-y-2">
-                <a href="#" className="flex items-center gap-3 px-4 py-2 text-sm text-[#2a2a2a] hover:bg-[#f5f0e8] rounded-lg transition">
-                  <FileText size={16} />
-                  <span>NDA_Startup.docx</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 px-4 py-2 text-sm text-[#2a2a2a] hover:bg-[#f5f0e8] rounded-lg transition">
-                  <FileText size={16} />
-                  <span>Rental Agreement.pdf</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 px-4 py-2 text-sm text-[#2a2a2a] hover:bg-[#f5f0e8] rounded-lg transition">
-                  <FileText size={16} />
-                  <span>SBA_India_Company.pdf</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Bottom Section */}
-            <div className="pt-6 border-t border-[#e8dcc8] space-y-2">
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d] hover:bg-[#f5f0e8] rounded-lg transition">
-                <Settings size={20} />
-                <span>Settings</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d] hover:bg-[#f5f0e8] rounded-lg transition">
-                <HelpCircle size={20} />
-                <span>Help</span>
-              </a>
-            </div>
-          </div>
-        </aside>
-
-        {/* Mobile Sidebar */}
-        {isMobileMenuOpen && (
-          <aside className="fixed inset-0 z-30 bg-white w-64 md:hidden overflow-y-auto">
-            <div className="p-6 space-y-8">
-              <nav className="space-y-2">
-                <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#2a2a2a] bg-[#f5f0e8] rounded-lg font-medium">
-                  <Home size={20} />
-                  <span>Home</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d]">
-                  <FileText size={20} />
-                  <span>Contracts</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d]">
-                  <Zap size={20} />
-                  <span>Agents</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 px-4 py-3 text-[#a0826d]">
-                  <BarChart3 size={20} />
-                  <span>Reports</span>
-                </a>
-              </nav>
-            </div>
-          </aside>
-        )}
-
-        {/* Main Content */}
-        <main className="flex-1 p-6 md:p-8 overflow-auto">
-          {/* Greeting */}
-          <div className="mb-8">
-            <p className="text-[#a0826d] text-sm uppercase tracking-wide">GOOD MORNING</p>
-            <h1 className="text-4xl font-serif font-bold text-[#2a2a2a] mt-2">
-              How can I assist with your contracts?
-            </h1>
-          </div>
-
-          {/* Upload Section */}
-          <div className="bg-white rounded-xl p-8 mb-8 border border-[#e8dcc8]">
-            <div className="flex items-center gap-4">
-              <input
-                type="text"
-                placeholder="@Review his MSA contract..."
-                className="flex-1 px-4 py-3 bg-[#f5f0e8] border border-[#e8dcc8] rounded-lg focus:outline-none focus:border-[#b5924c] text-[#2a2a2a] placeholder-[#a0826d]"
-              />
-              <button className="p-3 bg-[#f5f0e8] hover:bg-[#e8dcc8] rounded-lg transition">
-                <Search size={20} className="text-[#b5924c]" />
-              </button>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-3 mt-4">
-              <button className="px-4 py-2 bg-[#f5f0e8] text-[#2a2a2a] rounded-lg hover:bg-[#e8dcc8] transition flex items-center gap-2">
-                <Search size={16} />
-                Analyze Risks
-              </button>
-              <button className="px-4 py-2 bg-[#f5f0e8] text-[#2a2a2a] rounded-lg hover:bg-[#e8dcc8] transition flex items-center gap-2">
-                <FileText size={16} />
-                Suggest-Terms
-              </button>
-              <button className="px-4 py-2 bg-[#f5f0e8] text-[#2a2a2a] rounded-lg hover:bg-[#e8dcc8] transition">
-                ✎
-              </button>
-              <button className="px-4 py-2 bg-[#f5f0e8] text-[#2a2a2a] rounded-lg hover:bg-[#e8dcc8] transition">
-                ↗
-              </button>
-            </div>
-
-            {/* Upload File */}
-            <div className="mt-4">
-              <p className="text-sm text-[#a0826d] mb-2">📄 MSA_Company_X.pdf</p>
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white p-6 rounded-xl border border-[#e8dcc8]">
-              <p className="text-3xl font-bold text-[#2a2a2a]">21</p>
-              <p className="text-[#a0826d] mt-1">Active Contracts</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-[#e8dcc8]">
-              <p className="text-3xl font-bold text-red-500">312</p>
-              <p className="text-[#a0826d] mt-1">High Risks</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-[#e8dcc8]">
-              <p className="text-3xl font-bold text-[#2a2a2a]">31</p>
-              <p className="text-[#a0826d] mt-1">Generated Terms</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl border border-[#e8dcc8]">
-              <p className="text-3xl font-bold text-[#2a2a2a]">15</p>
-              <p className="text-[#a0826d] mt-1">Entities</p>
-            </div>
-          </div>
-
-          {/* Recent Analysis */}
-          <div className="bg-white rounded-xl p-8 border border-[#e8dcc8]">
-            <h2 className="text-2xl font-serif font-bold text-[#2a2a2a] mb-6">Recent Analysis</h2>
-            <div className="space-y-4">
-              <div className="border border-[#e8dcc8] rounded-lg p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-semibold text-[#2a2a2a]">High Financial Liability</h3>
-                    <p className="text-sm text-[#a0826d] mt-1">Indemnification Clause</p>
-                  </div>
-                  <span className="bg-red-50 text-red-700 px-3 py-1 rounded-lg text-sm font-medium">8.4</span>
-                </div>
-                <p className="text-sm text-[#3d3d3d] mt-4">The indemnification pronoun clause of indemnification, class, comtraee dam comarsters sapedification, this distal lingur sations...</p>
-                <button className="mt-4 px-4 py-2 bg-[#f5f0e8] text-[#2a2a2a] rounded-lg hover:bg-[#e8dcc8] transition text-sm font-medium">
-                  Suggest Counter-Terms →
-                </button>
-              </div>
-            </div>
-          </div>
-        </main>
       </div>
-    </div>
-  );
+    </ProtectedRoute>
+  )
 }
+

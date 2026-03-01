@@ -3,6 +3,7 @@ import { Playfair_Display, DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { AuthProvider } from '@/context/auth-context'
+import { ToastContainer } from '@/components/ui/Toast'
 
 const playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#f5f0e8]`}>
         <AuthProvider>
+          <ToastContainer />
           {children}
         </AuthProvider>
         <Analytics />
