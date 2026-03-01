@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#f5f0e8] dark:bg-[#0f1115] transition-colors duration-300`}>
+    <html lang="en" suppressHydrationWarning className="dark">
+      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#0f1115] text-[#f5f0e8] transition-colors duration-300`}>
         <ThemeProvider>
           <AuthProvider>
             <ToastContainer />

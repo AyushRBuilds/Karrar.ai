@@ -50,13 +50,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-screen w-64 bg-[#faf8f4] border-r border-[#e0d9ce] z-40 transform transition-transform md:transform-none ${
+      <aside className={`fixed left-0 top-0 h-screen w-64 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-r border-[#2a2a30] dark:border-[#2a2a30] z-40 transform transition-transform md:transform-none ${
         isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
       } pt-20 md:pt-0 overflow-y-auto`}>
         {/* Logo on mobile */}
-        <div className="md:hidden px-6 py-6 flex items-center gap-3 border-b border-[#e0d9ce]">
-          <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority />
-          <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
+        <div className="md:hidden px-6 py-6 flex items-center gap-3 border-b border-[#2a2a30]">
+          <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority className="object-contain" />
+          <span className="font-serif font-bold text-[#f5f0e8]">Karrar.ai</span>
         </div>
 
         {/* Navigation */}
@@ -69,8 +69,8 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                   isActive
-                    ? 'bg-[#f5f0e8] text-[#b5924c] border-l-4 border-[#b5924c] font-medium'
-                    : 'text-[#1c1a17] hover:bg-[#f5f0e8]'
+                    ? 'bg-[#2a2a30] text-[#c49e6c] border-l-4 border-[#c49e6c] font-medium'
+                    : 'text-[#a89883] hover:bg-[#242429]'
                 }`}
                 onClick={() => onClose()}
               >
@@ -82,13 +82,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         </nav>
 
         {/* Favorites Section */}
-        <div className="px-6 py-4 border-t border-[#e0d9ce]">
-          <p className="text-xs font-semibold text-[#b5924c] uppercase tracking-wide mb-3">Favorites</p>
+        <div className="px-6 py-4 border-t border-[#2a2a30]">
+          <p className="text-xs font-semibold text-[#c49e6c] uppercase tracking-wide mb-3">Favorites</p>
           <div className="space-y-2">
             {favorites.map((item) => (
               <button
                 key={item.label}
-                className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-[#7a7068] hover:bg-[#f5f0e8] transition"
+                className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-[#a89883] hover:bg-[#242429] transition"
               >
                 <span>{item.icon}</span>
                 <span className="truncate">{item.label}</span>
@@ -162,28 +162,28 @@ export function AppNavbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-white border-b border-[#e0d9ce] h-20 md:h-16">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-b border-[#2a2a30] dark:border-[#2a2a30] h-20 md:h-16">
         <div className="h-full flex items-center justify-between px-4 md:px-8">
           {/* Left */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="md:hidden text-[#1c1a17]"
+              className="md:hidden text-[#f5f0e8]"
             >
               {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
             <div className="hidden md:flex items-center gap-3">
-              <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority />
-              <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
+              <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority className="object-contain" />
+              <span className="font-serif font-bold text-[#f5f0e8]">Karrar.ai</span>
             </div>
           </div>
 
           {/* Center Navigation (hidden on mobile) */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/home" className="text-sm text-[#1c1a17] hover:text-[#b5924c]">Home</Link>
-            <Link href="/contracts" className="text-sm text-[#1c1a17] hover:text-[#b5924c]">Contracts</Link>
-            <Link href="/contracts" className="text-sm text-[#1c1a17] hover:text-[#b5924c]">Agents</Link>
-            <Link href="/reports" className="text-sm text-[#1c1a17] hover:text-[#b5924c]">Reports</Link>
+            <Link href="/home" className="text-sm text-[#a89883] hover:text-[#c49e6c]">Home</Link>
+            <Link href="/contracts" className="text-sm text-[#a89883] hover:text-[#c49e6c]">Contracts</Link>
+            <Link href="/contracts" className="text-sm text-[#a89883] hover:text-[#c49e6c]">Agents</Link>
+            <Link href="/reports" className="text-sm text-[#a89883] hover:text-[#c49e6c]">Reports</Link>
           </div>
 
           {/* Right */}
