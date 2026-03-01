@@ -23,6 +23,7 @@ export function HeroSection() {
             width={120}
             height={120}
             className="h-32 w-32 mx-auto mb-8"
+            priority
           />
         </div>
 

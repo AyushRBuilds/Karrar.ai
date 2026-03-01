@@ -30,6 +30,7 @@ export function LandingNavbar() {
               width={32}
               height={32}
               className="h-8 w-8"
+              priority
             />
             <span className="text-xl font-serif font-bold text-[#1c1a17] hidden sm:inline">Karrar.ai</span>
           </Link>

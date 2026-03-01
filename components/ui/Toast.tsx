@@ -12,22 +12,6 @@ interface ToastMessage {
 let toastId = 0
 let showToastFn: ((message: string, type: 'success' | 'error' | 'info') => void) | null = null
 
-export function useToast() {
-  const [toasts, setToasts] = useState<ToastMessage[]>([])
-
-  useEffect(() => {
-    showToastFn = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
-      const id = String(toastId++)
-      setToasts(prev => [...prev, { id, message, type }])
-      setTimeout(() => {
-        setToasts(prev => prev.filter(t => t.id !== id))
-      }, 3000)
-    }
-  }, [])
-
-  return { showToast: showToastFn || (() => {}) }
-}
-
 export function Toast({ message, type, onClose }: { message: string; type: 'success' | 'error' | 'info'; onClose: () => void }) {
   const bgColor = {
     success: 'bg-[#27ae60]',
