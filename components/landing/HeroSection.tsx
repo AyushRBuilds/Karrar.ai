@@ -18,11 +18,12 @@ export function HeroSection() {
         {/* Logo */}
         <div className="animate-fade-in [animation-delay:0.2s]">
           <Image
-            src="/logo.png"
+            src="/karrar-logo.png"
             alt="Karrar.ai"
             width={120}
             height={120}
             priority
+            style={{ width: "auto", height: "auto", maxWidth: 120, maxHeight: 120 }}
           />
         </div>
 

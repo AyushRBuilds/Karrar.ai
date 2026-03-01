@@ -68,11 +68,12 @@ export default function SignupPage() {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <Image
-              src="/logo.png"
+              src="/karrar-logo.png"
               alt="Karrar.ai"
               width={60}
               height={60}
               className="h-16 w-16"
+              style={{ width: "auto", height: "auto", maxWidth: 60, maxHeight: 60 }}
             />
           </div>
 

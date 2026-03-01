@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description: 'India\'s first Multi-Agent Legal AI. Audit contracts, analyze risks & draft counter-terms under Indian Law.',
   generator: 'v0.app',
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: '/karrar-logo.png',
+    apple: '/karrar-logo.png',
   },
 }
 

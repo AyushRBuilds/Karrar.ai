@@ -11,11 +11,12 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/logo.png"
+                src="/karrar-logo.png"
                 alt="Karrar.ai"
                 width={32}
                 height={32}
                 className="h-8 w-8"
+                style={{ width: "auto", height: "auto", maxWidth: 32, maxHeight: 32 }}
               />
               <span className="text-xl font-serif font-bold">Karrar.ai</span>
             </div>
