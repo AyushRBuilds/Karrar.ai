@@ -53,7 +53,7 @@ export default function LoginPage() {
               alt="Karrar.ai"
               width={60}
               height={60}
-              style={{ width: 'auto', height: 'auto' }}
+              priority
             />
           </div>
 
@@ -150,7 +150,7 @@ export default function LoginPage() {
               alt="Google"
               width={20}
               height={20}
-              style={{ width: 'auto', height: 'auto' }}
+              priority
             />
             Continue with Google
           </button>
