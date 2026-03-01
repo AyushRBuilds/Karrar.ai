@@ -165,7 +165,7 @@ const KarrarLogo = ({ size = 40 }) => (
 function RiskBadge({ score }) {
   return (
     <span style={{ background: "rgba(181,146,76,0.15)", color: "#b5924c", border: "1px solid rgba(181,146,76,0.4)", borderRadius: 6, padding: "2px 8px", fontSize: 11, fontFamily: "IBM Plex Mono, monospace", fontWeight: 700 }}>
-      🛡 {score.toFixed(1)}
+      {score.toFixed(1)}
     </span>
   )
 }
@@ -237,10 +237,10 @@ function ScorePanel({ style }) {
       boxShadow: "0 20px 60px rgba(28,26,23,0.12)", textAlign: "center", minWidth: 160, ...style
     }}>
       <div style={{ fontSize: 11, color: "#7a7068", marginBottom: 8, fontFamily: "DM Sans, sans-serif", letterSpacing: "0.06em" }}>OVERALL RISK</div>
-      <div style={{ fontSize: 52, fontWeight: 800, color: "#ef4444", fontFamily: "Georgia, serif", lineHeight: 1 }}>8.4</div>
-      <div style={{ fontSize: 11, color: "#ef4444", marginTop: 4, fontFamily: "IBM Plex Mono, monospace" }}>HIGH RISK</div>
+      <div style={{ fontSize: 52, fontWeight: 800, color: "#b5924c", fontFamily: "Georgia, serif", lineHeight: 1 }}>8.4</div>
+      <div style={{ fontSize: 11, color: "#b5924c", marginTop: 4, fontFamily: "IBM Plex Mono, monospace" }}>RISK SCORE</div>
       <div style={{ marginTop: 12, background: "#f5f0e8", borderRadius: 20, height: 6 }}>
-        <div style={{ width: "84%", height: "100%", background: "linear-gradient(90deg,#f59e0b,#ef4444)", borderRadius: 20 }} />
+        <div style={{ width: "84%", height: "100%", background: "#b5924c", borderRadius: 20 }} />
       </div>
     </div>
   )
@@ -263,13 +263,13 @@ export default function KarrarLanding() {
   const triggerAnalysis = () => {
     setUploadState("analyzing")
     const steps = [
-      [10, "📤 Parsing PDF…"],
-      [30, "🔍 Completeness Agent running…"],
-      [50, "🛡️ Risk Scoring Agent running…"],
-      [65, "🤝 Negotiation Agent running…"],
-      [80, "📋 Consistency Agent running…"],
-      [92, "🌍 Regulatory Agent running…"],
-      [100, "✅ Analysis complete!"],
+      [10, "Parsing PDF..."],
+      [30, "Completeness Agent running..."],
+      [50, "Risk Scoring Agent running..."],
+      [65, "Negotiation Agent running..."],
+      [80, "Consistency Agent running..."],
+      [92, "Regulatory Agent running..."],
+      [100, "Analysis complete!"],
     ]
     let i = 0
     const next = () => {
@@ -293,6 +293,13 @@ export default function KarrarLanding() {
     { iconComponent: ConsistencyIcon, name: "Draft Consistency Agent", role: "Catches internal contradictions", num: "04" },
     { iconComponent: GlobeIcon, name: "Regulatory Agent", role: "Cross-checks Indian Contract Act", num: "05" },
     { iconComponent: ChatIcon, name: "Explanation Agent", role: "Translates legalese to plain English", num: "06" },
+  ]
+  const STEP_CARDS = [
+    { iconComponent: UploadIcon, num: "01", title: "Upload", desc: "Drag & drop your PDF contract. No account needed." },
+    { iconComponent: ParallelIcon, num: "02", title: "Parallel Analysis", desc: "6 agents analyze simultaneously in under 90 seconds." },
+    { iconComponent: ReportIcon, num: "03", title: "Risk Report", desc: "Every clause scored 0–100 and ranked by severity." },
+    { iconComponent: TermsIcon, num: "04", title: "Counter-Terms", desc: "Copy-paste professional alternative clauses instantly." },
+    { iconComponent: CheckIcon, num: "05", title: "Act", desc: "Sign with clarity, negotiate, or consult a lawyer." },
   ]
 
   return (
@@ -436,13 +443,7 @@ export default function KarrarLanding() {
           <div style={{ position: "relative" }}>
             <div style={{ position: "absolute", top: 36, left: "10%", right: "10%", height: 2, background: "linear-gradient(90deg, #e0d9ce, #b5924c, #e0d9ce)", borderRadius: 2 }} />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 24 }}>
-              {[
-                { iconComponent: UploadIcon, num: "01", title: "Upload", desc: "Drag & drop your PDF contract. No account needed." },
-                { iconComponent: ParallelIcon, num: "02", title: "Parallel Analysis", desc: "6 agents analyze simultaneously in under 90 seconds." },
-                { iconComponent: ReportIcon, num: "03", title: "Risk Report", desc: "Every clause scored 0–100 and ranked by severity." },
-                { iconComponent: TermsIcon, num: "04", title: "Counter-Terms", desc: "Copy-paste professional alternative clauses instantly." },
-                { iconComponent: CheckIcon, num: "05", title: "Act", desc: "Sign with clarity, negotiate, or consult a lawyer." },
-              ].map((s, i) => {
+              {STEP_CARDS.map((s, i) => {
                 const IconComponent = s.iconComponent
                 return (
                   <div key={i} className="step-card card-hover" style={{ background: "#fff", border: "1px solid #e0d9ce", borderRadius: 16, padding: "28px 20px", textAlign: "center", transition: "all 0.25s" }}>
