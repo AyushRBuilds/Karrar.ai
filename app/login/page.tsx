@@ -43,11 +43,35 @@ const ShieldCheckIcon = () => (
 );
 
 const GoogleIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24">
-    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    {/* Custom Google-inspired icon in Karrar theme */}
+    <circle cx="12" cy="12" r="9" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <path d="M12 6C9.24 6 7 8.24 7 11c0 1.66.75 3.13 1.9 4.1l-1.2 1.5c-.3.4-.1.95.35 1.05.45.1.85-.15.98-.55l1.15-1.45c.5.15 1.02.25 1.57.25 2.76 0 5-2.24 5-5S14.76 6 12 6z" fill="#b5924c"/>
+    <circle cx="12" cy="11" r="2.5" fill="#f5f0e8"/>
+  </svg>
+);
+
+const EmailIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5924c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    {/* Custom envelope icon */}
+    <path d="M4 5h16c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1z"/>
+    <path d="M23 6L12 13 1 6"/>
+  </svg>
+);
+
+const LockIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5924c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    {/* Custom lock icon */}
+    <rect x="4" y="10" width="16" height="10" rx="1.5"/>
+    <path d="M7 10V7c0-2.21 1.79-4 4-4s4 1.79 4 4v3"/>
+    <circle cx="12" cy="15" r="1.5" fill="#b5924c"/>
+  </svg>
+);
+
+const CheckboxIcon = ({ checked }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <rect x="3" y="3" width="18" height="18" rx="3" stroke={checked ? "#b5924c" : "#d4cfc2"} strokeWidth="1.5" fill={checked ? "#fef9ee" : "none"}/>
+    {checked && <path d="M8 12l3 3 5-6" stroke="#b5924c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>}
   </svg>
 );
 
@@ -259,7 +283,10 @@ export default function LoginPage() {
 
             <form onSubmit={handleLogin}>
               {/* Email */}
-              <div style={{marginBottom:12}}>
+              <div style={{marginBottom:12, position:"relative"}}>
+                <div style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",display:"flex",alignItems:"center",pointerEvents:"none"}}>
+                  <EmailIcon/>
+                </div>
                 <input
                   type="email"
                   placeholder="Email Address"
@@ -267,13 +294,16 @@ export default function LoginPage() {
                   onChange={e=>{setEmail(e.target.value);setError("");}}
                   onFocus={()=>setFocusField("email")}
                   onBlur={()=>setFocusField(null)}
-                  style={inputBase("email")}
+                  style={{...inputBase("email"), paddingLeft:46}}
                   required
                 />
               </div>
 
               {/* Password */}
               <div style={{marginBottom:12, position:"relative"}}>
+                <div style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",display:"flex",alignItems:"center",pointerEvents:"none"}}>
+                  <LockIcon/>
+                </div>
                 <input
                   type={showPassword?"text":"password"}
                   placeholder="Password"
@@ -281,7 +311,7 @@ export default function LoginPage() {
                   onChange={e=>{setPassword(e.target.value);setError("");}}
                   onFocus={()=>setFocusField("password")}
                   onBlur={()=>setFocusField(null)}
-                  style={{...inputBase("password"), paddingRight:46}}
+                  style={{...inputBase("password"), paddingLeft:46, paddingRight:46}}
                   required
                 />
                 <button type="button"
@@ -326,7 +356,11 @@ export default function LoginPage() {
                   padding:"10px 14px",fontSize:13,color:"#dc2626",
                   marginBottom:14,display:"flex",alignItems:"center",gap:8,
                 }}>
-                  <span>⚠️</span><span>{error}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#dc2626" stroke="none">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4M12 16h.01" stroke="#fef2f2" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  <span>{error}</span>
                 </div>
               )}
 
@@ -384,8 +418,10 @@ export default function LoginPage() {
                   </>
                 ) : (
                   <>
-                    <span style={{fontSize:15}}>💡</span>
-                    Use Demo Credentials
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b5924c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2v6M5 7l4 4M19 7l-4 4M12 15c2 0 4-1 4-3s-2-3-4-3-4 1-4 3 2 3 4 3z"/>
+                    </svg>
+                    Try Demo Credentials
                   </>
                 )}
               </button>
