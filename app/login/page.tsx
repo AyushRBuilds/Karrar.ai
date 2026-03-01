@@ -2,71 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-// ── Exact logo recreation as SVG ─────────────────────────────────
+// ── Logo Component using actual image ─────────────────────────────
 const KarrarLogo = ({ size = 56 }) => (
-  <svg width={size} height={size} viewBox="0 0 100 110" fill="none">
-    {/* Shield outer shape */}
-    <path
-      d="M50 4 L8 20 L8 55 C8 78 26 98 50 106 C74 98 92 78 92 55 L92 20 Z"
-      fill="#1a1714"
-      stroke="#1a1714"
-      strokeWidth="1"
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
+    <Image
+      src="/karrar-logo.png"
+      alt="Karrar.ai"
+      width={size}
+      height={size}
+      priority
+      style={{ width: "auto", height: "auto", maxWidth: size, maxHeight: size }}
     />
-    {/* Inner cream shield inset */}
-    <path
-      d="M50 10 L14 24 L14 55 C14 75 29 93 50 100 C71 93 86 75 86 55 L86 24 Z"
-      fill="#f0ece0"
-    />
-    {/* Centre dividing line */}
-    <line x1="50" y1="10" x2="50" y2="100" stroke="#1a1714" strokeWidth="3.5"/>
-    {/* Left half fill dark */}
-    <clipPath id="leftClip">
-      <path d="M50 10 L14 24 L14 55 C14 75 29 93 50 100 Z"/>
-    </clipPath>
-    <path
-      d="M50 10 L14 24 L14 55 C14 75 29 93 50 100 Z"
-      fill="#1a1714"
-    />
-    {/* K letter on left half (cream) */}
-    <text
-      x="31"
-      y="68"
-      textAnchor="middle"
-      fill="#f0ece0"
-      fontSize="38"
-      fontWeight="900"
-      fontFamily="Georgia, serif"
-      style={{ letterSpacing: "-2px" }}
-    >K</text>
-
-    {/* Brain/circuit icon on right half (dark on cream) */}
-    {/* Brain outline */}
-    <g transform="translate(52, 32)">
-      {/* Brain blob */}
-      <path
-        d="M8 8 C8 4 11 2 14 3 C16 1 20 2 21 5 C24 5 26 8 25 11 C27 13 27 17 24 18 C24 21 21 23 18 22 C16 24 12 24 10 22 C7 22 5 20 5 17 C3 15 3 11 5 9 C5 8.5 6.5 7.5 8 8Z"
-        fill="none"
-        stroke="#1a1714"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      {/* Centre brain divide */}
-      <line x1="15" y1="3" x2="15" y2="22" stroke="#1a1714" strokeWidth="1.5" strokeDasharray="2,1.5"/>
-      {/* Circuit nodes */}
-      <circle cx="9" cy="11" r="2" fill="#1a1714"/>
-      <circle cx="21" cy="11" r="2" fill="#1a1714"/>
-      <circle cx="15" cy="17" r="2" fill="#1a1714"/>
-      {/* Circuit lines */}
-      <line x1="9" y1="11" x2="15" y2="17" stroke="#1a1714" strokeWidth="1.5"/>
-      <line x1="21" y1="11" x2="15" y2="17" stroke="#1a1714" strokeWidth="1.5"/>
-      <line x1="9" y1="11" x2="6" y2="14" stroke="#1a1714" strokeWidth="1.5"/>
-      <line x1="21" y1="11" x2="24" y2="14" stroke="#1a1714" strokeWidth="1.5"/>
-      {/* Outer connecting dots */}
-      <circle cx="6" cy="14" r="1.5" fill="#1a1714"/>
-      <circle cx="24" cy="14" r="1.5" fill="#1a1714"/>
-    </g>
-  </svg>
+  </div>
 );
 
 const EyeIcon = ({ show }) => (
