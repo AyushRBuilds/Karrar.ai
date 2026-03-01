@@ -6,16 +6,13 @@ import Image from "next/image";
 
 // ── Logo Component using actual image ─────────────────────────────
 const KarrarLogo = ({ size = 56 }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
-    <Image
-      src="/karrar-logo.png"
-      alt="Karrar.ai"
-      width={size}
-      height={size}
-      priority
-      style={{ width: "auto", height: "auto", maxWidth: size, maxHeight: size }}
-    />
-  </div>
+  <Image
+    src="/karrar-logo.png"
+    alt="Karrar.ai"
+    width={size}
+    height={size}
+    priority
+  />
 );
 
 const EyeIcon = ({ show }) => (
