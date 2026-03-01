@@ -51,13 +51,6 @@ const CheckIcon = () => (
   </svg>
 );
 
-const CheckIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="14" cy="14" r="11" stroke="#b5924c" strokeWidth="1.5"/>
-    <path d="M9 14L12.5 17.5L19 10" stroke="#b5924c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 const SearchIcon = () => (
   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="11" cy="11" r="6.5" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
@@ -682,7 +675,7 @@ export default function KarrarLanding() {
               </div>
               <p style={{ fontSize: 14, lineHeight: 1.7, color: "#555", maxWidth: 260 }}>India's first multi-agent legal AI for contracts. Built for freelancers, founders, and SMEs.</p>
               <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
-                {["🐦", "💼", "📸"].map((icon, i) => (
+                {["🐦", "���", "📸"].map((icon, i) => (
                   <div key={i} style={{ width: 36, height: 36, background: "#1c1a17", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{icon}</div>
                 ))}
               </div>
