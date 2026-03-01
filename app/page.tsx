@@ -184,12 +184,12 @@ export default function KarrarLanding() {
 
   const NAV = ["Home", "How It Works", "Agents", "Features", "Pricing", "About"]
   const AGENTS = [
-    { icon: "🔍", name: "Completeness Agent", role: "Finds missing annexures & schedules", color: "#3b82f6", num: "01" },
-    { icon: "🛡️", name: "Risk & Red Flag Agent", role: "Scores every clause 0–100", color: "#ef4444", num: "02" },
-    { icon: "🤝", name: "Negotiation Agent", role: "Generates copy-paste counter-terms", color: "#b5924c", num: "03" },
-    { icon: "📋", name: "Draft Consistency Agent", role: "Catches internal contradictions", color: "#8b5cf6", num: "04" },
-    { icon: "🌍", name: "Regulatory Agent", role: "Cross-checks Indian Contract Act", color: "#22c55e", num: "05" },
-    { icon: "💬", name: "Explanation Agent", role: "Translates legalese to plain English", color: "#f59e0b", num: "06" },
+    { icon: "🔍", name: "Completeness Agent", role: "Finds missing annexures & schedules", num: "01" },
+    { icon: "🛡️", name: "Risk & Red Flag Agent", role: "Scores every clause 0–100", num: "02" },
+    { icon: "🤝", name: "Negotiation Agent", role: "Generates copy-paste counter-terms", num: "03" },
+    { icon: "📋", name: "Draft Consistency Agent", role: "Catches internal contradictions", num: "04" },
+    { icon: "🌍", name: "Regulatory Agent", role: "Cross-checks Indian Contract Act", num: "05" },
+    { icon: "💬", name: "Explanation Agent", role: "Translates legalese to plain English", num: "06" },
   ]
 
   return (
@@ -366,14 +366,23 @@ export default function KarrarLanding() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
             {AGENTS.map((a, i) => (
-              <div key={i} className="card-hover agent-card" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "28px", transition: "all 0.25s" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-                  <div style={{ width: 48, height: 48, background: a.color + "22", border: `1px solid ${a.color}44`, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>{a.icon}</div>
-                  <span className="agent-num" style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 24, fontWeight: 700, color: "#333", transition: "color 0.2s" }}>{a.num}</span>
+              <div key={i} className="card-hover agent-card" style={{ background: "rgba(28,26,23,0.6)", border: "1px solid rgba(181,146,76,0.2)", borderRadius: 20, padding: "28px", transition: "all 0.25s" }}>
+                {/* Icon Box */}
+                <div style={{ width: 60, height: 60, background: "rgba(181,146,76,0.15)", border: "2px solid rgba(181,146,76,0.3)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, marginBottom: 20 }}>
+                  {a.icon}
                 </div>
+                
+                {/* Agent Number */}
+                <div className="agent-num" style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 16, fontWeight: 700, color: "#7a7068", marginBottom: 12, transition: "color 0.2s" }}>{a.num}</div>
+                
+                {/* Name */}
                 <div style={{ fontFamily: "Playfair Display, serif", fontSize: 18, fontWeight: 700, color: "#f5f0e8", marginBottom: 8 }}>{a.name}</div>
-                <div style={{ fontSize: 13, color: "#7a7068", lineHeight: 1.6 }}>{a.role}</div>
-                <div style={{ marginTop: 16, width: "100%", height: 2, background: `linear-gradient(90deg, ${a.color}, transparent)`, borderRadius: 2 }} />
+                
+                {/* Role Description */}
+                <div style={{ fontSize: 13, color: "#9a9088", lineHeight: 1.6, marginBottom: 16 }}>{a.role}</div>
+                
+                {/* Gold Accent Line */}
+                <div style={{ width: "100%", height: 2, background: "#b5924c", borderRadius: 2 }} />
               </div>
             ))}
           </div>
@@ -388,26 +397,26 @@ export default function KarrarLanding() {
             <h2 style={{ fontFamily: "Playfair Display, serif", fontSize: 44, fontWeight: 800, marginTop: 10 }}>Before vs. After Karrar.ai</h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
-            <div style={{ background: "#fff", border: "2px solid #fecaca", borderRadius: 20, padding: 32 }}>
-              <div style={{ fontSize: 12, color: "#ef4444", fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.1em", marginBottom: 16 }}>❌ BEFORE</div>
-              <p style={{ fontFamily: "Georgia, serif", fontSize: 15, color: "#4a4540", lineHeight: 1.8, fontStyle: "italic", borderLeft: "3px solid #fecaca", paddingLeft: 16 }}>
+            <div style={{ background: "#fff", border: "2px solid rgba(181,146,76,0.4)", borderRadius: 20, padding: 32 }}>
+              <div style={{ fontSize: 12, color: "#b5924c", fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.1em", marginBottom: 16 }}>BEFORE</div>
+              <p style={{ fontFamily: "Georgia, serif", fontSize: 15, color: "#4a4540", lineHeight: 1.8, fontStyle: "italic", borderLeft: "3px solid #b5924c", paddingLeft: 16 }}>
                 "The Client may terminate this agreement at any time without prior notice and without liability for any work completed or in progress."
               </p>
-              <div style={{ marginTop: 20, padding: "12px 16px", background: "#fef2f2", borderRadius: 10, fontSize: 13, color: "#7a7068" }}>
-                😟 You have no idea what this means for your income.
+              <div style={{ marginTop: 20, padding: "12px 16px", background: "rgba(181,146,76,0.08)", borderRadius: 10, fontSize: 13, color: "#7a7068" }}>
+                You have no idea what this means for your income.
               </div>
             </div>
-            <div style={{ background: "#fff", border: "2px solid #bbf7d0", borderRadius: 20, padding: 32 }}>
-              <div style={{ fontSize: 12, color: "#22c55e", fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.1em", marginBottom: 16 }}>✅ AFTER</div>
+            <div style={{ background: "#fff", border: "2px solid #b5924c", borderRadius: 20, padding: 32 }}>
+              <div style={{ fontSize: 12, color: "#b5924c", fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.1em", marginBottom: 16 }}>AFTER</div>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 <RiskBadge score={9.1} />
-                <span style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "#ef4444", fontWeight: 700 }}>CRITICAL RISK</span>
+                <span style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "#b5924c", fontWeight: 700 }}>CRITICAL RISK</span>
               </div>
               <p style={{ fontSize: 14, color: "#4a4540", lineHeight: 1.7, marginBottom: 16 }}>
                 The client can cancel <em>anytime, for any reason</em>, and owes you <strong>₹0</strong> for completed work.
               </p>
-              <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 10, padding: "12px 16px" }}>
-                <div style={{ fontSize: 11, color: "#22c55e", fontFamily: "IBM Plex Mono, monospace", marginBottom: 6 }}>📝 COUNTER-TERM:</div>
+              <div style={{ background: "rgba(181,146,76,0.08)", border: "1px solid rgba(181,146,76,0.3)", borderRadius: 10, padding: "12px 16px" }}>
+                <div style={{ fontSize: 11, color: "#b5924c", fontFamily: "IBM Plex Mono, monospace", marginBottom: 6 }}>COUNTER-TERM:</div>
                 <p style={{ fontSize: 13, color: "#4a4540", fontFamily: "Georgia, serif", fontStyle: "italic", lineHeight: 1.6 }}>
                   "Either party may terminate with 30 days written notice. Client shall pay for all work completed pro-rata."
                 </p>
@@ -450,21 +459,21 @@ export default function KarrarLanding() {
           )}
 
           {uploadState === "done" && (
-            <div style={{ background: "#fff", border: "2px solid #22c55e", borderRadius: 20, padding: 40 }} className="fade-up">
-              <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
+            <div style={{ background: "#fff", border: "2px solid #b5924c", borderRadius: 20, padding: 40 }} className="fade-up">
+              <div style={{ fontSize: 48, marginBottom: 16 }}>✓</div>
               <div style={{ fontFamily: "Playfair Display, serif", fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Analysis Complete!</div>
               <div style={{ color: "#7a7068", fontSize: 15, marginBottom: 28 }}>Your contract has been analyzed by all 6 agents.</div>
               <div style={{ display: "flex", gap: 16, justifyContent: "center", marginBottom: 28, flexWrap: "wrap" }}>
-                <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
-                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#ef4444" }}>8.4</div>
+                <div style={{ background: "rgba(181,146,76,0.08)", border: "1px solid rgba(181,146,76,0.3)", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
+                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#b5924c" }}>8.4</div>
                   <div style={{ fontSize: 11, color: "#9a9088", fontFamily: "IBM Plex Mono, monospace" }}>OVERALL RISK</div>
                 </div>
-                <div style={{ background: "#fef9ee", border: "1px solid #fde68a", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
-                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#f59e0b" }}>7</div>
+                <div style={{ background: "rgba(181,146,76,0.08)", border: "1px solid rgba(181,146,76,0.3)", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
+                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#b5924c" }}>7</div>
                   <div style={{ fontSize: 11, color: "#9a9088", fontFamily: "IBM Plex Mono, monospace" }}>FLAGGED CLAUSES</div>
                 </div>
-                <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
-                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#22c55e" }}>4</div>
+                <div style={{ background: "rgba(181,146,76,0.08)", border: "1px solid rgba(181,146,76,0.3)", borderRadius: 12, padding: "12px 20px", textAlign: "center" }}>
+                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 800, color: "#b5924c" }}>4</div>
                   <div style={{ fontSize: 11, color: "#9a9088", fontFamily: "IBM Plex Mono, monospace" }}>COUNTER-TERMS</div>
                 </div>
               </div>
