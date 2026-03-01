@@ -49,7 +49,7 @@ export default function LoginPage() {
               alt="Karrar.ai"
               width={60}
               height={60}
-              className="h-16 w-auto"
+              className="h-16 w-16"
             />
           </div>
 
@@ -152,7 +152,7 @@ export default function LoginPage() {
 
           {/* Google Button */}
           <button className="w-full border border-[#e8dcc8] py-3 rounded-lg font-medium text-[#2a2a2a] hover:bg-[#f5f0e8] transition flex items-center justify-center gap-2">
-            <Image src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth_provider_google.svg" alt="Google" width={20} height={20} />
+            <Image src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth_provider_google.svg" alt="Google" width={20} height={20} className="w-5 h-5" />
             Continue with Google
           </button>
 

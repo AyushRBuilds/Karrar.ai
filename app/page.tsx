@@ -26,7 +26,7 @@ export default function LandingPage() {
             alt="Karrar.ai"
             width={40}
             height={40}
-            className="h-10 w-auto"
+            className="h-10 w-10"
           />
           <span className="text-2xl font-serif font-bold text-[#2a2a2a]">Karrar.ai</span>
         </div>
@@ -57,7 +57,7 @@ export default function LandingPage() {
             alt="Karrar.ai"
             width={120}
             height={120}
-            className="h-32 w-auto mx-auto mb-8"
+            className="h-32 w-32 mx-auto mb-8"
           />
         </div>
 
