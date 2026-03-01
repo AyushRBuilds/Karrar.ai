@@ -443,16 +443,16 @@ export default function KarrarLanding() {
                 { iconComponent: TermsIcon, num: "04", title: "Counter-Terms", desc: "Copy-paste professional alternative clauses instantly." },
                 { iconComponent: CheckIcon, num: "05", title: "Act", desc: "Sign with clarity, negotiate, or consult a lawyer." },
               ].map((s, i) => {
-                const IconComponent = s.iconComponent;
+                const IconComponent = s.iconComponent
                 return (
-                <div key={i} className="step-card card-hover" style={{ background: "#fff", border: "1px solid #e0d9ce", borderRadius: 16, padding: "28px 20px", textAlign: "center", transition: "all 0.25s" }}>
-                  <div style={{ width: 56, height: 56, background: "#f5f0e8", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", position: "relative", zIndex: 1 }}>
-                    <IconComponent />
+                  <div key={i} className="step-card card-hover" style={{ background: "#fff", border: "1px solid #e0d9ce", borderRadius: 16, padding: "28px 20px", textAlign: "center", transition: "all 0.25s" }}>
+                    <div style={{ width: 56, height: 56, background: "#f5f0e8", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", position: "relative", zIndex: 1 }}>
+                      <IconComponent />
+                    </div>
+                    <div style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#b5924c", letterSpacing: "0.1em", marginBottom: 8 }}>{s.num}</div>
+                    <div style={{ fontFamily: "Playfair Display, serif", fontSize: 17, fontWeight: 700, marginBottom: 8 }}>{s.title}</div>
+                    <div style={{ fontSize: 13, color: "#7a7068", lineHeight: 1.6 }}>{s.desc}</div>
                   </div>
-                  <div style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#b5924c", letterSpacing: "0.1em", marginBottom: 8 }}>{s.num}</div>
-                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 17, fontWeight: 700, marginBottom: 8 }}>{s.title}</div>
-                  <div style={{ fontSize: 13, color: "#7a7068", lineHeight: 1.6 }}>{s.desc}</div>
-                </div>
                 )
               })}
             </div>
@@ -471,27 +471,18 @@ export default function KarrarLanding() {
             <p style={{ color: "#7a7068", fontSize: 17, marginTop: 12 }}>6 specialized AI agents working in parallel on every upload</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-            {AGENTS.map((a, i) => {
-              const IconComponent = a.iconComponent;
+            {AGENTS.map((a) => {
+              const IconComponent = a.iconComponent
               return (
-              <div key={i} className="card-hover agent-card" style={{ background: "rgba(28,26,23,0.6)", border: "1px solid rgba(181,146,76,0.2)", borderRadius: 20, padding: "28px", transition: "all 0.25s" }}>
-                {/* Icon Box */}
-                <div style={{ width: 60, height: 60, background: "rgba(181,146,76,0.15)", border: "2px solid rgba(181,146,76,0.3)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-                  <IconComponent />
+                <div key={a.num} className="card-hover agent-card" style={{ background: "rgba(28,26,23,0.6)", border: "1px solid rgba(181,146,76,0.2)", borderRadius: 20, padding: "28px", transition: "all 0.25s" }}>
+                  <div style={{ width: 60, height: 60, background: "rgba(181,146,76,0.15)", border: "2px solid rgba(181,146,76,0.3)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                    <IconComponent />
+                  </div>
+                  <div className="agent-num" style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 16, fontWeight: 700, color: "#7a7068", marginBottom: 12, transition: "color 0.2s" }}>{a.num}</div>
+                  <div style={{ fontFamily: "Playfair Display, serif", fontSize: 18, fontWeight: 700, color: "#f5f0e8", marginBottom: 8 }}>{a.name}</div>
+                  <div style={{ fontSize: 13, color: "#9a9088", lineHeight: 1.6, marginBottom: 16 }}>{a.role}</div>
+                  <div style={{ width: "100%", height: 2, background: "#b5924c", borderRadius: 2 }} />
                 </div>
-                
-                {/* Agent Number */}
-                <div className="agent-num" style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 16, fontWeight: 700, color: "#7a7068", marginBottom: 12, transition: "color 0.2s" }}>{a.num}</div>
-                
-                {/* Name */}
-                <div style={{ fontFamily: "Playfair Display, serif", fontSize: 18, fontWeight: 700, color: "#f5f0e8", marginBottom: 8 }}>{a.name}</div>
-                
-                {/* Role Description */}
-                <div style={{ fontSize: 13, color: "#9a9088", lineHeight: 1.6, marginBottom: 16 }}>{a.role}</div>
-                
-                {/* Gold Accent Line */}
-                <div style={{ width: "100%", height: 2, background: "#b5924c", borderRadius: 2 }} />
-              </div>
               )
             })}
           </div>
