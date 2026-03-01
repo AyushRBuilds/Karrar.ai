@@ -58,34 +58,10 @@ const KarrarLogo = ({ size = 40 }) => (
   </div>
 )
 
-// ── Animated counter ─────────────────────────────────────────────
-function Counter({ target, suffix = "", duration = 1800 }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        let start = 0
-        const step = target / (duration / 16)
-        const timer = setInterval(() => {
-          start += step
-          if (start >= target) { setCount(target); clearInterval(timer) }
-          else setCount(Math.floor(start))
-        }, 16)
-        obs.disconnect()
-      }
-    }, { threshold: 0.3 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [target, duration])
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
-}
-
 // ── Risk Badge ───────────────────────────────────────────────────
 function RiskBadge({ score }) {
-  const color = score >= 8 ? "#ef4444" : score >= 6 ? "#f59e0b" : "#22c55e"
   return (
-    <span style={{ background: color + "18", color, border: `1px solid ${color}40`, borderRadius: 6, padding: "2px 8px", fontSize: 11, fontFamily: "IBM Plex Mono, monospace", fontWeight: 700 }}>
+    <span style={{ background: "rgba(181,146,76,0.15)", color: "#b5924c", border: "1px solid rgba(181,146,76,0.4)", borderRadius: 6, padding: "2px 8px", fontSize: 11, fontFamily: "IBM Plex Mono, monospace", fontWeight: 700 }}>
       🛡 {score.toFixed(1)}
     </span>
   )
@@ -119,12 +95,12 @@ function FloatingPanel({ style }) {
 
 function AgentPanel({ style }) {
   const agents = [
-    { name: "Completeness", color: "#3b82f6", status: "✓ Done" },
-    { name: "Risk Scoring", color: "#ef4444", status: "✓ Done" },
-    { name: "Negotiation", color: "#b5924c", status: "Running…" },
-    { name: "Consistency", color: "#8b5cf6", status: "Queued" },
-    { name: "Regulatory", color: "#22c55e", status: "Queued" },
-    { name: "Explanation", color: "#f59e0b", status: "Queued" },
+    { name: "Completeness", status: "✓ Done" },
+    { name: "Risk Scoring", status: "✓ Done" },
+    { name: "Negotiation", status: "Running…" },
+    { name: "Consistency", status: "Queued" },
+    { name: "Regulatory", status: "Queued" },
+    { name: "Explanation", status: "Queued" },
   ]
   return (
     <div style={{
@@ -136,14 +112,14 @@ function AgentPanel({ style }) {
       {agents.map((a, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: a.color, boxShadow: a.status === "Running…" ? `0 0 8px ${a.color}` : "none" }} />
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#b5924c", boxShadow: a.status === "Running…" ? "0 0 8px #b5924c" : "none" }} />
             <span style={{ fontSize: 11, color: "#f5f0e8", fontFamily: "DM Sans, sans-serif" }}>{a.name}</span>
           </div>
-          <span style={{ fontSize: 10, color: a.status === "✓ Done" ? "#22c55e" : a.status === "Running…" ? "#b5924c" : "#555", fontFamily: "IBM Plex Mono, monospace" }}>{a.status}</span>
+          <span style={{ fontSize: 10, color: a.status === "✓ Done" ? "#b5924c" : a.status === "Running…" ? "#b5924c" : "#7a7068", fontFamily: "IBM Plex Mono, monospace" }}>{a.status}</span>
         </div>
       ))}
       <div style={{ marginTop: 12, background: "rgba(181,146,76,0.15)", borderRadius: 6, height: 4, overflow: "hidden" }}>
-        <div style={{ width: "38%", height: "100%", background: "linear-gradient(90deg, #b5924c, #d4af72)", borderRadius: 6, animation: "progress 2s ease-in-out infinite" }} />
+        <div style={{ width: "38%", height: "100%", background: "#b5924c", borderRadius: 6, animation: "progress 2s ease-in-out infinite" }} />
       </div>
       <div style={{ fontSize: 10, color: "#7a7068", marginTop: 6, fontFamily: "IBM Plex Mono, monospace" }}>Analysis · 38% complete</div>
     </div>
@@ -345,25 +321,6 @@ export default function KarrarLanding() {
 
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(transparent, #f5f0e8)", pointerEvents: "none" }} />
       </section>
-
-      {/* STATS TICKER */}
-      <div style={{ background: "#1c1a17", color: "#f5f0e8", padding: "20px 0", overflow: "hidden" }}>
-        <div style={{ display: "flex", gap: 64, justifyContent: "center", flexWrap: "wrap", padding: "0 32px" }}>
-          {[
-            { label: "Contracts Analyzed", value: 12400, suffix: "+" },
-            { label: "Risk Clauses Flagged", value: 84000, suffix: "+" },
-            { label: "Counter-Terms Generated", value: 31000, suffix: "+" },
-            { label: "Compliance Rate", value: 98, suffix: "%" },
-          ].map(s => (
-            <div key={s.label} style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "Playfair Display, serif", fontSize: 32, fontWeight: 700, color: "#b5924c" }}>
-                <Counter target={s.value} suffix={s.suffix} />
-              </div>
-              <div style={{ fontSize: 12, color: "#7a7068", marginTop: 4, fontFamily: "IBM Plex Mono, monospace", letterSpacing: "0.06em" }}>{s.label.toUpperCase()}</div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* HOW IT WORKS */}
       <section id="how-it-works" style={{ padding: "100px 32px", background: "#faf8f4" }}>
