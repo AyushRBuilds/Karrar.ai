@@ -1,6 +1,6 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
+import { KarrarLogo } from '@/components/ui/KarrarLogo'
 
 export function Footer() {
   return (
@@ -9,15 +9,8 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <Image
-                src="/karrar-logo.png"
-                alt="Karrar.ai"
-                width={32}
-                height={32}
-                className="h-8 w-8"
-              />
-              <span className="text-xl font-serif font-bold">Karrar.ai</span>
+            <div className="mb-4">
+              <KarrarLogo size={32} wordmark={true} />
             </div>
             <p className="text-[#b5924c] text-sm">India's First Multi-Agent Legal AI</p>
           </div>

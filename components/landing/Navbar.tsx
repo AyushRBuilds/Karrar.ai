@@ -2,10 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { KarrarLogo } from '@/components/ui/KarrarLogo'
 
 export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -24,15 +24,8 @@ export function LandingNavbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/karrar-logo.png"
-              alt="Karrar.ai"
-              width={32}
-              height={32}
-              priority
-            />
-            <span className="text-xl font-serif font-bold text-[#1c1a17] hidden sm:inline">Karrar.ai</span>
+          <Link href="/" className="flex items-center">
+            <KarrarLogo size={32} wordmark={true} />
           </Link>
 
           {/* Desktop Nav */}
