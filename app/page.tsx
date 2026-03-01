@@ -46,13 +46,16 @@ const ICONS = [ScalesIcon, GavelIcon, ColumnIcon, DocIcon, ScalesIcon, GavelIcon
 
 // ── Logo Component ──────────────────────────────────────────────────
 const KarrarLogo = ({ size = 40 }) => (
-  <Image
-    src="/karrar-logo.png"
-    alt="Karrar.ai"
-    width={size}
-    height={size}
-    priority
-  />
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
+    <Image
+      src="/karrar-logo.png"
+      alt="Karrar.ai"
+      width={size}
+      height={size}
+      priority
+      style={{ width: size, height: size }}
+    />
+  </div>
 )
 
 // ── Animated counter ─────────────────────────────────────────────
