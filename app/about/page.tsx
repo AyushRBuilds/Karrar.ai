@@ -1,33 +1,10 @@
 'use client'
 
+import { LandingNavbar } from '@/components/landing/Navbar'
 import { Footer } from '@/components/landing/Footer'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
 
 export default function AboutPage() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <main className="bg-[#0f1115] text-[#f5f0e8]">
-      {/* Simple Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#1a1a1f] border-b border-[#2a2a30] h-20">
-        <div className="h-full flex items-center justify-between px-6 max-w-7xl mx-auto w-full">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority className="object-contain" />
-            <span className="font-serif font-bold">Karrar.ai</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-[#a89883] hover:text-[#c49e6c] transition text-sm">Home</Link>
-            <Link href="/about" className="text-[#c49e6c] font-medium text-sm">About</Link>
-            <Link href="/login" className="btn-outline px-4 py-2 text-sm">Login</Link>
-          </div>
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-[#c49e6c]">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
+  const values = [
     {
       title: 'Accessible Legal Tech',
       description: 'Making enterprise-grade legal analysis available to businesses of all sizes in India.',
@@ -82,23 +59,23 @@ export default function AboutPage() {
       <LandingNavbar />
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 text-center">
-        <h1 className="text-5xl font-serif font-bold text-[#f5f0e8] mb-4 max-w-3xl mx-auto">
+      <section className="py-20 px-6 text-center">
+        <h1 className="text-5xl font-serif font-bold text-[#1c1a17] mb-4 max-w-3xl mx-auto">
           About Karrar.ai
         </h1>
-        <p className="text-xl text-[#a89883] max-w-2xl mx-auto">
+        <p className="text-xl text-[#7a7068] max-w-2xl mx-auto">
           Redefining contract management for Indian businesses with AI-powered legal intelligence.
         </p>
       </section>
 
       {/* Mission */}
       <section className="max-w-4xl mx-auto px-6 py-20">
-        <div className="bg-[#1a1a1f] rounded-xl p-12 border border-[#2a2a30]">
-          <h2 className="text-3xl font-serif font-bold text-[#f5f0e8] mb-6">Our Mission</h2>
-          <p className="text-lg text-[#a89883] mb-4">
+        <div className="bg-white rounded-xl p-12">
+          <h2 className="text-3xl font-serif font-bold text-[#1c1a17] mb-6">Our Mission</h2>
+          <p className="text-lg text-[#7a7068] mb-4">
             At Karrar.ai, we believe that every business should have access to world-class legal analysis and negotiation support, regardless of budget or company size.
           </p>
-          <p className="text-lg text-[#a89883]">
+          <p className="text-lg text-[#7a7068]">
             We're building the first multi-agent AI platform designed specifically for Indian legal systems, enabling founders, legal teams, and business leaders to understand, negotiate, and close contracts with confidence.
           </p>
         </div>
@@ -107,18 +84,18 @@ export default function AboutPage() {
       {/* Values */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-serif font-bold text-[#f5f0e8] mb-12 text-center">
+          <h2 className="text-4xl font-serif font-bold text-[#1c1a17] mb-12 text-center">
             Our Values
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             {values.map((value, idx) => (
-              <div key={idx} className="bg-[#1a1a1f] rounded-xl p-8 border border-[#2a2a30]">
+              <div key={idx} className="bg-white rounded-xl p-8">
                 <div className="text-5xl mb-4">{value.icon}</div>
-                <h3 className="text-xl font-serif font-bold text-[#f5f0e8] mb-3">
+                <h3 className="text-xl font-serif font-bold text-[#1c1a17] mb-3">
                   {value.title}
                 </h3>
-                <p className="text-[#a89883]">
+                <p className="text-[#7a7068]">
                   {value.description}
                 </p>
               </div>
@@ -128,9 +105,9 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="bg-[#0f1115] py-20 px-6">
+      <section className="bg-white py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-serif font-bold text-[#f5f0e8] mb-12 text-center">
+          <h2 className="text-4xl font-serif font-bold text-[#1c1a17] mb-12 text-center">
             Meet the Team
           </h2>
 
@@ -138,13 +115,13 @@ export default function AboutPage() {
             {team.map((member, idx) => (
               <div key={idx} className="text-center">
                 <div className="text-6xl mb-4 text-center flex justify-center">{member.avatar}</div>
-                <h3 className="text-lg font-serif font-bold text-[#f5f0e8] mb-1">
+                <h3 className="text-lg font-serif font-bold text-[#1c1a17] mb-1">
                   {member.name}
                 </h3>
-                <p className="text-sm font-medium text-[#c49e6c] mb-2">
+                <p className="text-sm font-medium text-[#b5924c] mb-2">
                   {member.role}
                 </p>
-                <p className="text-sm text-[#a89883]">
+                <p className="text-sm text-[#7a7068]">
                   {member.bio}
                 </p>
               </div>
@@ -158,31 +135,31 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-5xl font-serif font-bold text-[#c49e6c] mb-2">500+</div>
-              <p className="text-[#a89883]">Contracts analyzed</p>
+              <div className="text-5xl font-serif font-bold text-[#b5924c] mb-2">500+</div>
+              <p className="text-[#7a7068]">Contracts analyzed</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-serif font-bold text-[#c49e6c] mb-2">₹50Cr+</div>
-              <p className="text-[#a89883]">Value negotiated</p>
+              <div className="text-5xl font-serif font-bold text-[#b5924c] mb-2">₹50Cr+</div>
+              <p className="text-[#7a7068]">Value negotiated</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-serif font-bold text-[#c49e6c] mb-2">98%</div>
-              <p className="text-[#a89883]">Customer satisfaction</p>
+              <div className="text-5xl font-serif font-bold text-[#b5924c] mb-2">98%</div>
+              <p className="text-[#7a7068]">Customer satisfaction</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1a1a1f] py-20 px-6 border-t border-[#2a2a30]">
+      <section className="bg-[#1c1a17] py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-serif font-bold text-[#f5f0e8] mb-6">
+          <h2 className="text-4xl font-serif font-bold text-white mb-6">
             Ready to Transform Your Contract Management?
           </h2>
-          <p className="text-[#a89883] mb-8 text-lg">
+          <p className="text-[#e0d9ce] mb-8 text-lg">
             Join hundreds of companies that are already using Karrar.ai to negotiate better contracts and close deals faster.
           </p>
-          <button className="bg-[#c49e6c] text-[#0f1115] px-8 py-4 rounded-lg font-medium text-lg hover:bg-[#d4af72] transition">
+          <button className="bg-[#b5924c] text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-[#a07f3f] transition">
             Start Your Free Trial
           </button>
         </div>
