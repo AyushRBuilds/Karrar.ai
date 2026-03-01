@@ -55,7 +55,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       } pt-20 md:pt-0 overflow-y-auto`}>
         {/* Logo on mobile */}
         <div className="md:hidden px-6 py-6 flex items-center gap-3 border-b border-[#e0d9ce]">
-          <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority style={{ width: "auto", height: "auto", maxWidth: 32, maxHeight: 32 }} />
+          <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority />
           <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
         </div>
 
@@ -173,7 +173,7 @@ export function AppNavbar() {
               {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
             <div className="hidden md:flex items-center gap-3">
-              <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority style={{ width: "auto", height: "auto", maxWidth: 32, maxHeight: 32 }} />
+              <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority />
               <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
             </div>
           </div>

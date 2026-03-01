@@ -30,7 +30,6 @@ export function LandingNavbar() {
               width={32}
               height={32}
               priority
-              style={{ width: "auto", height: "auto", maxWidth: 32, maxHeight: 32 }}
             />
             <span className="text-xl font-serif font-bold text-[#1c1a17] hidden sm:inline">Karrar.ai</span>
           </Link>
