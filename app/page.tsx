@@ -53,7 +53,7 @@ const KarrarLogo = ({ size = 40 }) => (
       width={size}
       height={size}
       priority
-      style={{ width: size, height: size }}
+      style={{ width: "auto", height: "auto", maxWidth: size, maxHeight: size }}
     />
   </div>
 )
