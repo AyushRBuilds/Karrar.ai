@@ -59,6 +59,11 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#f5f0e8] flex items-center justify-center px-4 py-8 relative overflow-hidden">
       <LegalWatermark />
 
+      {/* Back to Landing Link */}
+      <Link href="/" className="absolute top-6 left-6 text-[#7a7068] hover:text-[#1c1a17] font-medium text-sm flex items-center gap-1 z-20">
+        ← Back to Landing
+      </Link>
+
       <div className="w-full max-w-md relative z-10">
         {/* Login Card */}
         <div className="card bg-white p-8 md:p-12">
