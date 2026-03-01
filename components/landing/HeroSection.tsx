@@ -22,8 +22,9 @@ export function HeroSection() {
             alt="Karrar.ai"
             width={120}
             height={120}
-            className="h-32 w-32 mx-auto mb-8"
+            style={{ width: 'auto', height: 'auto' }}
             priority
+            loading="eager"
           />
         </div>
 

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/context/auth-context'
 import { Menu, X } from 'lucide-react'
-import { showToast } from './Toast'
+import { showToast } from '@/components/ui/Toast'
 
 const navItems = [
   { icon: '🏠', label: 'Dashboard', href: '/home' },
@@ -55,7 +55,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       } pt-20 md:pt-0 overflow-y-auto`}>
         {/* Logo on mobile */}
         <div className="md:hidden px-6 py-6 flex items-center gap-3 border-b border-[#e0d9ce]">
-          <Image src="/logo.png" alt="Karrar.ai" width={32} height={32} className="h-8 w-8" priority />
+          <Image src="/logo.png" alt="Karrar.ai" width={32} height={32} style={{ width: 'auto', height: 'auto' }} priority />
           <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
         </div>
 
@@ -173,7 +173,7 @@ export function AppNavbar() {
               {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
             <div className="hidden md:flex items-center gap-3">
-              <Image src="/logo.png" alt="Karrar.ai" width={32} height={32} className="h-8 w-8" priority />
+              <Image src="/logo.png" alt="Karrar.ai" width={32} height={32} style={{ width: 'auto', height: 'auto' }} priority />
               <span className="font-serif font-bold text-[#1c1a17]">Karrar.ai</span>
             </div>
           </div>

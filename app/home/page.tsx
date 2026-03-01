@@ -6,10 +6,8 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { StatsCard } from '@/components/ui/StatsCard'
 import { UploadZone } from '@/components/ui/UploadZone'
 import { LegalWatermark } from '@/components/ui/LegalWatermark'
-import { useAuth } from '@/context/auth-context'
 
 export default function HomePage() {
-  const { user } = useAuth()
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
 
   return (
