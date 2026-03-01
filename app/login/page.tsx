@@ -35,8 +35,20 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    showToast('Google authentication coming soon', 'info');
+  const handleDemoLogin = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      await login('demo@karrar.ai', 'karrar2024');
+      showToast('Demo login successful! Welcome to Karrar.ai', 'success');
+      router.push('/home');
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Demo login failed';
+      setError(errorMsg);
+      showToast(errorMsg, 'error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -119,7 +131,7 @@ export default function LoginPage() {
 
             {/* Demo Hint */}
             <div className="bg-[#e8d9b8] border border-[#b5924c] rounded-lg p-3 text-xs text-[#1c1a17] font-medium">
-              💡 Demo: demo@karrar.ai / karrar2024
+              Demo Account: demo@karrar.ai / karrar2024
             </div>
 
             {/* Login Button */}
@@ -129,6 +141,16 @@ export default function LoginPage() {
               className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Logging in...' : 'Login'}
+            </button>
+
+            {/* Demo Button */}
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              disabled={isLoading}
+              className="w-full bg-[#b5924c] text-white py-3 rounded-lg font-semibold hover:bg-[#a07d3a] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Try Demo
             </button>
           </form>
 
