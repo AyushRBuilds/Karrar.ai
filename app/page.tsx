@@ -4,6 +4,109 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
+// ── Custom Theme-Based Icons ────────────────────────────────────
+const UploadIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="5" width="22" height="18" rx="2" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <path d="M14 12L10 16M14 12L18 16M14 12V20" stroke="#b5924c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <line x1="8" y1="24" x2="20" y2="24" stroke="#b5924c" strokeWidth="1.5"/>
+  </svg>
+);
+
+const ParallelIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="4" y1="8" x2="10" y2="8" stroke="#b5924c" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="4" y1="14" x2="10" y2="14" stroke="#b5924c" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="4" y1="20" x2="10" y2="20" stroke="#b5924c" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="18" cy="8" r="4" fill="none" stroke="#b5924c" strokeWidth="1.5"/>
+    <circle cx="18" cy="14" r="4" fill="none" stroke="#b5924c" strokeWidth="1.5"/>
+    <circle cx="18" cy="20" r="4" fill="none" stroke="#b5924c" strokeWidth="1.5"/>
+  </svg>
+);
+
+const ReportIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="3" width="20" height="22" rx="2" stroke="#b5924c" strokeWidth="1.5"/>
+    <rect x="7" y="8" width="3" height="10" fill="#b5924c"/>
+    <rect x="12.5" y="12" width="3" height="6" fill="#b5924c"/>
+    <rect x="18" y="10" width="3" height="8" fill="#b5924c"/>
+    <line x1="7" y1="20" x2="19" y2="20" stroke="#b5924c" strokeWidth="1"/>
+  </svg>
+);
+
+const TermsIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 3H20C21.1 3 22 3.9 22 5V23C22 24.1 21.1 25 20 25H6C4.9 25 4 24.1 4 23V5C4 3.9 4.9 3 6 3Z" stroke="#b5924c" strokeWidth="1.5"/>
+    <line x1="8" y1="8" x2="18" y2="8" stroke="#b5924c" strokeWidth="1"/>
+    <line x1="8" y1="12" x2="18" y2="12" stroke="#b5924c" strokeWidth="1"/>
+    <line x1="8" y1="16" x2="14" y2="16" stroke="#b5924c" strokeWidth="1"/>
+    <line x1="8" y1="20" x2="14" y2="20" stroke="#b5924c" strokeWidth="1"/>
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="11" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M9 14L12.5 17.5L19 10" stroke="#b5924c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="11" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M9 14L12.5 17.5L19 10" stroke="#b5924c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SearchIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="11" cy="11" r="6.5" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <path d="M17 17L23 23" stroke="#b5924c" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+const ShieldCheckIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2L4 6V14C4 20 14 26 14 26C14 26 24 20 24 14V6L14 2Z" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <path d="M9 14L12 17L19 10" stroke="#b5924c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const HandshakeIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 16L8 12L11 9" stroke="#b5924c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M24 16L20 12L17 9" stroke="#b5924c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="14" cy="14" r="2.5" fill="#b5924c"/>
+    <path d="M8 12L11 9" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M20 12L17 9" stroke="#b5924c" strokeWidth="1.5"/>
+  </svg>
+);
+
+const ConsistencyIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="3" width="22" height="22" rx="2" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M8 8H20M8 14H20M8 20H14" stroke="#b5924c" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M8 8V20M20 8V20" stroke="#b5924c" strokeWidth="0.5" opacity="0.5"/>
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="11" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M14 3V25M3 14H25" stroke="#b5924c" strokeWidth="1.5"/>
+    <path d="M18 6C18 10 16 14 14 16C12 14 10 10 10 6" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <path d="M10 22C10 20 12 18 14 18C16 18 18 20 18 22" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+  </svg>
+);
+
+const ChatIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 5H22C23.1 5 24 5.9 24 7V18C24 19.1 23.1 20 22 20H8L3 24V7C3 5.9 3.9 5 5 5Z" stroke="#b5924c" strokeWidth="1.5" fill="none"/>
+    <line x1="8" y1="11" x2="18" y2="11" stroke="#b5924c" strokeWidth="1" strokeLinecap="round"/>
+    <line x1="8" y1="16" x2="16" y2="16" stroke="#b5924c" strokeWidth="1" strokeLinecap="round"/>
+  </svg>
+);
+
 // ── Floating legal icon watermarks ──────────────────────────────
 const LEGAL_ICONS = [
   { x: 5, y: 12, size: 48, rot: -15, delay: 0 },
@@ -184,12 +287,12 @@ export default function KarrarLanding() {
 
   const NAV = ["Home", "How It Works", "Agents", "Features", "Pricing", "About"]
   const AGENTS = [
-    { icon: "🔍", name: "Completeness Agent", role: "Finds missing annexures & schedules", num: "01" },
-    { icon: "🛡️", name: "Risk & Red Flag Agent", role: "Scores every clause 0–100", num: "02" },
-    { icon: "🤝", name: "Negotiation Agent", role: "Generates copy-paste counter-terms", num: "03" },
-    { icon: "📋", name: "Draft Consistency Agent", role: "Catches internal contradictions", num: "04" },
-    { icon: "🌍", name: "Regulatory Agent", role: "Cross-checks Indian Contract Act", num: "05" },
-    { icon: "💬", name: "Explanation Agent", role: "Translates legalese to plain English", num: "06" },
+    { iconComponent: SearchIcon, name: "Completeness Agent", role: "Finds missing annexures & schedules", num: "01" },
+    { iconComponent: ShieldCheckIcon, name: "Risk & Red Flag Agent", role: "Scores every clause 0–100", num: "02" },
+    { iconComponent: HandshakeIcon, name: "Negotiation Agent", role: "Generates copy-paste counter-terms", num: "03" },
+    { iconComponent: ConsistencyIcon, name: "Draft Consistency Agent", role: "Catches internal contradictions", num: "04" },
+    { iconComponent: GlobeIcon, name: "Regulatory Agent", role: "Cross-checks Indian Contract Act", num: "05" },
+    { iconComponent: ChatIcon, name: "Explanation Agent", role: "Translates legalese to plain English", num: "06" },
   ]
 
   return (
@@ -334,21 +437,24 @@ export default function KarrarLanding() {
             <div style={{ position: "absolute", top: 36, left: "10%", right: "10%", height: 2, background: "linear-gradient(90deg, #e0d9ce, #b5924c, #e0d9ce)", borderRadius: 2 }} />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 24 }}>
               {[
-                { icon: "📤", num: "01", title: "Upload", desc: "Drag & drop your PDF contract. No account needed." },
-                { icon: "⚡", num: "02", title: "Parallel Analysis", desc: "6 agents analyze simultaneously in under 90 seconds." },
-                { icon: "📊", num: "03", title: "Risk Report", desc: "Every clause scored 0–100 and ranked by severity." },
-                { icon: "📝", num: "04", title: "Counter-Terms", desc: "Copy-paste professional alternative clauses instantly." },
-                { icon: "✅", num: "05", title: "Act", desc: "Sign with clarity, negotiate, or consult a lawyer." },
-              ].map((s, i) => (
+                { iconComponent: UploadIcon, num: "01", title: "Upload", desc: "Drag & drop your PDF contract. No account needed." },
+                { iconComponent: ParallelIcon, num: "02", title: "Parallel Analysis", desc: "6 agents analyze simultaneously in under 90 seconds." },
+                { iconComponent: ReportIcon, num: "03", title: "Risk Report", desc: "Every clause scored 0–100 and ranked by severity." },
+                { iconComponent: TermsIcon, num: "04", title: "Counter-Terms", desc: "Copy-paste professional alternative clauses instantly." },
+                { iconComponent: CheckIcon, num: "05", title: "Act", desc: "Sign with clarity, negotiate, or consult a lawyer." },
+              ].map((s, i) => {
+                const IconComponent = s.iconComponent;
+                return (
                 <div key={i} className="step-card card-hover" style={{ background: "#fff", border: "1px solid #e0d9ce", borderRadius: 16, padding: "28px 20px", textAlign: "center", transition: "all 0.25s" }}>
-                  <div style={{ width: 56, height: 56, background: "#f5f0e8", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", fontSize: 24, position: "relative", zIndex: 1 }}>
-                    {s.icon}
+                  <div style={{ width: 56, height: 56, background: "#f5f0e8", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", position: "relative", zIndex: 1 }}>
+                    <IconComponent />
                   </div>
                   <div style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#b5924c", letterSpacing: "0.1em", marginBottom: 8 }}>{s.num}</div>
                   <div style={{ fontFamily: "Playfair Display, serif", fontSize: 17, fontWeight: 700, marginBottom: 8 }}>{s.title}</div>
                   <div style={{ fontSize: 13, color: "#7a7068", lineHeight: 1.6 }}>{s.desc}</div>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>
@@ -365,11 +471,13 @@ export default function KarrarLanding() {
             <p style={{ color: "#7a7068", fontSize: 17, marginTop: 12 }}>6 specialized AI agents working in parallel on every upload</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-            {AGENTS.map((a, i) => (
+            {AGENTS.map((a, i) => {
+              const IconComponent = a.iconComponent;
+              return (
               <div key={i} className="card-hover agent-card" style={{ background: "rgba(28,26,23,0.6)", border: "1px solid rgba(181,146,76,0.2)", borderRadius: 20, padding: "28px", transition: "all 0.25s" }}>
                 {/* Icon Box */}
-                <div style={{ width: 60, height: 60, background: "rgba(181,146,76,0.15)", border: "2px solid rgba(181,146,76,0.3)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, marginBottom: 20 }}>
-                  {a.icon}
+                <div style={{ width: 60, height: 60, background: "rgba(181,146,76,0.15)", border: "2px solid rgba(181,146,76,0.3)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                  <IconComponent />
                 </div>
                 
                 {/* Agent Number */}
@@ -384,7 +492,8 @@ export default function KarrarLanding() {
                 {/* Gold Accent Line */}
                 <div style={{ width: "100%", height: 2, background: "#b5924c", borderRadius: 2 }} />
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -439,7 +548,9 @@ export default function KarrarLanding() {
               onClick={triggerAnalysis}
               onDragOver={e => { e.preventDefault() }}
             >
-              <div style={{ fontSize: 48, marginBottom: 16 }}>📄</div>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>
+                <UploadIcon />
+              </div>
               <div style={{ fontFamily: "Playfair Display, serif", fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Drag & drop your contract PDF</div>
               <div style={{ color: "#9a9088", fontSize: 14, marginBottom: 24 }}>or click to browse — supports PDF, DOCX</div>
               <button className="btn-dark" style={{ fontSize: 15, padding: "14px 32px" }}>Choose File</button>
@@ -448,11 +559,13 @@ export default function KarrarLanding() {
 
           {uploadState === "analyzing" && (
             <div style={{ background: "#fff", border: "1px solid #e0d9ce", borderRadius: 20, padding: 40 }}>
-              <div style={{ fontSize: 40, marginBottom: 16, animation: "spin 2s linear infinite", display: "inline-block" }}>⚙️</div>
+              <div style={{ marginBottom: 16, animation: "spin 2s linear infinite", display: "inline-block" }}>
+                <ParallelIcon />
+              </div>
               <div style={{ fontFamily: "Playfair Display, serif", fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Analyzing Your Contract</div>
               <div style={{ fontFamily: "IBM Plex Mono, monospace", fontSize: 13, color: "#b5924c", marginBottom: 24 }}>{progressLabel}</div>
               <div style={{ background: "#f5f0e8", borderRadius: 20, height: 8, overflow: "hidden" }}>
-                <div style={{ width: `${progress}%`, height: "100%", background: "linear-gradient(90deg, #b5924c, #d4af72)", borderRadius: 20, transition: "width 0.5s ease" }} />
+                <div style={{ width: `${progress}%`, height: "100%", background: "#b5924c", borderRadius: 20, transition: "width 0.5s ease" }} />
               </div>
               <div style={{ fontSize: 12, color: "#9a9088", marginTop: 8 }}>{progress}% complete</div>
             </div>
@@ -460,7 +573,9 @@ export default function KarrarLanding() {
 
           {uploadState === "done" && (
             <div style={{ background: "#fff", border: "2px solid #b5924c", borderRadius: 20, padding: 40 }} className="fade-up">
-              <div style={{ fontSize: 48, marginBottom: 16 }}>✓</div>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>
+                <CheckIcon />
+              </div>
               <div style={{ fontFamily: "Playfair Display, serif", fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Analysis Complete!</div>
               <div style={{ color: "#7a7068", fontSize: 15, marginBottom: 28 }}>Your contract has been analyzed by all 6 agents.</div>
               <div style={{ display: "flex", gap: 16, justifyContent: "center", marginBottom: 28, flexWrap: "wrap" }}>
