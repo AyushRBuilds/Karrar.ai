@@ -1,7 +1,8 @@
 'use client'
 
-import { LandingNavbar } from '@/components/landing/Navbar'
 import { Footer } from '@/components/landing/Footer'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AboutPage() {
   const values = [
@@ -55,8 +56,23 @@ export default function AboutPage() {
   ]
 
   return (
-    <main className="bg-[#f5f0e8]">
-      <LandingNavbar />
+    <main className="bg-[#0f1115] text-[#f5f0e8]">
+      {/* Simple Navbar - no theme hook dependency */}
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#1a1a1f] border-b border-[#2a2a30] h-20">
+        <div className="h-full flex items-center justify-between px-6 max-w-7xl mx-auto w-full">
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/karrar-logo.png" alt="Karrar.ai" width={32} height={32} priority className="object-contain" />
+            <span className="font-serif font-bold">Karrar.ai</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/" className="text-[#a89883] hover:text-[#c49e6c] transition text-sm">Home</Link>
+            <Link href="/about" className="text-[#c49e6c] font-medium text-sm">About</Link>
+            <Link href="/login" className="text-[#c49e6c] px-4 py-2 text-sm border border-[#c49e6c] rounded-lg hover:bg-[#c49e6c] hover:text-[#0f1115] transition">Login</Link>
+          </div>
+        </div>
+      </nav>
+
+      <div className="pt-20">
 
       {/* Hero */}
       <section className="py-20 px-6 text-center">
@@ -166,6 +182,7 @@ export default function AboutPage() {
       </section>
 
       <Footer />
+      </div>
     </main>
   )
 }
