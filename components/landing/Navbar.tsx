@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -45,6 +46,7 @@ export function LandingNavbar() {
 
           {/* CTA Buttons */}
           <div className="hidden sm:flex items-center gap-4">
+            <ThemeToggle />
             <Link href="/login" className="btn-outline px-4 py-2">
               Login
             </Link>
