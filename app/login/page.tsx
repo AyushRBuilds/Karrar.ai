@@ -51,6 +51,10 @@ export default function LoginPage() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    showToast('Google authentication coming soon', 'info');
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f0e8] flex items-center justify-center px-4 py-8 relative overflow-hidden">
       <LegalWatermark />
