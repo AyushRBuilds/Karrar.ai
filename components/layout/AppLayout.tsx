@@ -10,10 +10,10 @@ import { showToast } from '@/components/ui/Toast'
 
 const navItems = [
   { icon: '🏠', label: 'Dashboard', href: '/home' },
-  { icon: '📋', label: 'Contract Analysis', href: '/contracts' },
-  { icon: '🏢', label: 'Entities & Compliance', href: '/contracts' },
-  { icon: '⚠️', label: 'Risk Management', href: '/dashboard' },
-  { icon: '📊', label: 'Reports & Summaries', href: '/reports' },
+  { icon: '📄', label: 'Upload & Analyze', href: '/analysis' },
+  { icon: '📋', label: 'My Contracts', href: '/contracts' },
+  { icon: '⚠️', label: 'Risk Dashboard', href: '/dashboard' },
+  { icon: '📊', label: 'Reports', href: '/report' },
 ]
 
 const favorites = [
@@ -50,7 +50,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-screen w-64 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-r border-[#2a2a30] dark:border-[#2a2a30] z-40 transform transition-transform md:transform-none ${
+      <aside className={`fixed left-0 top-0 h-screen w-80 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-r border-[#2a2a30] dark:border-[#2a2a30] z-40 transform transition-transform md:transform-none ${
         isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
       } pt-20 md:pt-0 overflow-y-auto`}>
         {/* Logo on mobile */}
@@ -159,6 +159,26 @@ export function AppNavbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
   const { user } = useAuth()
+  const [remaining, setRemaining] = useState<number | string>('Unlimited')
+  const [showPricing, setShowPricing] = useState(false)
+
+  React.useEffect(() => {
+    // Get remaining analyses from user role
+    try {
+      const userProfile = JSON.parse(localStorage.getItem('user-profile') || '{}')
+      if (userProfile.role === 'pro' || userProfile.role === 'admin') {
+        setRemaining('Unlimited')
+      } else if (userProfile.role === 'free') {
+        const currentMonth = new Date().toISOString().slice(0, 7)
+        const used = parseInt(localStorage.getItem(`analyses-used-${currentMonth}`) || '0')
+        setRemaining(Math.max(0, 3 - used))
+      } else {
+        setRemaining(1)
+      }
+    } catch {
+      setRemaining('Unlimited')
+    }
+  }, [])
 
   return (
     <>
@@ -197,18 +217,24 @@ export function AppNavbar() {
               />
             </div>
 
+            {/* Analyses Counter */}
+            <div className="hidden md:flex items-center gap-1 text-sm text-[#7a7068] px-3 py-2 bg-[#f5f0e8] rounded-lg">
+              <span>📊</span>
+              <span>{remaining} analyses left</span>
+            </div>
+
             {/* Notifications */}
-            <button className="relative text-[#1c1a17] hover:text-[#b5924c]">
-              <span className="text-xl">🔔</span>
-              <span className="absolute -top-2 -right-2 w-5 h-5 bg-[#c0392b] text-white text-xs rounded-full flex items-center justify-center font-bold">3</span>
+            <button className="relative text-[#1c1a17] hover:text-[#b5924c] p-2 active:scale-95 transition">
+              <span className="text-lg sm:text-xl">🔔</span>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#c0392b] text-white text-xs rounded-full flex items-center justify-center font-bold">3</span>
             </button>
 
             {/* User Avatar */}
-            <div className="flex items-center gap-2 pl-4 border-l border-[#e0d9ce]">
-              <div className="w-8 h-8 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-serif font-bold text-xs">
+            <div className="flex items-center gap-2 pl-2 sm:pl-4 border-l border-[#e0d9ce]">
+              <button className="w-8 sm:w-9 h-8 sm:h-9 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-serif font-bold text-xs sm:text-sm hover:bg-[#a07f3f] transition active:scale-95">
                 {user?.avatar}
-              </div>
-              <span className="hidden md:inline text-sm font-medium text-[#1c1a17]">{user?.name}</span>
+              </button>
+              <span className="hidden md:inline text-xs sm:text-sm font-medium text-[#1c1a17]">{user?.name}</span>
             </div>
           </div>
         </div>
