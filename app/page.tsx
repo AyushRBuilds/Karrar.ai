@@ -1,143 +1,33 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from "react";
+import { NavHeader } from "@/components/nav-header";
+import { HeroSection } from "@/components/hero-section";
+import { AgentsSection } from "@/components/agents-section";
+import { DashboardPreview } from "@/components/dashboard-preview";
+import { CTASection } from "@/components/cta-section";
 
-// ── Watermark Legal SVGs ─────────────────────────────────────────
-const WmScales = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="16" y1="4" x2="16" y2="28" /><line x1="8" y1="28" x2="24" y2="28" />
-    <line x1="6" y1="10" x2="26" y2="10" />
-    <polyline points="6,10 4,16 8,16 6,10" /><polyline points="26,10 24,16 28,16 26,10" />
-    <circle cx="16" cy="8" r="1.5" fill="currentColor" />
-    <line x1="6" y1="10" x2="10" y2="7" /><line x1="26" y1="10" x2="22" y2="7" /><line x1="10" y1="7" x2="22" y2="7" />
-  </svg>
-);
-const WmQuill = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M26 4 C20 4 10 10 8 26" /><path d="M26 4 C28 10 22 18 8 26" />
-    <path d="M14 20 L8 26 L10 20 Z" fill="currentColor" fillOpacity="0.4" />
-    <line x1="8" y1="26" x2="14" y2="28" />
-  </svg>
-);
-const WmSeal = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="16" cy="16" r="10" /><circle cx="16" cy="16" r="6" />
-    <line x1="16" y1="4" x2="16" y2="6" /><line x1="16" y1="26" x2="16" y2="28" />
-    <line x1="4" y1="16" x2="6" y2="16" /><line x1="26" y1="16" x2="28" y2="16" />
-    <path d="M14 14 L16 12 L18 14 L18 18 L14 18 Z" />
-  </svg>
-);
-const WmPillar = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="6" y1="6" x2="26" y2="6" /><line x1="6" y1="28" x2="26" y2="28" />
-    <line x1="4" y1="8" x2="28" y2="8" />
-    <rect x="9" y="8" width="4" height="18" /><rect x="14" y="8" width="4" height="18" /><rect x="19" y="8" width="4" height="18" />
-    <line x1="4" y1="26" x2="28" y2="26" />
-  </svg>
-);
+export default function Page() {
+  const handleGetStarted = () => {
+    alert("Get started functionality coming soon!");
+  };
 
-const LEGAL_ICONS = [
-  { x: 4,  y: 10, size: 52, rot: -15, Ic: WmScales },
-  { x: 86, y: 7,  size: 40, rot: 20,  Ic: WmQuill  },
-  { x: 14, y: 70, size: 44, rot: -8,  Ic: WmSeal   },
-  { x: 80, y: 62, size: 56, rot: 12,  Ic: WmPillar },
-  { x: 48, y: 4,  size: 32, rot: 5,   Ic: WmScales },
-  { x: 91, y: 40, size: 42, rot: -20, Ic: WmQuill  },
-  { x: 2,  y: 44, size: 36, rot: 10,  Ic: WmSeal   },
-  { x: 58, y: 83, size: 48, rot: -5,  Ic: WmPillar },
-  { x: 28, y: 88, size: 30, rot: 18,  Ic: WmScales },
-  { x: 68, y: 18, size: 34, rot: -12, Ic: WmQuill  },
-  { x: 35, y: 52, size: 28, rot: 8,   Ic: WmSeal   },
-  { x: 72, y: 38, size: 38, rot: -6,  Ic: WmPillar },
-];
+  return (
+    <div style={{ background: "#000000", color: "#FFFFFF", fontFamily: "DM Sans, sans-serif" }}>
+      {/* Import fonts */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+      `}</style>
 
-// ── Logo ────────────────────────────────────────────────────────
-const KarrarLogo = ({ size = 40 }) => (
-  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-    <div style={{ width: size, height: size, position: "relative" }}>
-      <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-        <path d="M24 3L6 11v14c0 11 7.5 21.3 18 24 10.5-2.7 18-13 18-24V11L24 3z" fill="url(#shield-grad)" />
-        <path d="M24 3L6 11v14c0 11 7.5 21.3 18 24 10.5-2.7 18-13 18-24V11L24 3z" fill="none" stroke="rgba(196,158,108,0.6)" strokeWidth="1" />
-        <text x="24" y="29" textAnchor="middle" fill="#000" fontSize="16" fontWeight="900" fontFamily="Georgia, serif">K</text>
-        <defs>
-          <linearGradient id="shield-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#C49E6C" /><stop offset="1" stopColor="#F5D08A" />
-          </linearGradient>
-        </defs>
-      </svg>
+      <NavHeader onGetStarted={handleGetStarted} />
+      <HeroSection onGetStarted={handleGetStarted} />
+      <AgentsSection />
+      <DashboardPreview />
+      <CTASection onGetStarted={handleGetStarted} />
     </div>
-    <span style={{ fontFamily: "Playfair Display, serif", fontSize: size * 0.55, fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.02em" }}>Karrar.ai</span>
-  </div>
-);
-
-// ── Risk Badge ──────────────────────────────────────────────────
-const RiskBadge = ({ score, size = "sm" }) => {
-  const color = score >= 8 ? "#ef4444" : score >= 6 ? "#f59e0b" : "#22c55e";
-  const label = score >= 8 ? "HIGH" : score >= 6 ? "MED" : "LOW";
-  return (
-    <span style={{ background: color + "18", color, border: `1px solid ${color}35`, borderRadius: 6, padding: size === "lg" ? "5px 12px" : "3px 8px", fontSize: size === "lg" ? 13 : 11, fontFamily: "IBM Plex Mono, monospace", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: 5, whiteSpace: "nowrap" }}>
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L4 6v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V6L12 2z"/></svg>
-      Risk {score.toFixed(1)}
-    </span>
   );
-};
-
-// ── Animated Counter ────────────────────────────────────────────
-function Counter({ target, suffix = "", duration = 1600 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        let start = 0, step = target / (duration / 16);
-        const t = setInterval(() => { start += step; if (start >= target) { setCount(target); clearInterval(t); } else setCount(Math.floor(start)); }, 16);
-        obs.disconnect();
-      }
-    }, { threshold: 0.3 });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [target]);
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 }
-
-// ── Scroll Progress Hook ────────────────────────────────────────
-function useScrollProgress(ref) {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const handler = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const windowH = window.innerHeight;
-      // Start animating when element top hits bottom of screen, complete when element center hits screen center
-      const start = windowH;
-      const end = windowH * 0.2;
-      const current = rect.top;
-      const p = Math.min(1, Math.max(0, (start - current) / (start - end)));
-      setProgress(p);
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    handler();
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-  return progress;
-}
-
-// ── Dashboard Preview Component ─────────────────────────────────
-function DashboardPreview() {
-  const risks = [
-    { title: "High Financial Liability", sub: "Indemnification Clause", score: 8.4, icon: "⚠" },
-    { title: "Unfair Non-Compete Term", sub: "Non-Compete Agreement", score: 7.6, icon: "⚡" },
-    { title: "Unclear Jurisdiction",     sub: "Governing Law Clause",  score: 6.9, icon: "ℹ" },
-  ];
-  const recent = [
-    { name: "MSA_Company_X.pdf",      time: "13 min ago", tags: ["3.4+", "11"] },
-    { name: "Freelancer_NDA.docx",    time: "1 hour ago", tags: [] },
-    { name: "SBA_India_Company.pdf",  time: "5 hrs ago",  tags: [] },
-  ];
-
-  return (
-    <div style={{ width: "100%", background: "#0A0B0E", borderRadius: "20px 20px 0 0", border: "1px solid #1E2228", borderBottom: "none", overflow: "hidden", fontFamily: "DM Sans, sans-serif", userSelect: "none" }}>
-      {/* Top bar */}
       <div style={{ background: "#0F1115", borderBottom: "1px solid #1E2228", padding: "12px 20px", display: "flex", alignItems: "center", gap: 16 }}>
         <KarrarLogo size={28} />
         <div style={{ flex: 1, display: "flex", gap: 24, marginLeft: 16 }}>
