@@ -1128,22 +1128,6 @@ function KarrarLanding({ onLogin }) {
     </div>
   );
 }
-
-// ── LOGIN PAGE ────────────────────────────────────────────────────
-function LoginPage({ onBack, onSuccess }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const [remember, setRemember] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [mouse, setMouse] = useState({ x: -999, y: -999 });
-
-  useEffect(() => {
-    const onMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
   return (
     <div style={{
       minHeight: "100vh", background: "#000000", display: "flex",
@@ -1442,209 +1426,48 @@ const MOCK_ANALYSIS = {
   },
 };
 
-// ── DASHBOARD PAGE ────────────────────────────────────────────────
-function DashboardPage({ user, onLogout }) {
-  const [activeNav,      setActiveNav]      = useState("Home");
-  const [uploadPhase,    setUploadPhase]    = useState("idle"); // idle|analyzing|awaiting_docs|done
-  const [analysisStep,   setAnalysisStep]   = useState(0);
-  const [analysisPct,    setAnalysisPct]    = useState(0);
-  const [uploadedFile,   setUploadedFile]   = useState(null);
-  const [relatedDocs,    setRelatedDocs]    = useState([]);
-  const [analysis,       setAnalysis]       = useState(null);
-  const [notifOpen,      setNotifOpen]      = useState(false);
-  const [activeClause,   setActiveClause]   = useState(null);
-  const [reportTab,      setReportTab]      = useState("risks");
-  const [filterRisk,     setFilterRisk]     = useState("All");
-  const [copiedId,       setCopiedId]       = useState(null);
-  const [userDecision,   setUserDecision]   = useState(null); // null|sign|negotiate|lawyer
-  const fileRef    = useRef(null);
-  const relatedRef = useRef(null);
-
-  const AGENTS = [
-    { id:"completeness", name:"Completeness Agent",  color:"#3b82f6", emoji:"📋", desc:"Checks for missing schedules, annexures & referenced docs" },
-    { id:"risk",         name:"Risk Scoring Agent",   color:"#ef4444", emoji:"⚠️", desc:"Scores every clause 0–100, flags financial exposure in ₹" },
-    { id:"negotiation",  name:"Negotiation Agent",    color:"#C49E6C", emoji:"🤝", desc:"Generates ready-to-send counter-terms for high-risk clauses" },
-    { id:"consistency",  name:"Consistency Agent",    color:"#8b5cf6", emoji:"🔍", desc:"Finds internal contradictions across the full document" },
-    { id:"regulatory",   name:"Regulatory Agent",     color:"#22c55e", emoji:"⚖️", desc:"Cross-references Indian Contract Act & DPDP Act 2023" },
-    { id:"explanation",  name:"Explanation Agent",    color:"#f59e0b", emoji:"💡", desc:"Translates dense legalese into plain Hindi/English" },
-  ];
-
-  const STEPS = [
-    { label:"Parsing PDF & splitting clauses…",         agent:"",             pct:9  },
-    { label:"Completeness Agent — checking documents…", agent:"completeness", pct:22 },
-    { label:"Risk Scoring Agent — analyzing clauses…",  agent:"risk",         pct:38 },
-    { label:"Negotiation Agent — generating counters…", agent:"negotiation",  pct:54 },
-    { label:"Consistency Agent — cross-checking…",      agent:"consistency",  pct:68 },
-    { label:"Regulatory Agent — Indian law check…",     agent:"regulatory",   pct:83 },
-    { label:"Explanation Agent — plain language…",      agent:"explanation",  pct:95 },
-    { label:"Synthesizing final report…",               agent:"",             pct:100 },
-  ];
-
-  const CONTRACTS = [
-    { name:"MSA_Company_X.pdf",     risk:"High",   score:7.8, time:"Just now",   clauses:7, type:"MSA" },
-    { name:"Freelancer_NDA.docx",   risk:"Medium", score:4.9, time:"1 hour ago", clauses:4, type:"NDA" },
-    { name:"SBA_India_Company.pdf", risk:"Low",    score:2.1, time:"5 hrs ago",  clauses:3, type:"SBA" },
-  ];
-
-  const rc = (r) => r==="Critical"||r==="High" ? "#ef4444" : r==="Medium"||r==="Med" ? "#f59e0b" : "#22c55e";
-  const rb = (r) => r==="Critical"||r==="High" ? "rgba(239,68,68,0.09)" : r==="Medium"||r==="Med" ? "rgba(245,158,11,0.09)" : "rgba(34,197,94,0.09)";
-
-  const startAnalysis = (file) => {
-    setUploadedFile(file);
-    setUploadPhase("analyzing");
-    setAnalysisStep(0); setAnalysisPct(0);
-    let i = 0;
-    const tick = () => {
-      if (i < STEPS.length) {
-        setAnalysisStep(i);
-        setAnalysisPct(STEPS[i].pct);
-        i++;
-        setTimeout(tick, 850);
-      } else {
-        const result = { ...MOCK_ANALYSIS, fileName: file?.name || "contract.pdf" };
-        setTimeout(() => { setAnalysis(result); setUploadPhase("awaiting_docs"); }, 500);
-      }
-    };
-    tick();
-  };
-
-  const handleFile = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer?.files[0] || e.target?.files?.[0];
-    if (file) startAnalysis(file);
-  };
-
-  const copy = (text, id) => {
-    navigator.clipboard?.writeText(text).catch(()=>{});
-    setCopiedId(id); setTimeout(()=>setCopiedId(null), 2000);
-  };
-
-  const filtered = analysis ? analysis.clauses.filter(c =>
-    filterRisk==="All" || c.riskLevel===filterRisk || (filterRisk==="High" && c.riskLevel==="Critical")
-  ) : [];
-
-  const NAV = [
-    { k:"Home",      ic:<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
-    { k:"Contracts", ic:<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> },
-    { k:"Agents",    ic:<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg> },
-    { k:"Reports",   ic:<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
-  ];
+export default function Page() {
+  const [page, setPage] = useState("landing");
+  const [user] = useState({ name: "John S.", email: "demo@karrar.ai", initials: "JS" });
 
   return (
-    <div style={{ fontFamily:"DM Sans,sans-serif", background:"#070809", color:"#FFF", minHeight:"100vh", display:"flex", flexDirection:"column" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0;}
-        ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#070809;} ::-webkit-scrollbar-thumb{background:#1E2228;border-radius:2px;}
-        .snav{display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:9px;cursor:pointer;font-size:13px;color:#555;transition:all 0.16s;border-left:2px solid transparent;user-select:none;}
-        .snav:hover{color:#CCC;background:rgba(255,255,255,0.025);}
-        .snav.on{color:#FFF;background:rgba(196,158,108,0.1);border-left-color:#C49E6C;}
-        .cr{padding:13px 15px;border-radius:11px;cursor:pointer;transition:all 0.17s;border:1px solid #131518;background:#0A0B0E;}
-        .cr:hover{border-color:#252830;background:#0D0F13;}
-        .cr.sel{border-color:rgba(196,158,108,0.3);background:rgba(196,158,108,0.035);}
-        .tbtn{padding:6px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;transition:all 0.17s;}
-        .tbtn.on{background:rgba(196,158,108,0.14);color:#C49E6C;border:1px solid rgba(196,158,108,0.28);}
-        .tbtn.off{background:transparent;color:#444;border:1px solid transparent;}
-        .tbtn.off:hover{color:#999;background:rgba(255,255,255,0.025);}
-        .gbtn{background:linear-gradient(135deg,#C49E6C,#F5D08A);color:#000;border:none;border-radius:9px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-        .gbtn:hover{box-shadow:0 0 28px rgba(196,158,108,0.4);transform:translateY(-1px);}
-        .qbtn{background:transparent;border:1px solid #1E2228;border-radius:9px;padding:9px 16px;font-size:12px;color:#777;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.17s;}
-        .qbtn:hover{border-color:#333;color:#CCC;}
-        .cpbtn{background:rgba(196,158,108,0.07);border:1px solid rgba(196,158,108,0.18);border-radius:6px;padding:4px 10px;font-size:11px;color:#C49E6C;cursor:pointer;font-family:'IBM Plex Mono',monospace;transition:all 0.17s;white-space:nowrap;}
-        .cpbtn:hover{background:rgba(196,158,108,0.14);}
-        .pll{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:0.03em;white-space:nowrap;}
-        .uzone{border:2px dashed #1A1D22;border-radius:16px;padding:44px 32px;text-align:center;cursor:pointer;transition:all 0.24s;background:rgba(196,158,108,0.008);}
-        .uzone:hover,.uzone.drag{border-color:rgba(196,158,108,0.45);background:rgba(196,158,108,0.025);}
-        .acard{background:#0D0F13;border:1px solid #1A1D22;border-radius:12px;padding:16px;transition:all 0.2s;}
-        .acard:hover{border-color:#252830;transform:translateY(-2px);}
-        .stat{background:#0D0F13;border:1px solid #1A1D22;border-radius:13px;padding:18px;transition:all 0.2s;}
-        .stat:hover{border-color:rgba(196,158,108,0.2);}
-        @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-        @keyframes fadeslide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes pulsering{0%,100%{opacity:0.6}50%{opacity:1}}
-        .shimmer{background:linear-gradient(90deg,#131518 25%,#1E2228 50%,#131518 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
-        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-        .dec-btn{border:none;border-radius:11px;padding:14px 20px;cursor:pointer;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:130px;}
-        .dec-btn:hover{transform:translateY(-2px);}
-      `}</style>
-
-      {/* ── TOPNAV ─────────────────────────────────────────────────── */}
-      <nav style={{ position:"sticky",top:0,zIndex:100,background:"rgba(7,8,9,0.97)",backdropFilter:"blur(20px)",borderBottom:"1px solid #0F1115",padding:"0 22px",height:56,display:"flex",alignItems:"center",gap:18,flexShrink:0 }}>
-        <KarrarLogo size={26} wordmark={true}/>
-        <div style={{ flex:1,display:"flex",gap:1 }}>
-          {NAV.map(({k,ic})=>(
-            <button key={k} onClick={()=>setActiveNav(k)} style={{ background:"none",border:"none",color:activeNav===k?"#C49E6C":"#555",fontSize:13,fontWeight:activeNav===k?600:400,padding:"4px 12px",cursor:"pointer",borderBottom:activeNav===k?"2px solid #C49E6C":"2px solid transparent",transition:"all 0.17s",fontFamily:"DM Sans,sans-serif",display:"flex",alignItems:"center",gap:6,height:56 }}>
-              <span style={{ opacity:activeNav===k?1:0.4 }}>{ic}</span>{k}
-            </button>
-          ))}
-        </div>
-        <div style={{ position:"relative" }}>
-          <svg style={{ position:"absolute",left:9,top:"50%",transform:"translateY(-50%)" }} width="12" height="12" fill="none" stroke="#333" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input placeholder="Search contracts…" style={{ background:"#0D0F13",border:"1px solid #131518",borderRadius:8,padding:"6px 12px 6px 28px",color:"#777",fontSize:12,fontFamily:"DM Sans,sans-serif",outline:"none",width:164 }}/>
-        </div>
-        <div style={{ position:"relative" }}>
-          <button onClick={()=>setNotifOpen(!notifOpen)} style={{ background:"none",border:"none",cursor:"pointer",color:notifOpen?"#C49E6C":"#444",padding:5,position:"relative",transition:"color 0.17s" }}>
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-            <span style={{ position:"absolute",top:1,right:1,width:12,height:12,background:"#ef4444",borderRadius:"50%",fontSize:7,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:700 }}>3</span>
-          </button>
-          <AnimatePresence>
-          {notifOpen && (
-            <motion.div initial={{opacity:0,y:-8,scale:0.97}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:-8}} style={{ position:"absolute",right:0,top:38,width:268,background:"#0D0F13",border:"1px solid #1A1D22",borderRadius:12,padding:14,zIndex:300 }}>
-              <div style={{ fontSize:10,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.1em",marginBottom:10 }}>NOTIFICATIONS</div>
-              {[{t:"MSA_Company_X: 1 critical risk detected",s:"13m ago",d:"#ef4444"},{t:"New contract uploaded",s:"1h ago",d:"#f59e0b"},{t:"Freelancer NDA analysis ready",s:"1h ago",d:"#22c55e"}].map((n,i)=>(
-                <div key={i} style={{ display:"flex",gap:9,padding:"8px 0",borderBottom:i<2?"1px solid #0F1115":"none" }}>
-                  <div style={{ width:6,height:6,borderRadius:"50%",background:n.d,marginTop:5,flexShrink:0 }}/>
-                  <div><div style={{ fontSize:12,color:"#CCC" }}>{n.t}</div><div style={{ fontSize:10,color:"#333",marginTop:1 }}>{n.s}</div></div>
-                </div>
-              ))}
-            </motion.div>
-          )}
-          </AnimatePresence>
-        </div>
-        <div style={{ display:"flex",alignItems:"center",gap:8,cursor:"pointer" }} onClick={onLogout} title="Click to logout">
-          <div style={{ width:29,height:29,borderRadius:"50%",background:"linear-gradient(135deg,#C49E6C,#F5D08A)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,color:"#000" }}>{user.initials}</div>
-          <span style={{ fontSize:12,color:"#BBB",fontWeight:500 }}>{user.name}</span>
-        </div>
-      </nav>
-
-      <div style={{ display:"flex",flex:1,overflow:"hidden",height:"calc(100vh - 56px)" }}>
-
-        {/* ── SIDEBAR ─────────────────────────────────────────────── */}
-        <aside style={{ width:188,background:"#060708",borderRight:"1px solid #0F1115",padding:"16px 10px",display:"flex",flexDirection:"column",gap:2,flexShrink:0,overflowY:"auto" }}>
-          {NAV.map(({k,ic})=>(
-            <div key={k} className={`snav${activeNav===k?" on":""}`} onClick={()=>setActiveNav(k)}>
-              <span style={{ opacity:activeNav===k?1:0.35 }}>{ic}</span>{k}
-            </div>
-          ))}
-          <div style={{ height:1,background:"#0F1115",margin:"14px 0" }}/>
-          <div style={{ fontSize:9,color:"#222",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",paddingLeft:14,marginBottom:7 }}>FAVORITES</div>
-          {["NDA_Startup.d…","Rental Agreement","SBA_India_Comp…"].map((f,i)=>(
-            <div key={i} style={{ display:"flex",alignItems:"center",gap:7,padding:"6px 14px",cursor:"pointer",fontSize:12,color:"#333",borderRadius:7,transition:"color 0.17s" }} onMouseEnter={e=>e.currentTarget.style.color="#AAA"} onMouseLeave={e=>e.currentTarget.style.color="#333"}>
-              <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>{f}
-            </div>
-          ))}
-          <div style={{ height:1,background:"#0F1115",margin:"14px 0" }}/>
-          <div style={{ fontSize:9,color:"#222",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",paddingLeft:14,marginBottom:7 }}>TOP ENTITIES</div>
-          {[{l:"Indian Ministries",c:"#ef4444"},{l:"Freelancer Y",c:"#3b82f6"}].map((e,i)=>(
-            <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 14px",cursor:"pointer",fontSize:12,color:"#333",borderRadius:7,transition:"color 0.17s" }} onMouseEnter={ev=>ev.currentTarget.style.color="#AAA"} onMouseLeave={ev=>ev.currentTarget.style.color="#333"}>
-              <div style={{ width:15,height:15,borderRadius:4,background:e.c,display:"flex",alignItems:"center",justifyContent:"center",fontSize:7,fontWeight:700,color:"#fff",flexShrink:0 }}>IN</div>{e.l}
-            </div>
-          ))}
-        </aside>
-
-        {/* ── MAIN ────────────────────────────────────────────────── */}
-        <main style={{ flex:1,overflowY:"auto",padding:"24px 26px" }}>
-          <AnimatePresence mode="wait">
-
-          {/* ═══ HOME ══════════════════════════════════════════════ */}
-          {activeNav==="Home" && (
-            <motion.div key="home" initial={{opacity:0,y:14}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:0.38}}>
-              <div style={{ marginBottom:22 }}>
-                <h1 style={{ fontFamily:"Playfair Display,serif",fontSize:28,fontWeight:700,marginBottom:3 }}>Dashboard</h1>
-                <p style={{ fontSize:13,color:"#444" }}>Audit, analyze, and negotiate your contracts effortlessly — powered by 6 AI agents.</p>
-              </div>
-
-              {/* Stats */}
+    <AnimatePresence mode="wait">
+      {page === "landing" && (
+        <motion.div
+          key="landing"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <KarrarLanding onLogin={() => setPage("login")} />
+        </motion.div>
+      )}
+      {page === "login" && (
+        <motion.div
+          key="login"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <LoginPage onBack={() => setPage("landing")} onSuccess={() => setPage("dashboard")} />
+        </motion.div>
+      )}
+      {page === "dashboard" && (
+        <motion.div
+          key="dashboard"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <DashboardPage user={user} onLogout={() => setPage("landing")} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
               <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginBottom:18 }}>
                 {[
                   {v:"3,468",l:"Total Contracts",c:"#C49E6C",icon:<svg width="16" height="16" fill="none" stroke="#C49E6C" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>},
