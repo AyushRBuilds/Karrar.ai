@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import './mobile.css'
 import { AuthProvider } from '@/context/auth-context'
 import { ThemeProvider } from '@/context/theme-context'
 import { ToastContainer } from '@/components/ui/Toast'
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#0f1115] text-[#f5f0e8] transition-colors duration-300`}>
+      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#0a0e1a] text-[#ffffff] transition-colors duration-300`}>
         <ThemeProvider>
           <AuthProvider>
             <ToastContainer />
