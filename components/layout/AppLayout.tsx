@@ -159,6 +159,26 @@ export function AppNavbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
   const { user } = useAuth()
+  const [remaining, setRemaining] = useState<number | string>('Unlimited')
+  const [showPricing, setShowPricing] = useState(false)
+
+  React.useEffect(() => {
+    // Get remaining analyses from user role
+    try {
+      const userProfile = JSON.parse(localStorage.getItem('user-profile') || '{}')
+      if (userProfile.role === 'pro' || userProfile.role === 'admin') {
+        setRemaining('Unlimited')
+      } else if (userProfile.role === 'free') {
+        const currentMonth = new Date().toISOString().slice(0, 7)
+        const used = parseInt(localStorage.getItem(`analyses-used-${currentMonth}`) || '0')
+        setRemaining(Math.max(0, 3 - used))
+      } else {
+        setRemaining(1)
+      }
+    } catch {
+      setRemaining('Unlimited')
+    }
+  }, [])
 
   return (
     <>
@@ -195,6 +215,12 @@ export function AppNavbar() {
                 placeholder="Search contracts..."
                 className="bg-transparent text-sm text-[#1c1a17] placeholder-[#b0a898] focus:outline-none"
               />
+            </div>
+
+            {/* Analyses Counter */}
+            <div className="hidden md:flex items-center gap-1 text-sm text-[#7a7068] px-3 py-2 bg-[#f5f0e8] rounded-lg">
+              <span>📊</span>
+              <span>{remaining} analyses left</span>
             </div>
 
             {/* Notifications */}

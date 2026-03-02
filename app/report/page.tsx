@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AppNavbar } from '@/components/layout/AppLayout'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { AgentResults } from '@/components/analysis/AgentResults'
@@ -8,6 +8,10 @@ import { RiskVisualization } from '@/components/analysis/RiskVisualization'
 import { CounterTerms } from '@/components/analysis/CounterTerms'
 import { ConsistencyReport } from '@/components/analysis/ConsistencyReport'
 import { PlainLanguageSummary } from '@/components/analysis/PlainLanguageSummary'
+import { DisclaimerModal } from '@/components/modals/DisclaimerModal'
+import { LawyerWarningModal } from '@/components/modals/LawyerWarningModal'
+import { DisclaimerBar } from '@/components/DisclaimerBar'
+import { exportReportPDF } from '@/lib/pdfExport'
 import { Download, Share2, Printer } from 'lucide-react'
 
 interface AgentResult {
@@ -30,6 +34,18 @@ interface CounterTerm {
 
 export default function ReportPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'agents' | 'risks' | 'terms' | 'consistency' | 'summary'>('overview')
+  const [showDisclaimer, setShowDisclaimer] = useState(true)
+  const [showLawyerWarning, setShowLawyerWarning] = useState(true)
+  const [disclaimerDismissed, setDisclaimerDismissed] = useState(false)
+
+  useEffect(() => {
+    // Check if disclaimer has been shown before
+    const hasSeenDisclaimer = localStorage.getItem('seen-disclaimer-modal')
+    if (hasSeenDisclaimer) {
+      setShowDisclaimer(false)
+      setDisclaimerDismissed(true)
+    }
+  }, [])
 
   // Mock data
   const agentResults: AgentResult[] = [
@@ -212,11 +228,43 @@ export default function ReportPage() {
 
   return (
     <ProtectedRoute>
+      {showDisclaimer && !disclaimerDismissed && (
+        <DisclaimerModal
+          onDismiss={() => {
+            setShowDisclaimer(false)
+            setDisclaimerDismissed(true)
+            // Trigger lawyer warning check if score >= 7.5
+            const overallScore = 6.8
+            if (overallScore >= 7.5) {
+              setShowLawyerWarning(true)
+            }
+          }}
+        />
+      )}
+
+      {showLawyerWarning && disclaimerDismissed && 6.8 >= 7.5 && (
+        <LawyerWarningModal
+          score={6.8}
+          riskLevel="High"
+          topClauses={[
+            { title: 'Unlimited Liability Indemnification', riskScore: 92, riskLevel: 'Critical' },
+            { title: 'Broad 5-Year Non-Compete Clause', riskScore: 85, riskLevel: 'High' }
+          ]}
+          onConsultLawyer={() => {
+            setShowLawyerWarning(false)
+            // In real app, navigate to lawyer consultation tab
+          }}
+          onProceedAnyway={() => {
+            setShowLawyerWarning(false)
+          }}
+        />
+      )}
+
       <div className="min-h-screen bg-[#f5f0e8]">
         <AppNavbar />
         <div className="flex">
           <div className="hidden md:block w-64"></div>
-          <div className="flex-1 mt-20 md:mt-0 pt-6 pb-12">
+          <div className="flex-1 mt-20 md:mt-0 pt-6 pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header */}
               <div className="mb-8">
@@ -226,7 +274,46 @@ export default function ReportPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <button className="inline-flex items-center gap-2 px-4 py-2 bg-[#b5924c] hover:bg-[#a07f3f] text-white rounded-lg font-medium transition">
+                <button
+                  onClick={() => {
+                    // Create mock analysis object for PDF export
+                    const mockAnalysis = {
+                      fileName: 'MSA_Company_X.pdf',
+                      overallScore: 6.8,
+                      riskLevel: 'High',
+                      completenessScore: 75,
+                      clauses: [
+                        {
+                          id: 1,
+                          title: 'Unlimited Liability Indemnification',
+                          type: 'Liability',
+                          riskScore: 92,
+                          riskLevel: 'Critical',
+                          agent: 'Risk Scoring',
+                          negotiable: true,
+                          confidence: 94,
+                          original:
+                            'The indemnifying party shall hold harmless the indemnified party from all claims, damages, losses, and expenses arising from any breach of this agreement, without limitation.',
+                          plain: 'You promise to cover all damages if something goes wrong with this contract, with no upper limit on how much you could owe. This could expose you to massive financial risk.',
+                          counter:
+                            "Each party's total liability shall be limited to the fees paid in the preceding 12 months, except for breaches of confidentiality or IP infringement which remain uncapped.",
+                          financialExposure: '₹5,00,00,000+',
+                          regulatoryNote: 'Indian Contract Act 1872, Section 140 - Indemnification must be reasonable'
+                        }
+                      ],
+                      agentOutputs: {
+                        completeness: { score: 70, status: 'Incomplete', missing: ['Force Majeure'], present: ['Confidentiality'] },
+                        risk: { score: 72, critical: 1, high: 2, medium: 3, low: 4, topRisk: 'Unlimited liability' },
+                        negotiation: { counterTermsGenerated: 6, strategy: 'Balanced approach', mostLeverageClause: 'Liability caps' },
+                        consistency: { contradictions: 2, issues: ['Liability contradicts indemnification'] },
+                        regulatory: { complianceScore: 80, violations: [], jurisdiction: 'Indian' },
+                        explanation: { readabilityScore: 8, grade: 'A', summary: 'Master Service Agreement with moderate risks' }
+                      }
+                    }
+                    exportReportPDF(mockAnalysis)
+                  }}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#b5924c] hover:bg-[#a07f3f] text-white rounded-lg font-medium transition"
+                >
                   <Download className="w-4 h-4" />
                   Download PDF
                 </button>
@@ -332,6 +419,7 @@ export default function ReportPage() {
             </div>
           </div>
         </div>
+        <DisclaimerBar />
       </div>
     </ProtectedRoute>
   )
