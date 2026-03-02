@@ -10,10 +10,10 @@ import { showToast } from '@/components/ui/Toast'
 
 const navItems = [
   { icon: '🏠', label: 'Dashboard', href: '/home' },
-  { icon: '📋', label: 'Contract Analysis', href: '/contracts' },
-  { icon: '🏢', label: 'Entities & Compliance', href: '/contracts' },
-  { icon: '⚠️', label: 'Risk Management', href: '/dashboard' },
-  { icon: '📊', label: 'Reports & Summaries', href: '/reports' },
+  { icon: '📄', label: 'Upload & Analyze', href: '/analysis' },
+  { icon: '📋', label: 'My Contracts', href: '/contracts' },
+  { icon: '⚠️', label: 'Risk Dashboard', href: '/dashboard' },
+  { icon: '📊', label: 'Reports', href: '/report' },
 ]
 
 const favorites = [
