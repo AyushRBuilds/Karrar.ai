@@ -263,13 +263,18 @@ export default function ReportPage() {
       <div className="min-h-screen bg-[#f5f0e8]">
         <AppNavbar />
         <div className="flex">
-          <div className="hidden md:block w-64"></div>
+          <div className="hidden md:block w-80"></div>
           <div className="flex-1 mt-20 md:mt-0 pt-6 pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header */}
               <div className="mb-8">
-                <h1 className="text-4xl font-serif font-bold text-[#1c1a17] mb-2">Comprehensive Analysis Report</h1>
-                <p className="text-lg text-[#7a7068]">MSA_Company_X.pdf - Generated {new Date().toLocaleDateString()}</p>
+                <h1 className="text-4xl font-serif font-bold text-[#1c1a17] mb-2">Contract Intelligence Report</h1>
+                <p className="text-lg text-[#7a7068]">
+                  <span className="text-[#c49e6c] font-semibold">hackanova.pdf</span> • 
+                  <span className="text-[#c49e6c]"> 6 agents</span> • 
+                  <span className="text-[#c49e6c]"> 7 clauses</span> • 
+                  <span className="text-[#7a7068]"> India – Central</span>
+                </p>
               </div>
 
               {/* Action Buttons */}

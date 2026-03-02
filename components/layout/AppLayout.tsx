@@ -50,7 +50,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-screen w-64 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-r border-[#2a2a30] dark:border-[#2a2a30] z-40 transform transition-transform md:transform-none ${
+      <aside className={`fixed left-0 top-0 h-screen w-80 bg-[#1a1a1f] dark:bg-[#1a1a1f] border-r border-[#2a2a30] dark:border-[#2a2a30] z-40 transform transition-transform md:transform-none ${
         isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
       } pt-20 md:pt-0 overflow-y-auto`}>
         {/* Logo on mobile */}

@@ -42,14 +42,14 @@ export default function DashboardPage() {
         <AppNavbar />
 
         <div className="flex">
-          <div className="hidden md:block w-64"></div>
+          <div className="hidden md:block w-80"></div>
 
           <div className="flex-1 mt-20 md:mt-0 pt-6 pb-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header */}
               <div className="mb-6 sm:mb-8">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#1c1a17] mb-2">Dashboard</h1>
-                <p className="text-sm sm:text-base lg:text-lg text-[#7a7068]">Audit, analyze, and negotiate your contracts effortlessly.</p>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#1c1a17] mb-2">Risk Intelligence Hub</h1>
+                <p className="text-sm sm:text-base lg:text-lg text-[#7a7068]">Monitor, analyze, and manage contract risks across your portfolio in real-time.</p>
               </div>
 
               {/* Stats */}
