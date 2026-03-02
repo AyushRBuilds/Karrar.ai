@@ -1171,107 +1171,6 @@ export default function Page() {
     </AnimatePresence>
   );
 }
-const MOCK_ANALYSIS = {
-  overallScore: 7.8,
-  riskLevel: "High",
-  completenessScore: 82,
-  clauses: [
-    {
-      id:1, title:"Unilateral Termination Without Cause", type:"Termination",
-      riskScore:91, riskLevel:"Critical", agent:"Risk Scoring", negotiable:true, confidence:96,
-      original:"The Client may terminate this agreement at any time without prior notice and without liability for any work completed or in progress.",
-      plain:"The client can cancel your project ANY time, for ANY reason, without paying you a single rupee for work already done — even if you spent weeks on it.",
-      counter:"Either party may terminate this agreement with a minimum of 30 days written notice. Upon termination, the Client shall pay for all work completed up to the date of termination, calculated on a pro-rata basis at the agreed project rate.",
-      financialExposure:"₹50,000–₹2,00,000",
-    },
-    {
-      id:2, title:"Unlimited IP Assignment on Creation", type:"Intellectual Property",
-      riskScore:88, riskLevel:"High", agent:"Risk Scoring", negotiable:true, confidence:94,
-      original:"All work product, including designs, code, documents, and deliverables created under this agreement, shall become the sole and exclusive property of the Client immediately upon creation.",
-      plain:"Everything you create instantly becomes the client's property the moment you make it — before they even pay you. You permanently lose all rights to your own work.",
-      counter:"All work product shall become the sole property of the Client upon receipt of full payment for the deliverable. Until full payment is received, the Contractor retains all intellectual property rights.",
-      financialExposure:"₹1,00,000–₹10,00,000+",
-    },
-    {
-      id:3, title:"Non-Compete Clause — 2 Years Industry-Wide", type:"Non-Compete",
-      riskScore:85, riskLevel:"High", agent:"Regulatory Adaptation", negotiable:true, confidence:91,
-      original:"For a period of two (2) years following termination of this agreement, the Contractor shall not engage in any business activity that directly or indirectly competes with the Client.",
-      plain:"After this contract ends, you cannot work in your own industry for 2 full years. This could prevent you from taking any client, job, or project in your field anywhere in India.",
-      counter:"The Contractor shall not directly solicit the Client's existing clients for 6 months following termination. This restriction shall not prevent the Contractor from engaging in their profession generally.",
-      financialExposure:"Career restriction — Very High impact",
-      regulatoryNote:"⚖ Under Section 27 of the Indian Contract Act, 1872, blanket non-compete clauses are void and unenforceable in India. This clause may be void ab initio.",
-    },
-    {
-      id:4, title:"Liability Cap Below Project Value", type:"Liability",
-      riskScore:73, riskLevel:"High", agent:"Risk Scoring", negotiable:true, confidence:89,
-      original:"In no event shall either party's liability exceed INR 5,000 regardless of the nature or basis of the claim.",
-      plain:"Even if the client causes you a ₹5 lakh loss, they can only be held liable for ₹5,000. This cap is likely far below the value of your project.",
-      counter:"Each party's liability shall be limited to the total fees paid or payable under this agreement in the 3 months preceding the claim, but not less than INR 50,000.",
-      financialExposure:"₹5,000 cap vs. actual project value",
-    },
-    {
-      id:5, title:"Payment Terms Internal Contradiction", type:"Consistency",
-      riskScore:61, riskLevel:"Medium", agent:"Consistency", negotiable:true, confidence:98,
-      original:"Clause 4.2: 'Payment within 30 days of invoice.' Clause 9.7: 'Payment within 60 days of invoice approval.'",
-      plain:"Your contract says two different things about when you get paid — 30 days in one place, 60 days in another. The client will use whichever is longer.",
-      counter:"All invoices shall be paid within 30 days of submission. Any invoice not disputed in writing within 7 days of receipt shall be deemed approved and immediately payable.",
-      financialExposure:"30-day cash flow delay risk",
-    },
-    {
-      id:6, title:"Missing Annexure — Scope & Payment Schedules", type:"Completeness",
-      riskScore:55, riskLevel:"Medium", agent:"Completeness", negotiable:false, confidence:100,
-      original:"This agreement incorporates Schedule A (Scope of Work) and Schedule B (Payment Milestones), which are attached hereto and form part of this agreement.",
-      plain:"This contract refers to 2 schedules that define exactly what you must do and when you get paid — but they are NOT attached. You are agreeing to terms you have never seen.",
-      counter:"Do NOT sign. Request Schedule A and Schedule B from the client immediately. These define your obligations and payment structure — they are not optional.",
-      financialExposure:"Unknown — schedules unreviewed",
-    },
-    {
-      id:7, title:"Exclusive Delhi Jurisdiction", type:"Dispute Resolution",
-      riskScore:38, riskLevel:"Low", agent:"Regulatory Adaptation", negotiable:true, confidence:82,
-      original:"All disputes shall be subject to the exclusive jurisdiction of the courts in New Delhi, India.",
-      plain:"If there's any dispute, you must file in Delhi courts — even if you live in Mumbai or Bangalore. Travel costs and distance create a practical barrier to getting justice.",
-      counter:"Disputes shall first be resolved by arbitration under the Indian Arbitration & Conciliation Act, 1996. If unresolved, courts in [Contractor's city] shall have non-exclusive jurisdiction.",
-      financialExposure:"Travel/legal costs in dispute",
-    },
-  ],
-  agentOutputs: {
-    completeness: { score:82, status:"Incomplete", missing:["Schedule A — Scope of Work","Schedule B — Payment Milestones"], present:["Main Agreement","Definitions","Signature Page","Governing Law"] },
-    risk:         { score:7.8, critical:1, high:3, medium:2, low:1, topRisk:"Unilateral Termination Without Cause" },
-    negotiation:  { counterTermsGenerated:6, strategy:"Lead with S.27 ICA voidability of non-compete, then link IP rights to payment receipt. High leverage on termination notice.", mostLeverageClause:"Non-Compete (void under Indian law)" },
-    consistency:  { contradictions:2, issues:["Payment terms: Clause 4.2 (30 days) vs Clause 9.7 (60 days)","Termination notice: Clause 6.1 (14 days) vs Clause 11.3 (immediate)"] },
-    regulatory:   { complianceScore:68, violations:["Non-compete (Cl.3) likely void under Indian Contract Act S.27","No data protection clause per DPDP Act 2023","Liability cap (Cl.4) may be unconscionable under S.23 ICA"], jurisdiction:"India — Central / Maharashtra" },
-    explanation:  { readabilityScore:22, grade:"Extremely Dense", summary:"This contract heavily favours the client. Critical issues: unilateral termination with zero payment protection, immediate IP assignment before payment, and a 2-year non-compete that is almost certainly unenforceable under Indian law. Do not sign without negotiating clauses 1, 2, and 3 at minimum." },
-  },
-};
-
-export default function Page() {
-  const [page, setPage] = useState("landing");
-  const [user] = useState({ name: "John S.", email: "demo@karrar.ai", initials: "JS" });
-
-  return (
-    <AnimatePresence mode="wait">
-      {page === "landing" && (
-        <motion.div
-          key="landing"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <KarrarLanding onLogin={() => setPage("login")} />
-        </motion.div>
-      )}
-      {page === "login" && (
-        <motion.div
-          key="login"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <LoginPage onBack={() => setPage("landing")} onSuccess={() => setPage("dashboard")} />
-        </motion.div>
-      )}
       {page === "dashboard" && (
         <motion.div
           key="dashboard"
@@ -1286,28 +1185,6 @@ export default function Page() {
     </AnimatePresence>
   );
 }
-              <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginBottom:18 }}>
-                {[
-                  {v:"3,468",l:"Total Contracts",c:"#C49E6C",icon:<svg width="16" height="16" fill="none" stroke="#C49E6C" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>},
-                  {v:"312",  l:"High Risks",      c:"#ef4444",icon:<svg width="16" height="16" fill="none" stroke="#ef4444" strokeWidth="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>},
-                  {v:"94%", l:"Flagged Terms",    c:"#f59e0b",icon:<svg width="16" height="16" fill="none" stroke="#f59e0b" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>},
-                ].map(({v,l,c,icon},i)=>(
-                  <motion.div key={i} className="stat" whileHover={{scale:1.02}}>
-                    <div style={{ width:32,height:32,borderRadius:9,background:`${c}12`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:10 }}>{icon}</div>
-                    <div style={{ fontSize:26,fontWeight:700,color:c,fontFamily:"Playfair Display,serif",letterSpacing:"-0.02em" }}>{v}</div>
-                    <div style={{ fontSize:11,color:"#333",marginTop:3 }}>{l}</div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Alert */}
-              <motion.div initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} transition={{delay:0.1}} style={{ background:"rgba(245,158,11,0.06)",border:"1px solid rgba(245,158,11,0.16)",borderRadius:10,padding:"11px 15px",marginBottom:16,display:"flex",alignItems:"center",gap:11 }}>
-                <svg width="15" height="15" fill="none" stroke="#f59e0b" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                <div style={{ flex:1,fontSize:13 }}><span style={{ color:"#f59e0b",fontWeight:600 }}>Alert: </span><span style={{ color:"#F5D08A",fontWeight:600 }}>MSA_Company_X.pdf </span><span style={{ color:"#666" }}>has 1 critical risk &amp; 3 high risk clauses</span></div>
-                <button className="qbtn" style={{ fontSize:11,padding:"4px 11px" }} onClick={()=>{setActiveNav("Reports");}}>View Report →</button>
-              </motion.div>
-
-              {/* ── UPLOAD PHASE: idle ── */}
               {uploadPhase==="idle" && (
                 <div className="uzone" onDragOver={e=>{e.preventDefault();e.currentTarget.classList.add("drag");}} onDragLeave={e=>e.currentTarget.classList.remove("drag")} onDrop={handleFile} onClick={()=>fileRef.current?.click()}>
                   <input ref={fileRef} type="file" style={{display:"none"}} accept=".pdf,.doc,.docx" onChange={handleFile}/>
