@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView, useAnimation } from "framer-motion";
 import { LoginPage } from "./components/LoginPage";
 import { DashboardPage } from "./components/DashboardPage";
 
@@ -474,7 +474,7 @@ function DashboardPreview() {
 }
 
 // ── Main Component ───────────────────────────────────────────────
-function KarrarLanding({ onLogin }) {
+export function KarrarLanding({ onLogin }: { onLogin: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState("Home");
   const dashRef = useRef(null);
@@ -2006,7 +2006,7 @@ export default function Page() {
                       )}
                       {userDecision==="lawyer" && (
                         <motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} style={{ background:"rgba(139,92,246,0.04)",border:"1px solid rgba(139,92,246,0.18)",borderRadius:13,padding:"18px 20px" }}>
-                          <div style={{ fontSize:14,fontWeight:600,color:"#c4b5fd",marginBottom:10 }}>⚖️ Lawyer Brief — Critical Sections Only</div>
+                          <div style={{ fontSize:14,fontWeight:600,color:"#c4b5fd",marginBottom:10 }}>⚖️ Lawyer Brief ��� Critical Sections Only</div>
                           <div style={{ fontSize:12,color:"#666",lineHeight:1.75,marginBottom:12 }}>Instead of paying ₹5,000–₹50,000 for a full review, show your lawyer only these {analysis.clauses.filter(c=>c.riskLevel==="Critical"||c.riskLevel==="High").length} high-risk sections. Estimated saving: <span style={{ color:"#22c55e",fontWeight:600 }}>₹30,000–₹45,000</span></div>
                           {analysis.clauses.filter(c=>c.riskLevel==="Critical"||c.riskLevel==="High").map(c=>(
                             <div key={c.id} style={{ background:"#0A0B0E",border:"1px solid rgba(139,92,246,0.12)",borderRadius:10,padding:"12px 14px",marginBottom:10 }}>
