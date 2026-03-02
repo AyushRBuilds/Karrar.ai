@@ -1,7 +1,7 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { LegalWatermark } from '@/components/ui/LegalWatermark'
+import { KarrarLogo } from '@/components/ui/KarrarLogo'
 
 export function HeroSection() {
   return (
@@ -17,13 +17,7 @@ export function HeroSection() {
 
         {/* Logo */}
         <div className="animate-fade-in [animation-delay:0.2s]">
-          <Image
-            src="/karrar-logo.png"
-            alt="Karrar.ai"
-            width={120}
-            height={120}
-            priority
-          />
+          <KarrarLogo size={120} wordmark={false} />
         </div>
 
         {/* Branding */}

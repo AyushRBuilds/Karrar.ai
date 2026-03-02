@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
+import { KarrarLogo } from "@/components/ui/KarrarLogo";
 
 // ── Watermark Legal SVGs ─────────────────────────────────────────
 const WmScales = ({ size }) => (
@@ -51,26 +52,7 @@ const LEGAL_ICONS = [
   { x: 72, y: 38, size: 38, rot: -6,  Ic: WmPillar },
 ];
 
-// ── Logo ────────────────────────────────────────────────────────
-const KarrarLogo = ({ size = 40 }) => (
-  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-    <div style={{ width: size, height: size, position: "relative" }}>
-      <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-        <path d="M24 3L6 11v14c0 11 7.5 21.3 18 24 10.5-2.7 18-13 18-24V11L24 3z" fill="url(#shield-grad)" />
-        <path d="M24 3L6 11v14c0 11 7.5 21.3 18 24 10.5-2.7 18-13 18-24V11L24 3z" fill="none" stroke="rgba(196,158,108,0.6)" strokeWidth="1" />
-        <text x="24" y="29" textAnchor="middle" fill="#000" fontSize="16" fontWeight="900" fontFamily="Georgia, serif">K</text>
-        <defs>
-          <linearGradient id="shield-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#C49E6C" /><stop offset="1" stopColor="#F5D08A" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-    <span style={{ fontFamily: "Playfair Display, serif", fontSize: size * 0.55, fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.02em" }}>Karrar.ai</span>
-  </div>
-);
-
-// ── Risk Badge ──────────────────────────────────────────────────
+// ── Main component ───────────────────────────────────────────────
 const RiskBadge = ({ score, size = "sm" }) => {
   const color = score >= 8 ? "#ef4444" : score >= 6 ? "#f59e0b" : "#22c55e";
   const label = score >= 8 ? "HIGH" : score >= 6 ? "MED" : "LOW";
