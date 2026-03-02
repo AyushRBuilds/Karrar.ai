@@ -33,8 +33,45 @@ const riskData = [
   }
 ]
 
+const mockActivityData = [
+  { id: 1, name: 'MSA_Company_X.pdf', time: '13 min ago', type: 'contract', status: 'Critical Risk', details: '1 critical clause found requiring attention' },
+  { id: 2, name: 'Freelancer_NDA.docx', time: '1 hour ago', type: 'contract', status: 'Medium Risk', details: 'Non-compete clause flagged' },
+  { id: 3, name: 'SBA_India_Company.pdf', time: '5 hours ago', type: 'contract', status: 'Low Risk', details: 'Standard terms detected' }
+]
+
+const mockEntitiesData = [
+  { id: 1, name: 'Company.X', type: 'Company', contracts: 24, riskLevel: 'High', industry: 'Technology' },
+  { id: 2, name: 'Freelancer Y', type: 'Individual', contracts: 8, riskLevel: 'Medium', industry: 'Design' },
+  { id: 3, name: 'Blue Corp Ltd', type: 'Company', contracts: 15, riskLevel: 'Low', industry: 'Finance' }
+]
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('risks')
+  const [mainWidth, setMainWidth] = useState(65) // percentage
+  const [isResizing, setIsResizing] = useState(false)
+  const [selectedActivity, setSelectedActivity] = useState<typeof mockActivityData[0] | null>(null)
+  const [selectedEntity, setSelectedEntity] = useState<typeof mockEntitiesData[0] | null>(null)
+
+  const handleMouseDown = () => {
+    setIsResizing(true)
+  }
+
+  const handleMouseUp = () => {
+    setIsResizing(false)
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isResizing) return
+
+    const container = e.currentTarget as HTMLElement
+    const rect = container.getBoundingClientRect()
+    const newWidth = ((e.clientX - rect.left) / rect.width) * 100
+
+    // Constrain between 50% and 80%
+    if (newWidth >= 50 && newWidth <= 80) {
+      setMainWidth(newWidth)
+    }
+  }
 
   return (
     <ProtectedRoute>
@@ -72,10 +109,16 @@ export default function DashboardPage() {
                 </button>
               </div>
 
-              {/* Two Column Layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-                {/* Left: Contract Analysis (60%) */}
-                <div className="lg:col-span-2">
+              {/* Two Column Layout with Resizable Divider */}
+              <div 
+                className="flex gap-0 h-fit"
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                style={{ cursor: isResizing ? 'col-resize' : 'default' }}
+              >
+                {/* Left: Contract Analysis */}
+                <div style={{ width: `${mainWidth}%`, minWidth: '300px', paddingRight: '12px' }}>
                   <div className="card bg-[#1a1f3a] p-4 sm:p-6">
                     {/* Tabs */}
                     <div className="flex items-center gap-2 sm:gap-4 mb-6 border-b border-[#2a3554] overflow-x-auto">
@@ -137,8 +180,18 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                {/* Right: Panels (40%) */}
-                <div className="space-y-6">
+                {/* Resize Divider */}
+                <div
+                  className="w-1 bg-[#2a3554] hover:bg-[#d4af37] cursor-col-resize transition-colors flex-shrink-0 hidden lg:block"
+                  onMouseDown={handleMouseDown}
+                  title="Drag to resize panels"
+                />
+
+                {/* Right: Risk Breakdown Sidebar */}
+                <div 
+                  className="space-y-6 hidden lg:block flex-shrink-0"
+                  style={{ width: `${100 - mainWidth}%`, minWidth: '250px' }}
+                >
                   {/* Risk Breakdown */}
                   <div className="card bg-white p-6">
                     <h3 className="font-serif font-bold text-[#1c1a17] mb-4">Risk Breakdown</h3>
