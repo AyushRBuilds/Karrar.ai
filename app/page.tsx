@@ -1128,71 +1128,51 @@ function KarrarLanding({ onLogin }) {
     </div>
   );
 }
+
+export default function Page() {
+  const [page, setPage] = useState("landing");
+  const [user] = useState({ name: "John S.", email: "demo@karrar.ai", initials: "JS" });
+
   return (
-    <div style={{
-      minHeight: "100vh", background: "#000000", display: "flex",
-      flexDirection: "column", alignItems: "center", justifyContent: "center",
-      fontFamily: "DM Sans, sans-serif", color: "#FFFFFF", position: "relative", overflow: "hidden",
-    }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        .li { width:100%; background:#0D0F13; border:1px solid #222530; border-radius:12px; padding:14px 16px; color:#FFFFFF; font-size:14px; font-family:"DM Sans",sans-serif; outline:none; transition:border-color 0.2s,box-shadow 0.2s; }
-        .li::placeholder { color:#3A3D48; }
-        .li:focus { border-color:rgba(196,158,108,0.55); box-shadow:0 0 0 3px rgba(196,158,108,0.07), 0 0 20px rgba(196,158,108,0.06); }
-        .li:hover:not(:focus) { border-color:#333645; }
-        .lgbtn { width:100%; background:linear-gradient(135deg,#C49E6C 0%,#F5D08A 60%,#C49E6C 100%); background-size:200% auto; color:#000; font-weight:700; font-size:15px; border:none; border-radius:12px; padding:14px; cursor:pointer; font-family:"DM Sans",sans-serif; letter-spacing:0.02em; transition:all 0.25s; }
-        .lgbtn:hover { background-position:right center; box-shadow:0 0 40px rgba(196,158,108,0.5),0 8px 24px rgba(0,0,0,0.5); transform:translateY(-1px); }
-        .lgbtn:active { transform:translateY(0); }
-        .ggbtn { width:100%; background:#0D0F13; color:#C8CAD2; font-size:14px; border:1px solid #222530; border-radius:12px; padding:13px; cursor:pointer; font-family:"DM Sans",sans-serif; font-weight:500; display:flex; align-items:center; justify-content:center; gap:10px; transition:all 0.2s; }
-        .ggbtn:hover { border-color:rgba(196,158,108,0.3); background:#111318; color:#fff; }
-        .lnk { color:#C49E6C; cursor:pointer; font-weight:600; transition:color 0.15s; }
-        .lnk:hover { color:#F5D08A; }
-        .lchk { width:15px; height:15px; accent-color:#C49E6C; cursor:pointer; }
-        @keyframes loginIn { from{opacity:0;transform:translateY(32px) scale(0.97)} to{opacity:1;transform:translateY(0) scale(1)} }
-        @keyframes gridPulse { 0%,100%{opacity:0.35} 50%{opacity:0.55} }
-      `}</style>
+    <AnimatePresence mode="wait">
+      {page === "landing" && (
+        <motion.div
+          key="landing"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <KarrarLanding onLogin={() => setPage("login")} />
+        </motion.div>
+      )}
+      {page === "login" && (
+        <motion.div
+          key="login"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <LoginPage onBack={() => setPage("landing")} onSuccess={() => setPage("dashboard")} />
+        </motion.div>
+      )}
+      {page === "dashboard" && (
+        <motion.div
+          key="dashboard"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <DashboardPage user={user} onLogout={() => setPage("landing")} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
-      {/* Cursor glow */}
-      <div style={{ position:"fixed", pointerEvents:"none", zIndex:9999, left:mouse.x-300, top:mouse.y-300, width:600, height:600, background:"radial-gradient(circle, rgba(196,158,108,0.08) 0%, rgba(196,158,108,0.03) 35%, transparent 70%)", borderRadius:"50%", transition:"left 0.08s ease-out, top 0.08s ease-out" }} />
 
-      {/* Dot grid */}
-      <div style={{ position:"fixed", inset:0, backgroundImage:"radial-gradient(circle, #b5924c1a 1px, transparent 1px)", backgroundSize:"28px 28px", pointerEvents:"none", zIndex:0, animation:"gridPulse 6s ease-in-out infinite" }} />
-
-      {/* Radial ambient glow */}
-      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:700, height:700, background:"radial-gradient(circle, rgba(196,158,108,0.055) 0%, transparent 60%)", borderRadius:"50%", pointerEvents:"none", zIndex:0 }} />
-      <div style={{ position:"fixed", top:"-10%", right:"-5%", width:400, height:400, background:"radial-gradient(circle, rgba(196,158,108,0.025) 0%, transparent 60%)", borderRadius:"50%", pointerEvents:"none", zIndex:0 }} />
-
-      {/* Back button */}
-      <motion.button
-        initial={{ opacity:0, x:-20 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.4 }}
-        onClick={onBack}
-        style={{ position:"fixed", top:24, left:28, background:"rgba(15,16,20,0.8)", backdropFilter:"blur(8px)", border:"1px solid #1E2228", borderRadius:8, color:"#666", fontSize:13, padding:"7px 15px", cursor:"pointer", display:"flex", alignItems:"center", gap:6, zIndex:100, fontFamily:"DM Sans, sans-serif" }}
-        whileHover={{ borderColor:"rgba(196,158,108,0.35)", color:"#C49E6C" }}
-        whileTap={{ scale:0.97 }}
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
-      </motion.button>
-
-      {/* Card */}
-      <motion.div
-        initial={{ opacity:0, y:36, scale:0.96 }}
-        animate={{ opacity:1, y:0, scale:1 }}
-        transition={{ duration:0.7, ease:[0.22,1,0.36,1] }}
-        style={{
-          position:"relative", zIndex:10,
-          width:"100%", maxWidth:400, margin:"0 16px",
-          background:"linear-gradient(160deg, #0E1016 0%, #090A0D 100%)",
-          border:"1px solid #1A1D26",
-          borderRadius:22,
-          padding:"36px 32px 28px",
-          boxShadow:"0 40px 100px rgba(0,0,0,0.85), 0 0 0 0.5px rgba(196,158,108,0.08), 0 0 80px rgba(196,158,108,0.03)",
-        }}
-      >
-        {/* Top shimmer line */}
-        <div style={{ position:"absolute", top:0, left:"15%", right:"15%", height:1, background:"linear-gradient(90deg, transparent, rgba(196,158,108,0.6), transparent)", borderRadius:1 }} />
-        {/* Bottom faint line */}
         <div style={{ position:"absolute", bottom:0, left:"30%", right:"30%", height:1, background:"linear-gradient(90deg, transparent, rgba(196,158,108,0.15), transparent)", borderRadius:1 }} />
 
         {/* Logo lockup */}
