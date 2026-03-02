@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Upload } from 'lucide-react'
 import { showToast } from './Toast'
-import { analyzeContractPDF } from '@/lib/api'
+import { analyzeContractAction } from '@/app/actions/analyzeContract'
 
 interface UploadZoneProps {
   onUpload?: (fileName: string) => void
@@ -75,8 +75,10 @@ export function UploadZone({ onUpload, onAnalysisComplete, disabled, disabledMes
         setUploadProgress(((i + 1) / agentSteps.length) * 100)
       }
 
-      // Call real API
-      const analysis = await analyzeContractPDF(file)
+      // Call server action with real API
+      const buffer = await file.arrayBuffer()
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
+      const analysis = await analyzeContractAction(base64, file.name)
 
       // Save to history
       const history = JSON.parse(localStorage.getItem('contracts-history') || '[]')

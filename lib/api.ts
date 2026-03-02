@@ -34,7 +34,7 @@ export async function analyzeContractPDF(file: File): Promise<AnalysisResult> {
     const buffer = await file.arrayBuffer()
     const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
 
-    const apiKey = process.env.NEXT_PUBLIC_ANTHROPIC_API_KEY
+    const apiKey = process.env.ANTHROPIC_API_KEY
     if (!apiKey) {
       console.warn('[v0] No Anthropic API key found, using mock data')
       return generateMockAnalysis(file.name)
