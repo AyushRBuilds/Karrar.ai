@@ -38,7 +38,7 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-[#f5f0e8]">
+      <div className="min-h-screen bg-[#0a0e1a]">
         <AppNavbar />
 
         <div className="flex">
@@ -48,8 +48,8 @@ export default function DashboardPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header */}
               <div className="mb-6 sm:mb-8">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#1c1a17] mb-2">Risk Intelligence Hub</h1>
-                <p className="text-sm sm:text-base lg:text-lg text-[#7a7068]">Monitor, analyze, and manage contract risks across your portfolio in real-time.</p>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#ffffff] mb-2">Risk Intelligence Hub</h1>
+                <p className="text-sm sm:text-base lg:text-lg text-[#a8b3c7]">Monitor, analyze, and manage contract risks across your portfolio in real-time.</p>
               </div>
 
               {/* Stats */}
@@ -60,14 +60,14 @@ export default function DashboardPage() {
               </div>
 
               {/* Alert Banner */}
-              <div className="bg-[#fef9ee] border-l-4 border-[#f39c12] p-3 sm:p-4 rounded-lg mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0">
+              <div className="bg-[#1a1f3a] border-l-4 border-[#d4af37] p-3 sm:p-4 rounded-lg mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0">
                 <div className="flex items-start gap-3">
                   <span className="text-xl sm:text-2xl flex-shrink-0">⚠️</span>
                   <div className="min-w-0">
-                    <p className="font-medium text-[#1c1a17] text-sm sm:text-base break-words">Alert: Contract MSA_Company_X.pdf has 1 high risk & 3 moderate risks</p>
+                    <p className="font-medium text-[#ffffff] text-sm sm:text-base break-words">Alert: Contract MSA_Company_X.pdf has 1 high risk & 3 moderate risks</p>
                   </div>
                 </div>
-                <button className="text-[#b5924c] hover:text-[#1c1a17] font-medium text-sm whitespace-nowrap">
+                <button className="text-[#d4af37] hover:text-[#e8c547] font-medium text-sm whitespace-nowrap">
                   View Analysis →
                 </button>
               </div>
@@ -76,15 +76,15 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 {/* Left: Contract Analysis (60%) */}
                 <div className="lg:col-span-2">
-                  <div className="card bg-white p-4 sm:p-6">
+                  <div className="card bg-[#1a1f3a] p-4 sm:p-6">
                     {/* Tabs */}
-                    <div className="flex items-center gap-2 sm:gap-4 mb-6 border-b border-[#e0d9ce] overflow-x-auto">
+                    <div className="flex items-center gap-2 sm:gap-4 mb-6 border-b border-[#2a3554] overflow-x-auto">
                       <button
                         onClick={() => setActiveTab('risks')}
                         className={`pb-4 font-medium transition text-sm sm:text-base whitespace-nowrap ${
                           activeTab === 'risks'
-                            ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
-                            : 'text-[#7a7068]'
+                            ? 'text-[#d4af37] border-b-2 border-[#d4af37]'
+                            : 'text-[#a8b3c7]'
                         }`}
                       >
                         Risks
@@ -93,8 +93,8 @@ export default function DashboardPage() {
                         onClick={() => setActiveTab('keypoints')}
                         className={`pb-4 font-medium transition text-sm sm:text-base whitespace-nowrap ${
                           activeTab === 'keypoints'
-                            ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
-                            : 'text-[#7a7068]'
+                            ? 'text-[#d4af37] border-b-2 border-[#d4af37]'
+                            : 'text-[#a8b3c7]'
                         }`}
                       >
                         Key Points
