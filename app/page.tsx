@@ -552,7 +552,7 @@ function KarrarLanding({ onLogin }) {
 
   return (
     <div style={{ fontFamily: "DM Sans, sans-serif", background: "#000000", color: "#FFFFFF", overflowX: "hidden", position: "relative" }}>
-      {/* ── CURSOR GLOW ── follows mouse, gold radial with smooth motion */}
+      {/* ── CURSOR GLOW ── follows mouse, gold radial with ultra-smooth motion */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9998,
         left: mouse.x - 350, top: mouse.y - 350,
@@ -560,11 +560,11 @@ function KarrarLanding({ onLogin }) {
         background: "radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 25%, rgba(212,175,55,0.02) 50%, transparent 75%)",
         borderRadius: "50%",
         filter: "blur(40px)",
-        transition: "left 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-        willChange: "transform",
+        transition: "left 0.02s linear, top 0.02s linear",
+        willChange: "left, top",
       }} />
       
-      {/* ── SECONDARY GLOW LAYER for enhanced smoothness ── */}
+      {/* ── SECONDARY GLOW LAYER for cascading effect ── */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9997,
         left: mouse.x - 250, top: mouse.y - 250,
@@ -572,7 +572,7 @@ function KarrarLanding({ onLogin }) {
         background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.02) 40%, transparent 70%)",
         borderRadius: "50%",
         filter: "blur(60px)",
-        transition: "left 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        transition: "left 0.04s linear, top 0.04s linear",
       }} />
       
       {/* ── AMBIENT BACKGROUND GLOWS (static, scattered) with animations ── */}
