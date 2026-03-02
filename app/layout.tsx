@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: 'Karrar.ai - Legal AI for Indian Contracts',
   description: 'India\'s first Multi-Agent Legal AI. Audit contracts, analyze risks & draft counter-terms under Indian Law.',
   generator: 'v0.app',
+  viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes',
   icons: {
     icon: '/karrar-logo.png',
     apple: '/karrar-logo.png',
