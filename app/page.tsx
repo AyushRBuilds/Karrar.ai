@@ -1455,6 +1455,7 @@ function DashboardPage({ user, onLogout }) {
   const [filterRisk,     setFilterRisk]     = useState("All");
   const [copiedId,       setCopiedId]       = useState(null);
   const [userDecision,   setUserDecision]   = useState(null); // null|sign|negotiate|lawyer
+  const [riskBreakdown,  setRiskBreakdown]  = useState({ high: 1, med: 17, low: 70 });
   const fileRef    = useRef(null);
   const relatedRef = useRef(null);
 
@@ -1500,6 +1501,17 @@ function DashboardPage({ user, onLogout }) {
         setTimeout(tick, 850);
       } else {
         const result = { ...MOCK_ANALYSIS, fileName: file?.name || "contract.pdf" };
+        // Calculate risk breakdown from clauses
+        const clauses = result.clauses || [];
+        const high = clauses.filter(c => c.riskLevel === "Critical" || c.riskLevel === "High").length;
+        const med = clauses.filter(c => c.riskLevel === "Medium").length;
+        const low = clauses.filter(c => c.riskLevel === "Low").length;
+        const total = high + med + low || 1;
+        setRiskBreakdown({ 
+          high: Math.round((high / total) * 100),
+          med: Math.round((med / total) * 100),
+          low: Math.round((low / total) * 100)
+        });
         setTimeout(() => { setAnalysis(result); setUploadPhase("awaiting_docs"); }, 500);
       }
     };
@@ -1638,8 +1650,8 @@ function DashboardPage({ user, onLogout }) {
           {activeNav==="Home" && (
             <motion.div key="home" initial={{opacity:0,y:14}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:0.38}}>
               <div style={{ marginBottom:22 }}>
-                <h1 style={{ fontFamily:"Playfair Display,serif",fontSize:28,fontWeight:700,marginBottom:3 }}>Dashboard</h1>
-                <p style={{ fontSize:13,color:"#444" }}>Audit, analyze, and negotiate your contracts effortlessly — powered by 6 AI agents.</p>
+                <h1 style={{ fontFamily:"Playfair Display,serif",fontSize:32,fontWeight:900,marginBottom:3,color:"#FFF",letterSpacing:"-0.02em" }}>Dashboard</h1>
+                <p style={{ fontSize:14,color:"#AAA",fontWeight:500 }}>Audit, analyze, and negotiate your contracts effortlessly — powered by 6 AI agents.</p>
               </div>
 
               {/* Stats */}
@@ -1651,8 +1663,8 @@ function DashboardPage({ user, onLogout }) {
                 ].map(({v,l,c,icon},i)=>(
                   <motion.div key={i} className="stat" whileHover={{scale:1.02}}>
                     <div style={{ width:32,height:32,borderRadius:9,background:`${c}12`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:10 }}>{icon}</div>
-                    <div style={{ fontSize:26,fontWeight:700,color:c,fontFamily:"Playfair Display,serif",letterSpacing:"-0.02em" }}>{v}</div>
-                    <div style={{ fontSize:11,color:"#333",marginTop:3 }}>{l}</div>
+                    <div style={{ fontSize:28,fontWeight:900,color:c,fontFamily:"Playfair Display,serif",letterSpacing:"-0.02em" }}>{v}</div>
+                    <div style={{ fontSize:12,color:"#AAA",marginTop:3,fontWeight:600 }}>{l}</div>
                   </motion.div>
                 ))}
               </div>
@@ -1660,7 +1672,7 @@ function DashboardPage({ user, onLogout }) {
               {/* Alert */}
               <motion.div initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} transition={{delay:0.1}} style={{ background:"rgba(245,158,11,0.06)",border:"1px solid rgba(245,158,11,0.16)",borderRadius:10,padding:"11px 15px",marginBottom:16,display:"flex",alignItems:"center",gap:11 }}>
                 <svg width="15" height="15" fill="none" stroke="#f59e0b" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                <div style={{ flex:1,fontSize:13 }}><span style={{ color:"#f59e0b",fontWeight:600 }}>Alert: </span><span style={{ color:"#F5D08A",fontWeight:600 }}>MSA_Company_X.pdf </span><span style={{ color:"#666" }}>has 1 critical risk &amp; 3 high risk clauses</span></div>
+                <div style={{ flex:1,fontSize:14 }}><span style={{ color:"#f59e0b",fontWeight:700 }}>Alert: </span><span style={{ color:"#F5D08A",fontWeight:700 }}>MSA_Company_X.pdf </span><span style={{ color:"#999",fontWeight:500 }}>has 1 critical risk &amp; 3 high risk clauses</span></div>
                 <button className="qbtn" style={{ fontSize:11,padding:"4px 11px" }} onClick={()=>{setActiveNav("Reports");}}>View Report →</button>
               </motion.div>
 
@@ -1674,8 +1686,8 @@ function DashboardPage({ user, onLogout }) {
                       <line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/>
                     </svg>
                   </motion.div>
-                  <div style={{ fontSize:14,fontWeight:600,color:"#CCC",marginBottom:5 }}>Upload Contract — Start AI Analysis</div>
-                  <div style={{ fontSize:12,color:"#333",marginBottom:17 }}>Drag &amp; drop or click · PDF / DOCX · ~90 second analysis by 6 specialized agents</div>
+                  <div style={{ fontSize:16,fontWeight:800,color:"#FFF",marginBottom:5 }}>Upload Contract — Start AI Analysis</div>
+                  <div style={{ fontSize:12,color:"#666",marginBottom:17,fontWeight:500 }}>Drag &amp; drop or click · PDF / DOCX · ~90 second analysis by 6 specialized agents</div>
                   <div style={{ display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:16 }}>
                     {["Completeness","Risk Scoring","Negotiation","Consistency","Regulatory","Explanation"].map(a=>(
                       <span key={a} className="pll" style={{ background:"rgba(196,158,108,0.07)",border:"1px solid rgba(196,158,108,0.15)",color:"#888" }}>{a}</span>
@@ -1730,8 +1742,28 @@ function DashboardPage({ user, onLogout }) {
                       <svg width="15" height="15" fill="none" stroke="#22c55e" strokeWidth="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div style={{ flex:1 }}>
-                      <div style={{ fontSize:14,fontWeight:600,marginBottom:3 }}>All 6 agents completed — <span style={{ color:"#C49E6C" }}>{analysis.fileName}</span></div>
-                      <div style={{ fontSize:12,color:"#555" }}>Upload related documents (annexures, SLAs, prior versions) to improve accuracy, or proceed to your report now.</div>
+                      <div style={{ fontSize:15,fontWeight:800,marginBottom:3,color:"#FFF" }}>All 6 agents completed — <span style={{ color:"#C49E6C" }}>{analysis.fileName}</span></div>
+                      <div style={{ fontSize:12,color:"#777",fontWeight:500 }}>Upload related documents (annexures, SLAs, prior versions) to improve accuracy, or proceed to your report now.</div>
+                      {/* Real-time Risk Breakdown */}
+                      <div style={{ display:"flex",gap:12,marginTop:10,paddingTop:10,borderTop:"1px solid #1A1D22" }}>
+                        <div style={{ flex:1 }}>
+                          <div style={{ fontSize:11,fontWeight:700,color:"#C49E6C",marginBottom:4 }}>RISK BREAKDOWN</div>
+                          <div style={{ display:"flex",gap:8 }}>
+                            <div style={{ textAlign:"center" }}>
+                              <div style={{ fontSize:18,fontWeight:900,color:"#ef4444" }}>{riskBreakdown.high}%</div>
+                              <div style={{ fontSize:10,fontWeight:700,color:"#ef4444",marginTop:2 }}>High</div>
+                            </div>
+                            <div style={{ textAlign:"center" }}>
+                              <div style={{ fontSize:18,fontWeight:900,color:"#f59e0b" }}>{riskBreakdown.med}%</div>
+                              <div style={{ fontSize:10,fontWeight:700,color:"#f59e0b",marginTop:2 }}>Med</div>
+                            </div>
+                            <div style={{ textAlign:"center" }}>
+                              <div style={{ fontSize:18,fontWeight:900,color:"#22c55e" }}>{riskBreakdown.low}%</div>
+                              <div style={{ fontSize:10,fontWeight:700,color:"#22c55e",marginTop:2 }}>Low</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   {/* Quick risk mini */}
