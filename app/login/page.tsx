@@ -224,9 +224,9 @@ export default function LoginPage() {
         style={{
           background: "#1a1f3a",
           borderRadius: 22,
-          padding: "clamp(24px, 8vw, 40px) clamp(20px, 6vw, 36px) clamp(20px, 6vw, 30px)",
+          padding: "clamp(32px, 10vw, 48px) clamp(28px, 8vw, 44px)",
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 500,
           boxShadow: "0 2px 4px rgba(0,0,0,0.2), 0 12px 40px rgba(0,0,0,0.3), 0 32px 80px rgba(0,0,0,0.2)",
           border: "1px solid rgba(212,175,55,0.2)",
         }}
@@ -441,33 +441,19 @@ export default function LoginPage() {
                 Continue with Google
               </button>
             </form>
-
-            {/* Trust badges */}
-            <div style={{marginTop:22,display:"flex",flexDirection:"column",gap:8}}>
-              {[
-                "Your contracts are end-to-end encrypted",
-                "Your contracts are never used for training",
-                "Compliant with Indian data protection standards",
-              ].map((txt,i)=>(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:8}}>
-                  <ShieldCheckIcon/>
-                  <span style={{fontSize:12,color:"#b0a898"}}>{txt}</span>
-                </div>
-              ))}
-            </div>
           </>
         )}
 
         {/* Bottom */}
         {!loginSuccess && (
           <div style={{
-            marginTop:22,paddingTop:18,
-            borderTop:"1px solid #f0ece4",
+            marginTop:28,paddingTop:20,
+            borderTop:"1px solid rgba(212,175,55,0.15)",
             display:"flex",justifyContent:"space-between",alignItems:"center",
           }}>
-            <span style={{fontSize:13,color:"#9a9088"}}>Don't have an account?</span>
+            <span style={{fontSize:13,color:"#7a849e"}}>Don't have an account?</span>
             <span className="link-btn"
-              style={{fontSize:13,color:"#1c1a17",fontWeight:700,transition:"color 0.2s"}}>
+              style={{fontSize:13,color:"#d4af37",fontWeight:700,transition:"color 0.2s"}}>
               Sign up ›
             </span>
           </div>
