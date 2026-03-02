@@ -1,39 +1,62 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* Karrar.ai Design System - Dark Navy + Gold */
+/* Karrar.ai Design System */
 :root {
-  /* Backgrounds - Dark Navy */
-  --bg: #0a0e1a;
-  --bg-alt: #0f1425;
-  --surface: #1a1f3a;
-  --surface-2: #242d4a;
+  /* Backgrounds */
+  --bg: #f5f0e8;
+  --bg-alt: #ede8df;
+  --surface: #ffffff;
+  --surface-2: #faf8f4;
   
   /* Borders & Input */
-  --border: #2a3554;
+  --border: #e0d9ce;
   
   /* Text */
-  --text-primary: #ffffff;
-  --text-muted: #a8b3c7;
-  --text-subtle: #7a849e;
+  --text-primary: #1c1a17;
+  --text-muted: #7a7068;
+  --text-subtle: #b0a898;
   
-  /* Accents - Gold */
-  --gold: #d4af37;
-  --gold-light: #e8c547;
-  --gold-muted: #9d8949;
+  /* Accents */
+  --gold: #b5924c;
+  --gold-light: #d4af72;
+  --gold-muted: #e8d9b8;
   
   /* CTA */
-  --cta: #d4af37;
+  --cta: #1c1a17;
   
   /* Risk Colors */
-  --risk-high: #e74c3c;
-  --risk-med: #f39c12;
-  --risk-low: #95a5a6;
+  --risk-high: #c0392b;
+  --risk-med: #e67e22;
+  --risk-low: #7f8c8d;
   --risk-safe: #27ae60;
   
   /* Alert */
-  --alert-bg: #1a1f3a;
-  --alert-border: #d4af37;
+  --alert-bg: #fef9ee;
+  --alert-border: #f39c12;
+}
+
+/* Dark Mode */
+html.dark {
+  --bg: #0f1115;
+  --bg-alt: #1a1a1f;
+  --surface: #1a1a1f;
+  --surface-2: #242429;
+  
+  --border: #2a2a30;
+  
+  --text-primary: #f5f0e8;
+  --text-muted: #a89883;
+  --text-subtle: #7a7068;
+  
+  --gold: #c49e6c;
+  --gold-light: #d4af72;
+  --gold-muted: #6b5d47;
+  
+  --cta: #f5f0e8;
+  
+  --alert-bg: #2a1f0a;
+  --alert-border: #c49e6c;
 }
 
 @theme inline {
@@ -57,7 +80,11 @@
   }
   
   body {
-    @apply bg-[#0a0e1a] text-[#ffffff] font-sans;
+    @apply bg-[#f5f0e8] text-[#1c1a17] font-sans;
+  }
+  
+  html.dark body {
+    @apply bg-[#0f1115] text-[#f5f0e8];
   }
   
   h1, h2, h3, h4, h5, h6 {

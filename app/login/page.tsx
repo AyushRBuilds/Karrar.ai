@@ -127,12 +127,12 @@ export default function LoginPage() {
 
   const inputBase = (field) => ({
     width: "100%",
-    padding: "clamp(11px, 2.5vw, 13px) clamp(12px, 3vw, 16px)",
-    fontSize: "clamp(14px, 3.5vw, 15px)",
+    padding: "13px 16px",
+    fontSize: 15,
     fontFamily: "DM Sans, sans-serif",
-    color: "#ffffff",
-    background: "#242d4a",
-    border: `1.5px solid ${focusField === field ? "#d4af37" : "#2a3554"}`,
+    color: "#1c1a17",
+    background: "#faf8f4",
+    border: `1.5px solid ${focusField === field ? "#b5924c" : "#e0d9ce"}`,
     borderRadius: 10,
     outline: "none",
     transition: "border-color 0.2s, background 0.2s",
@@ -142,7 +142,7 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(145deg, #0a0e1a 0%, #0f1425 50%, #1a1f3a 100%)",
+      background: "linear-gradient(145deg, #eee9df 0%, #e8e0d2 50%, #ddd5c6 100%)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -158,23 +158,20 @@ export default function LoginPage() {
         @keyframes shake    { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
         @keyframes spin     { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
         @keyframes successPop { 0%{transform:scale(0.85);opacity:0} 70%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
-        @keyframes demoGlow { 0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,0)} 50%{box-shadow:0 0 0 4px rgba(212,175,55,0.2)} }
+        @keyframes demoGlow { 0%,100%{box-shadow:0 0 0 0 rgba(181,146,76,0)} 50%{box-shadow:0 0 0 4px rgba(181,146,76,0.2)} }
         .login-card { animation: fadeUp 0.55s cubic-bezier(.16,1,.3,1) both; }
         .error-card { animation: shake 0.38s ease; }
         .success-card { animation: successPop 0.4s cubic-bezier(.16,1,.3,1) both; }
         .btn-dark  { transition: all 0.2s; }
-        .btn-dark:hover:not(:disabled)  { background:#d4af37 !important; transform:translateY(-1px); box-shadow:0 8px 24px rgba(212,175,55,0.3); }
+        .btn-dark:hover:not(:disabled)  { background:#2d2a24 !important; transform:translateY(-1px); box-shadow:0 8px 24px rgba(28,26,23,0.28); }
         .btn-dark:active  { transform:translateY(0) !important; }
         .btn-google:hover { background:#f5f1ea !important; border-color:#c8bfb0 !important; }
         .btn-demo { transition: all 0.2s; }
-        .btn-demo:hover:not(:disabled) { background: rgba(212,175,55,0.15) !important; border-color: #d4af37 !important; transform:translateY(-1px); }
+        .btn-demo:hover:not(:disabled) { background: rgba(181,146,76,0.15) !important; border-color: #b5924c !important; transform:translateY(-1px); }
         .btn-demo:active { transform:translateY(0) !important; }
-        .link-btn:hover { color:#d4af37 !important; cursor:pointer; }
-        input::placeholder { color:#7a849e; }
-        input:focus { background: #242d4a !important; border-color: #d4af37 !important; }
-        @media (max-width: 640px) { 
-          body { padding: 12px 12px !important; }
-        }
+        .link-btn:hover { color:#b5924c !important; cursor:pointer; }
+        input::placeholder { color:#c0b8ae; }
+        input:focus { background: #fff !important; }
       `}</style>
 
       {/* Watermark scales icons */}
@@ -222,13 +219,13 @@ export default function LoginPage() {
       <div
         className={`login-card${error ? " error-card" : ""}`}
         style={{
-          background: "#1a1f3a",
+          background: "#ffffff",
           borderRadius: 22,
-          padding: "clamp(24px, 8vw, 40px) clamp(20px, 6vw, 36px) clamp(20px, 6vw, 30px)",
+          padding: "40px 36px 30px",
           width: "100%",
           maxWidth: 400,
-          boxShadow: "0 2px 4px rgba(0,0,0,0.2), 0 12px 40px rgba(0,0,0,0.3), 0 32px 80px rgba(0,0,0,0.2)",
-          border: "1px solid rgba(212,175,55,0.2)",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(28,26,23,0.13), 0 32px 80px rgba(28,26,23,0.07)",
+          border: "1px solid rgba(224,217,206,0.8)",
         }}
       >
         {/* ── Logo ── */}
@@ -238,18 +235,18 @@ export default function LoginPage() {
           </div>
           <div style={{
             fontFamily:"Playfair Display, serif",
-            fontSize:"clamp(18px, 5vw, 22px)", fontWeight:700, color:"#ffffff",
+            fontSize:22, fontWeight:700, color:"#1c1a17",
             letterSpacing:"0.01em", lineHeight:1.2,
           }}>Karrar.ai</div>
           <div style={{
-            fontSize:"clamp(11px, 3vw, 12.5px)", color:"#a8b3c7",
+            fontSize:12.5, color:"#a8a09a",
             marginTop:4, fontFamily:"DM Sans, sans-serif",
             letterSpacing:"0.04em",
           }}>Multi-Agent Legal Intelligence</div>
         </div>
 
         {/* Divider */}
-        <div style={{height:1, background:"linear-gradient(90deg,transparent,rgba(212,175,55,0.2),transparent)", margin:"22px 0"}}/>
+        <div style={{height:1, background:"linear-gradient(90deg,transparent,#e8e2d8,transparent)", margin:"22px 0"}}/>
 
         {loginSuccess ? (
           /* ── Success ── */
@@ -277,7 +274,7 @@ export default function LoginPage() {
             {/* ── Heading ── */}
             <h1 style={{
               fontFamily:"Playfair Display, serif",
-              fontSize:"clamp(22px, 6vw, 26px)", fontWeight:700, color:"#ffffff",
+              fontSize:26, fontWeight:700, color:"#1c1a17",
               textAlign:"center", marginBottom:22,
             }}>Welcome Back</h1>
 
@@ -330,21 +327,21 @@ export default function LoginPage() {
                   onClick={()=>setRememberMe(!rememberMe)}>
                   <div style={{
                     width:16,height:16,
-                    border:`1.5px solid ${rememberMe?"#d4af37":"#2a3554"}`,
+                    border:`1.5px solid ${rememberMe?"#b5924c":"#c8bfb0"}`,
                     borderRadius:4,
-                    background:rememberMe?"#d4af37":"transparent",
+                    background:rememberMe?"#b5924c":"#fff",
                     display:"flex",alignItems:"center",justifyContent:"center",
                     flexShrink:0, transition:"all 0.18s",
                   }}>
                     {rememberMe && (
                       <svg width="10" height="8" viewBox="0 0 10 8">
-                        <polyline points="1,4 4,7 9,1" fill="none" stroke="#0a0e1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        <polyline points="1,4 4,7 9,1" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     )}
                   </div>
-                  <span style={{fontSize:"clamp(12px, 3vw, 13.5px)",color:"#a8b3c7",userSelect:"none"}}>Remember me</span>
+                  <span style={{fontSize:13.5,color:"#7a7068",userSelect:"none"}}>Remember me</span>
                 </label>
-                <span className="link-btn" style={{fontSize:"clamp(12px, 3vw, 13px)",color:"#7a849e",transition:"color 0.2s"}}>
+                <span className="link-btn" style={{fontSize:13,color:"#9a9088",transition:"color 0.2s"}}>
                   Forgot Password?
                 </span>
               </div>

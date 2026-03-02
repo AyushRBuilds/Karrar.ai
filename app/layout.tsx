@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-import './mobile.css'
 import { AuthProvider } from '@/context/auth-context'
 import { ThemeProvider } from '@/context/theme-context'
 import { ToastContainer } from '@/components/ui/Toast'
@@ -15,7 +14,6 @@ export const metadata: Metadata = {
   title: 'Karrar.ai - Legal AI for Indian Contracts',
   description: 'India\'s first Multi-Agent Legal AI. Audit contracts, analyze risks & draft counter-terms under Indian Law.',
   generator: 'v0.app',
-  viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes',
   icons: {
     icon: '/karrar-logo.png',
     apple: '/karrar-logo.png',
@@ -29,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#0a0e1a] text-[#ffffff] transition-colors duration-300`}>
+      <body className={`${playfairDisplay.variable} ${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased bg-[#0f1115] text-[#f5f0e8] transition-colors duration-300`}>
         <ThemeProvider>
           <AuthProvider>
             <ToastContainer />
