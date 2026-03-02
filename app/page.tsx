@@ -2263,47 +2263,47 @@ function DashboardPage({ user, onLogout }) {
         <aside style={{ width:228,background:"#060708",borderLeft:"1px solid #0F1115",padding:"20px 13px",flexShrink:0,overflowY:"auto" }}>
           {/* Risk donut */}
           <div style={{ marginBottom:24 }}>
-            <div style={{ fontSize:9,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:13 }}>RISK BREAKDOWN</div>
+            <div style={{ fontSize:10,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:13,fontWeight:800 }}>RISK BREAKDOWN</div>
             <div style={{ display:"flex",justifyContent:"center",marginBottom:13 }}>
               <div style={{ position:"relative",width:82,height:82 }}>
                 <svg width="82" height="82" viewBox="0 0 82 82">
                   <circle cx="41" cy="41" r="31" fill="none" stroke="#0F1115" strokeWidth="11"/>
-                  <circle cx="41" cy="41" r="31" fill="none" stroke="#22c55e" strokeWidth="11" strokeDasharray={`${0.70*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset={-2*Math.PI*31*0.13} transform="rotate(-90 41 41)" opacity="0.85"/>
-                  <circle cx="41" cy="41" r="31" fill="none" stroke="#f59e0b" strokeWidth="11" strokeDasharray={`${0.17*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset={-2*Math.PI*31*0.83} transform="rotate(-90 41 41)" opacity="0.85"/>
-                  <circle cx="41" cy="41" r="31" fill="none" stroke="#ef4444" strokeWidth="11" strokeDasharray={`${0.01*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset={-2*Math.PI*31*0.87} transform="rotate(-90 41 41)" opacity="0.85"/>
+                  <circle cx="41" cy="41" r="31" fill="none" stroke="#22c55e" strokeWidth="11" strokeDasharray={`${(riskBreakdown.low/100)*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset={-2*Math.PI*31*(riskBreakdown.high+riskBreakdown.med)/100} transform="rotate(-90 41 41)" opacity="0.85"/>
+                  <circle cx="41" cy="41" r="31" fill="none" stroke="#f59e0b" strokeWidth="11" strokeDasharray={`${(riskBreakdown.med/100)*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset={-2*Math.PI*31*(riskBreakdown.high)/100} transform="rotate(-90 41 41)" opacity="0.85"/>
+                  <circle cx="41" cy="41" r="31" fill="none" stroke="#ef4444" strokeWidth="11" strokeDasharray={`${(riskBreakdown.high/100)*2*Math.PI*31} ${2*Math.PI*31}`} strokeDashoffset="0" transform="rotate(-90 41 41)" opacity="0.85"/>
                 </svg>
-                <div style={{ position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontWeight:700,color:"#FFF" }}>70%</div>
+                <div style={{ position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:900,color:"#FFF" }}>{riskBreakdown.low}%</div>
               </div>
             </div>
-            {[{l:"High Risk",v:"1%",c:"#ef4444"},{l:"Med Risk",v:"17%",c:"#f59e0b"},{l:"Low Risk",v:"70%",c:"#22c55e"}].map(({l,v,c})=>(
-              <div key={l} style={{ display:"flex",alignItems:"center",gap:7,marginBottom:7 }}>
-                <div style={{ width:6,height:6,borderRadius:"50%",background:c,flexShrink:0 }}/>
-                <span style={{ flex:1,fontSize:11,color:"#666" }}>{l}</span>
-                <span style={{ fontSize:11,fontWeight:600,color:c }}>{v}</span>
+            {[{l:"High Risk",v:riskBreakdown.high,c:"#ef4444"},{l:"Med Risk",v:riskBreakdown.med,c:"#f59e0b"},{l:"Low Risk",v:riskBreakdown.low,c:"#22c55e"}].map(({l,v,c})=>(
+              <div key={l} style={{ display:"flex",alignItems:"center",gap:7,marginBottom:8 }}>
+                <div style={{ width:8,height:8,borderRadius:"50%",background:c,flexShrink:0 }}/>
+                <span style={{ flex:1,fontSize:12,color:"#AAA",fontWeight:600 }}>{l}</span>
+                <span style={{ fontSize:13,fontWeight:900,color:c }}>{v}%</span>
               </div>
             ))}
           </div>
 
           {/* Recent activity */}
           <div style={{ marginBottom:24 }}>
-            <div style={{ fontSize:9,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:12 }}>RECENT ACTIVITY</div>
+            <div style={{ fontSize:10,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:12,fontWeight:800 }}>RECENT ACTIVITY</div>
             {CONTRACTS.map((c,i)=>(
               <div key={i} style={{ display:"flex",gap:9,alignItems:"center",marginBottom:11,cursor:"pointer" }} onClick={()=>setActiveNav("Reports")}>
                 <div style={{ width:27,height:27,borderRadius:7,background:"#0D0F13",border:"1px solid #131518",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
                   <svg width="10" height="10" fill="none" stroke={rc(c.risk)} strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>
                 </div>
-                <div><div style={{ fontSize:11,color:"#BBB",fontWeight:500 }}>{c.name}</div><div style={{ fontSize:10,color:"#2A2D35",marginTop:1 }}>{c.time}</div></div>
+                <div><div style={{ fontSize:12,color:"#CCC",fontWeight:600 }}>{c.name}</div><div style={{ fontSize:10,color:"#444",marginTop:1 }}>{c.time}</div></div>
               </div>
             ))}
           </div>
 
           {/* Top entities */}
           <div>
-            <div style={{ fontSize:9,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:12 }}>TOP ENTITIES</div>
+            <div style={{ fontSize:10,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.12em",marginBottom:12,fontWeight:800 }}>TOP ENTITIES</div>
             {[{n:"Company.X",t:"13m ago",c:"#ef4444"},{n:"Freelancer Y",t:"1h ago",c:"#3b82f6"}].map((e,i)=>(
               <div key={i} style={{ display:"flex",gap:9,alignItems:"center",marginBottom:11 }}>
-                <div style={{ width:20,height:20,borderRadius:5,background:e.c,display:"flex",alignItems:"center",justifyContent:"center",fontSize:7,fontWeight:700,color:"#fff",flexShrink:0 }}>IN</div>
-                <div><div style={{ fontSize:11,color:"#BBB",fontWeight:500 }}>{e.n}</div><div style={{ fontSize:10,color:"#2A2D35" }}>{e.t}</div></div>
+                <div style={{ width:20,height:20,borderRadius:5,background:e.c,display:"flex",alignItems:"center",justifyContent:"center",fontSize:7,fontWeight:900,color:"#fff",flexShrink:0 }}>IN</div>
+                <div><div style={{ fontSize:12,color:"#CCC",fontWeight:700 }}>{e.n}</div><div style={{ fontSize:10,color:"#444" }}>{e.t}</div></div>
               </div>
             ))}
           </div>
