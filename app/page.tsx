@@ -552,25 +552,25 @@ function KarrarLanding({ onLogin }) {
 
   return (
     <div style={{ fontFamily: "DM Sans, sans-serif", background: "#000000", color: "#FFFFFF", overflowX: "hidden", position: "relative" }}>
-      {/* ── CURSOR GLOW ── follows mouse INSTANTLY, gold radial */}
+      {/* ── CURSOR GLOW ── follows mouse INSTANTLY, light gold radial */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9998,
         left: mouse.x - 350, top: mouse.y - 350,
         width: 700, height: 700,
-        background: "radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.08) 25%, rgba(212,175,55,0.02) 50%, transparent 75%)",
+        background: "radial-gradient(circle, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.03) 25%, rgba(212,175,55,0.008) 50%, transparent 75%)",
         borderRadius: "50%",
-        filter: "blur(40px)",
+        filter: "blur(50px)",
         willChange: "left, top",
       }} />
       
-      {/* ── SECONDARY GLOW LAYER for enhanced intensity ── */}
+      {/* ── SECONDARY GLOW LAYER for subtle enhancement ── */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9997,
         left: mouse.x - 250, top: mouse.y - 250,
         width: 500, height: 500,
-        background: "radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.03) 40%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(212,175,55,0.04) 0%, rgba(212,175,55,0.01) 40%, transparent 70%)",
         borderRadius: "50%",
-        filter: "blur(50px)",
+        filter: "blur(60px)",
       }} />
       
       {/* ── AMBIENT BACKGROUND GLOWS (static, scattered) with animations ── */}
@@ -1648,7 +1648,7 @@ function DashboardPage({ user, onLogout }) {
 
       <div style={{ display:"flex",flex:1,overflow:"hidden",height:"calc(100vh - 56px)" }}>
 
-        {/* ── SIDEBAR ─────────────────────────────────────────────── */}
+        {/* ── SIDEBAR ────────────��────────────────────────────────── */}
         <aside style={{ width:188,background:"#060708",borderRight:"1px solid #0F1115",padding:"16px 10px",display:"flex",flexDirection:"column",gap:2,flexShrink:0,overflowY:"auto" }}>
           {NAV.map(({k,ic})=>(
             <div key={k} className={`snav${activeNav===k?" on":""}`} onClick={()=>setActiveNav(k)}>
