@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LoginPage } from "./components/LoginPage";
-import { DashboardPage } from "./components/DashboardPage";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
+import { KarrarLogo } from "./KarrarLogo";
 
 // ── Motion Helpers ───────────────────────────────────────────────
 const FadeUp = ({ children, delay = 0, duration = 0.7, y = 40, style = {}, className = "" }) => {
@@ -1443,7 +1442,7 @@ const MOCK_ANALYSIS = {
 };
 
 // ── DASHBOARD PAGE ────────────────────────────────────────────────
-function DashboardPage({ user, onLogout }) {
+export function DashboardPage({ user, onLogout }: { user: { name: string; email: string; initials: string }; onLogout: () => void }) {
   const [activeNav,      setActiveNav]      = useState("Home");
   const [uploadPhase,    setUploadPhase]    = useState("idle"); // idle|analyzing|awaiting_docs|done
   const [analysisStep,   setAnalysisStep]   = useState(0);
@@ -2283,46 +2282,3 @@ function DashboardPage({ user, onLogout }) {
   );
 }
 
-
-export default function Page() {
-  const [page, setPage] = useState("landing");
-  const [user] = useState({ name: "John S.", email: "demo@karrar.ai", initials: "JS" });
-
-  return (
-    <AnimatePresence mode="wait">
-      {page === "landing" && (
-        <motion.div
-          key="landing"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <KarrarLanding onLogin={() => setPage("login")} />
-        </motion.div>
-      )}
-      {page === "login" && (
-        <motion.div
-          key="login"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <LoginPage onBack={() => setPage("landing")} onSuccess={() => setPage("dashboard")} />
-        </motion.div>
-      )}
-      {page === "dashboard" && (
-        <motion.div
-          key="dashboard"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <DashboardPage user={user} onLogout={() => setPage("landing")} />
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
