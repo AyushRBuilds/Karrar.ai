@@ -552,27 +552,25 @@ function KarrarLanding({ onLogin }) {
 
   return (
     <div style={{ fontFamily: "DM Sans, sans-serif", background: "#000000", color: "#FFFFFF", overflowX: "hidden", position: "relative" }}>
-      {/* ── CURSOR GLOW ── follows mouse, gold radial with ultra-smooth motion */}
+      {/* ── CURSOR GLOW ── follows mouse INSTANTLY, gold radial */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9998,
         left: mouse.x - 350, top: mouse.y - 350,
         width: 700, height: 700,
-        background: "radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 25%, rgba(212,175,55,0.02) 50%, transparent 75%)",
+        background: "radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.08) 25%, rgba(212,175,55,0.02) 50%, transparent 75%)",
         borderRadius: "50%",
         filter: "blur(40px)",
-        transition: "left 0.02s linear, top 0.02s linear",
         willChange: "left, top",
       }} />
       
-      {/* ── SECONDARY GLOW LAYER for cascading effect ── */}
+      {/* ── SECONDARY GLOW LAYER for enhanced intensity ── */}
       <div style={{
         position: "fixed", pointerEvents: "none", zIndex: 9997,
         left: mouse.x - 250, top: mouse.y - 250,
         width: 500, height: 500,
-        background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.02) 40%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.03) 40%, transparent 70%)",
         borderRadius: "50%",
-        filter: "blur(60px)",
-        transition: "left 0.04s linear, top 0.04s linear",
+        filter: "blur(50px)",
       }} />
       
       {/* ── AMBIENT BACKGROUND GLOWS (static, scattered) with animations ── */}
