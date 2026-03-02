@@ -1,10 +1,6 @@
 "use client";
 
 import { NavHeader } from "@/components/nav-header";
-import { HeroSection } from "@/components/hero-section";
-import { AgentsSection } from "@/components/agents-section";
-import { DashboardPreview } from "@/components/dashboard-preview";
-import { CTASection } from "@/components/cta-section";
 
 export default function Page() {
   const handleGetStarted = () => {
@@ -12,8 +8,7 @@ export default function Page() {
   };
 
   return (
-    <div style={{ background: "#000000", color: "#FFFFFF", fontFamily: "DM Sans, sans-serif" }}>
-      {/* Import fonts */}
+    <div style={{ background: "#000000", color: "#FFFFFF", fontFamily: "DM Sans, sans-serif", minHeight: "100vh" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,14 +16,103 @@ export default function Page() {
       `}</style>
 
       <NavHeader onGetStarted={handleGetStarted} />
-      <HeroSection onGetStarted={handleGetStarted} />
-      <AgentsSection />
-      <DashboardPreview />
-      <CTASection onGetStarted={handleGetStarted} />
+      
+      <main style={{ paddingTop: 72 }}>
+        {/* Hero Section */}
+        <section style={{ padding: "80px 32px", textAlign: "center" }}>
+          <h1 style={{
+            fontFamily: "Playfair Display, serif",
+            fontSize: 56,
+            fontWeight: 900,
+            marginBottom: 16,
+            color: "#FFFFFF"
+          }}>AI-Powered Legal Contract Analysis</h1>
+          <p style={{ fontSize: 18, color: "#888", maxWidth: 600, margin: "0 auto 32px" }}>
+            Analyze, negotiate, and understand contracts in seconds with our intelligent AI agents.
+          </p>
+          <button onClick={handleGetStarted} style={{
+            background: "linear-gradient(135deg, #C49E6C, #F5D08A)",
+            color: "#000",
+            border: "none",
+            borderRadius: 8,
+            padding: "12px 32px",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            fontFamily: "DM Sans, sans-serif"
+          }}>Get Started Free</button>
+        </section>
+
+        {/* Features Section */}
+        <section style={{ padding: "80px 32px", background: "rgba(196,158,108,0.02)" }}>
+          <h2 style={{
+            fontFamily: "Playfair Display, serif",
+            fontSize: 40,
+            fontWeight: 900,
+            marginBottom: 48,
+            textAlign: "center",
+            color: "#FFFFFF"
+          }}>Intelligent AI Agents</h2>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 24,
+            maxWidth: 1200,
+            margin: "0 auto"
+          }}>
+            {[
+              { title: "Risk Scoring", desc: "Identifies and scores financial and legal risks" },
+              { title: "Completeness Check", desc: "Ensures all required clauses are present" },
+              { title: "Negotiation AI", desc: "Generates counter-terms automatically" },
+              { title: "Regulatory Review", desc: "Checks compliance with Indian law" },
+              { title: "Consistency Check", desc: "Finds contradictions and inconsistencies" },
+              { title: "Plain Language", desc: "Translates legal jargon to simple language" }
+            ].map((agent, i) => (
+              <div key={i} style={{
+                background: "rgba(15,17,21,0.8)",
+                border: "1px solid rgba(196,158,108,0.1)",
+                borderRadius: 12,
+                padding: 24
+              }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: "#C49E6C" }}>
+                  {agent.title}
+                </h3>
+                <p style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>
+                  {agent.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section style={{ padding: "80px 32px", textAlign: "center" }}>
+          <h2 style={{
+            fontFamily: "Playfair Display, serif",
+            fontSize: 40,
+            fontWeight: 900,
+            marginBottom: 24,
+            color: "#FFFFFF"
+          }}>Ready to analyze your contracts?</h2>
+          <p style={{ fontSize: 16, color: "#888", marginBottom: 32 }}>
+            Join thousands of legal professionals using Karrar.ai
+          </p>
+          <button onClick={handleGetStarted} style={{
+            background: "linear-gradient(135deg, #C49E6C, #F5D08A)",
+            color: "#000",
+            border: "none",
+            borderRadius: 8,
+            padding: "14px 40px",
+            fontSize: 15,
+            fontWeight: 700,
+            cursor: "pointer",
+            fontFamily: "DM Sans, sans-serif"
+          }}>Start Free Trial</button>
+        </section>
+      </main>
     </div>
   );
 }
-      <div style={{ background: "#0F1115", borderBottom: "1px solid #1E2228", padding: "12px 20px", display: "flex", alignItems: "center", gap: 16 }}>
         <KarrarLogo size={28} />
         <div style={{ flex: 1, display: "flex", gap: 24, marginLeft: 16 }}>
           {["Home", "Contracts", "Agents", "Reports"].map((n, i) => (
