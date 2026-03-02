@@ -552,20 +552,49 @@ function KarrarLanding({ onLogin }) {
 
   return (
     <div style={{ fontFamily: "DM Sans, sans-serif", background: "#000000", color: "#FFFFFF", overflowX: "hidden", position: "relative" }}>
-      {/* ── CURSOR GLOW ── follows mouse, gold radial */}
+      {/* ── CURSOR GLOW ── follows mouse, gold radial with smooth motion */}
       <div style={{
-        position: "fixed", pointerEvents: "none", zIndex: 9999,
-        left: mouse.x - 300, top: mouse.y - 300,
-        width: 600, height: 600,
-        background: "radial-gradient(circle, rgba(196,158,108,0.07) 0%, rgba(196,158,108,0.03) 35%, transparent 70%)",
+        position: "fixed", pointerEvents: "none", zIndex: 9998,
+        left: mouse.x - 350, top: mouse.y - 350,
+        width: 700, height: 700,
+        background: "radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 25%, rgba(212,175,55,0.02) 50%, transparent 75%)",
         borderRadius: "50%",
-        transition: "left 0.08s ease-out, top 0.08s ease-out",
+        filter: "blur(40px)",
+        transition: "left 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        willChange: "transform",
       }} />
-      {/* ── AMBIENT BACKGROUND GLOWS (static, scattered) ── */}
+      
+      {/* ── SECONDARY GLOW LAYER for enhanced smoothness ── */}
+      <div style={{
+        position: "fixed", pointerEvents: "none", zIndex: 9997,
+        left: mouse.x - 250, top: mouse.y - 250,
+        width: 500, height: 500,
+        background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.02) 40%, transparent 70%)",
+        borderRadius: "50%",
+        filter: "blur(60px)",
+        transition: "left 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      }} />
+      
+      {/* ── AMBIENT BACKGROUND GLOWS (static, scattered) with animations ── */}
       <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0 }}>
-        <div style={{ position:"absolute", top:"15%", left:"10%", width:500, height:500, background:"radial-gradient(circle, rgba(196,158,108,0.04) 0%, transparent 65%)", borderRadius:"50%" }} />
-        <div style={{ position:"absolute", top:"60%", right:"5%", width:400, height:400, background:"radial-gradient(circle, rgba(196,158,108,0.035) 0%, transparent 65%)", borderRadius:"50%" }} />
-        <div style={{ position:"absolute", bottom:"10%", left:"30%", width:350, height:350, background:"radial-gradient(circle, rgba(196,158,108,0.03) 0%, transparent 65%)", borderRadius:"50%" }} />
+        <div style={{ 
+          position:"absolute", top:"15%", left:"10%", width:500, height:500, 
+          background:"radial-gradient(circle, rgba(196,158,108,0.05) 0%, transparent 70%)", 
+          borderRadius:"50%",
+          animation: "pulse 8s ease-in-out infinite",
+        }} />
+        <div style={{ 
+          position:"absolute", top:"60%", right:"5%", width:400, height:400, 
+          background:"radial-gradient(circle, rgba(196,158,108,0.04) 0%, transparent 70%)", 
+          borderRadius:"50%",
+          animation: "pulse 10s ease-in-out infinite 2s",
+        }} />
+        <div style={{ 
+          position:"absolute", bottom:"10%", left:"30%", width:350, height:350, 
+          background:"radial-gradient(circle, rgba(196,158,108,0.035) 0%, transparent 70%)", 
+          borderRadius:"50%",
+          animation: "pulse 12s ease-in-out infinite 4s",
+        }} />
       </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
@@ -575,7 +604,8 @@ function KarrarLanding({ onLogin }) {
         @keyframes float   { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-16px)} }
         @keyframes float2  { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-10px)} }
         @keyframes fadeUp  { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes pulse   { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.2)} }
+        @keyframes pulse   { 0%,100%{opacity:0.4;transform:scale(1);filter:blur(0px)} 50%{opacity:0.7;transform:scale(1.1);filter:blur(8px)} }
+        @keyframes pulseGlow { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
         @keyframes spin    { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
         @keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
         @keyframes goldBeam { 0%,100%{opacity:0} 50%{opacity:1} }
@@ -584,6 +614,7 @@ function KarrarLanding({ onLogin }) {
         @keyframes borderGlow { 0%,100%{box-shadow:0 0 0 rgba(196,158,108,0)} 50%{box-shadow:0 0 32px rgba(196,158,108,0.15)} }
         @keyframes typewriter { from{width:0} to{width:100%} }
         @keyframes blink { 50%{opacity:0} }
+        @keyframes glowPulse { 0%,100%{filter:blur(40px);opacity:0.8} 50%{filter:blur(50px);opacity:1} }
         .dash-stat-card { animation: floatCard 4s ease-in-out infinite; }
         .dash-stat-card:nth-child(2) { animation-delay: 0.7s; }
         .dash-stat-card:nth-child(3) { animation-delay: 1.4s; }
