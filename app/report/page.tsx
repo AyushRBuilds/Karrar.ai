@@ -273,7 +273,7 @@ export default function ReportPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
                 <button
                   onClick={() => {
                     // Create mock analysis object for PDF export
@@ -312,35 +312,38 @@ export default function ReportPage() {
                     }
                     exportReportPDF(mockAnalysis)
                   }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#b5924c] hover:bg-[#a07f3f] text-white rounded-lg font-medium transition"
+                  className="inline-flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 bg-[#b5924c] hover:bg-[#a07f3f] text-white rounded-lg font-medium text-xs sm:text-sm transition active:scale-95"
                 >
-                  <Download className="w-4 h-4" />
-                  Download PDF
+                  <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Download PDF</span>
+                  <span className="sm:hidden">PDF</span>
                 </button>
-                <button className="inline-flex items-center gap-2 px-4 py-2 border border-[#b5924c] text-[#b5924c] hover:bg-[#e8d9b8] rounded-lg font-medium transition">
-                  <Share2 className="w-4 h-4" />
-                  Share Report
+                <button className="inline-flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 border border-[#b5924c] text-[#b5924c] hover:bg-[#e8d9b8] rounded-lg font-medium text-xs sm:text-sm transition active:scale-95">
+                  <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Share Report</span>
+                  <span className="sm:hidden">Share</span>
                 </button>
-                <button className="inline-flex items-center gap-2 px-4 py-2 border border-[#b5924c] text-[#b5924c] hover:bg-[#e8d9b8] rounded-lg font-medium transition">
-                  <Printer className="w-4 h-4" />
-                  Print
+                <button className="inline-flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 border border-[#b5924c] text-[#b5924c] hover:bg-[#e8d9b8] rounded-lg font-medium text-xs sm:text-sm transition active:scale-95">
+                  <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Print</span>
+                  <span className="sm:hidden">Print</span>
                 </button>
               </div>
 
               {/* Tabs */}
-              <div className="flex flex-wrap items-center gap-2 md:gap-4 mb-8 border-b border-[#e0d9ce] pb-4 overflow-x-auto">
+              <div className="flex flex-wrap items-center gap-1 sm:gap-2 lg:gap-4 mb-6 sm:mb-8 border-b border-[#e0d9ce] pb-2 sm:pb-4 overflow-x-auto">
                 {[
                   { id: 'overview', label: 'Overview' },
-                  { id: 'agents', label: 'Agent Results' },
-                  { id: 'risks', label: 'Risk Analysis' },
-                  { id: 'terms', label: 'Counter-Terms' },
+                  { id: 'agents', label: 'Agents' },
+                  { id: 'risks', label: 'Risks' },
+                  { id: 'terms', label: 'Terms' },
                   { id: 'consistency', label: 'Consistency' },
-                  { id: 'summary', label: 'Plain Language' }
+                  { id: 'summary', label: 'Summary' }
                 ].map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`whitespace-nowrap pb-2 font-medium transition ${
+                    className={`whitespace-nowrap pb-2 font-medium transition text-xs sm:text-sm lg:text-base ${
                       activeTab === tab.id
                         ? 'text-[#b5924c] border-b-2 border-[#b5924c]'
                         : 'text-[#7a7068] hover:text-[#1c1a17]'
@@ -353,9 +356,9 @@ export default function ReportPage() {
 
               {/* Content */}
               {activeTab === 'overview' && (
-                <div className="card bg-white p-8 space-y-8">
+                <div className="card bg-white p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
                   <div>
-                    <h3 className="font-serif font-bold text-[#1c1a17] text-2xl mb-4">Executive Summary</h3>
+                    <h3 className="font-serif font-bold text-[#1c1a17] text-xl sm:text-2xl mb-3 sm:mb-4">Executive Summary</h3>
                     <p className="text-[#7a7068] leading-relaxed mb-4">
                       This is a Master Service Agreement with a 5-year commitment. The contract contains several high-risk clauses that require negotiation, particularly around liability limitations and non-compete restrictions. Overall risk score is 6.8/10 (High Risk).
                     </p>
@@ -364,20 +367,20 @@ export default function ReportPage() {
                     </p>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="card bg-[#f5f0e8] p-6 border-l-4 border-[#e74c3c]">
-                      <p className="text-sm text-[#7a7068] mb-1">Overall Risk</p>
-                      <p className="text-4xl font-serif font-bold text-[#e74c3c]">6.8</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
+                    <div className="card bg-[#f5f0e8] p-4 sm:p-6 border-l-4 border-[#e74c3c]">
+                      <p className="text-xs sm:text-sm text-[#7a7068] mb-1">Overall Risk</p>
+                      <p className="text-3xl sm:text-4xl font-serif font-bold text-[#e74c3c]">6.8</p>
                       <p className="text-xs text-[#7a7068] mt-2">High Risk - Requires negotiation</p>
                     </div>
-                    <div className="card bg-[#f5f0e8] p-6 border-l-4 border-[#f39c12]">
-                      <p className="text-sm text-[#7a7068] mb-1">High-Risk Clauses</p>
-                      <p className="text-4xl font-serif font-bold text-[#f39c12]">3</p>
+                    <div className="card bg-[#f5f0e8] p-4 sm:p-6 border-l-4 border-[#f39c12]">
+                      <p className="text-xs sm:text-sm text-[#7a7068] mb-1">High-Risk Clauses</p>
+                      <p className="text-3xl sm:text-4xl font-serif font-bold text-[#f39c12]">3</p>
                       <p className="text-xs text-[#7a7068] mt-2">Require immediate attention</p>
                     </div>
-                    <div className="card bg-[#f5f0e8] p-6 border-l-4 border-[#27ae60]">
-                      <p className="text-sm text-[#7a7068] mb-1">Analysis Confidence</p>
-                      <p className="text-4xl font-serif font-bold text-[#27ae60]">89%</p>
+                    <div className="card bg-[#f5f0e8] p-4 sm:p-6 border-l-4 border-[#27ae60]">
+                      <p className="text-xs sm:text-sm text-[#7a7068] mb-1">Analysis Confidence</p>
+                      <p className="text-3xl sm:text-4xl font-serif font-bold text-[#27ae60]">89%</p>
                       <p className="text-xs text-[#7a7068] mt-2">High confidence analysis</p>
                     </div>
                   </div>

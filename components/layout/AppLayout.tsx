@@ -224,17 +224,17 @@ export function AppNavbar() {
             </div>
 
             {/* Notifications */}
-            <button className="relative text-[#1c1a17] hover:text-[#b5924c]">
-              <span className="text-xl">🔔</span>
-              <span className="absolute -top-2 -right-2 w-5 h-5 bg-[#c0392b] text-white text-xs rounded-full flex items-center justify-center font-bold">3</span>
+            <button className="relative text-[#1c1a17] hover:text-[#b5924c] p-2 active:scale-95 transition">
+              <span className="text-lg sm:text-xl">🔔</span>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#c0392b] text-white text-xs rounded-full flex items-center justify-center font-bold">3</span>
             </button>
 
             {/* User Avatar */}
-            <div className="flex items-center gap-2 pl-4 border-l border-[#e0d9ce]">
-              <div className="w-8 h-8 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-serif font-bold text-xs">
+            <div className="flex items-center gap-2 pl-2 sm:pl-4 border-l border-[#e0d9ce]">
+              <button className="w-8 sm:w-9 h-8 sm:h-9 rounded-full bg-[#b5924c] text-white flex items-center justify-center font-serif font-bold text-xs sm:text-sm hover:bg-[#a07f3f] transition active:scale-95">
                 {user?.avatar}
-              </div>
-              <span className="hidden md:inline text-sm font-medium text-[#1c1a17]">{user?.name}</span>
+              </button>
+              <span className="hidden md:inline text-xs sm:text-sm font-medium text-[#1c1a17]">{user?.name}</span>
             </div>
           </div>
         </div>

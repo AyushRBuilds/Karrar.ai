@@ -99,40 +99,40 @@ export default function ContractsPage() {
 
               {/* Contracts Table/Cards */}
               {loading ? (
-                <div className="text-center py-12">
-                  <p className="text-[#7a7068]">Loading your contracts...</p>
+                <div className="text-center py-8 sm:py-12">
+                  <p className="text-[#7a7068] text-sm sm:text-base">Loading your contracts...</p>
                 </div>
               ) : contracts.length === 0 ? (
-                <div className="card bg-white p-12 text-center">
-                  <p className="text-xl font-serif text-[#1c1a17] mb-2">No contracts analyzed yet</p>
-                  <p className="text-[#7a7068]">Upload a PDF to get started with AI-powered contract analysis</p>
+                <div className="card bg-white p-6 sm:p-12 text-center">
+                  <p className="text-lg sm:text-xl font-serif text-[#1c1a17] mb-2">No contracts analyzed yet</p>
+                  <p className="text-xs sm:text-base text-[#7a7068]">Upload a PDF to get started with AI-powered contract analysis</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {contracts.map((contract) => {
                     const riskInfo = getRiskStatus(contract.overallScore)
                     return (
-                      <div key={contract.id} className="card bg-white p-6 flex items-center justify-between hover:shadow-md transition">
-                        <div className="flex items-center gap-4 flex-1 min-w-0">
-                          <div className="text-2xl flex-shrink-0">📄</div>
+                      <div key={contract.id} className="card bg-white p-3 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between hover:shadow-md transition gap-3 sm:gap-0">
+                        <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+                          <div className="text-xl sm:text-2xl flex-shrink-0">📄</div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-serif font-bold text-[#1c1a17] truncate">{contract.fileName}</h3>
-                            <p className="text-sm text-[#7a7068]">{formatDate(contract.uploadDate)} • {contract.clausesCount} clauses</p>
+                            <h3 className="font-serif font-bold text-[#1c1a17] text-sm sm:text-base truncate">{contract.fileName}</h3>
+                            <p className="text-xs sm:text-sm text-[#7a7068]">{formatDate(contract.uploadDate)} • {contract.clausesCount} clauses</p>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-6 flex-shrink-0">
-                          <div className={`text-center ${riskInfo.bg} px-3 py-2 rounded-lg`}>
-                            <p className={`text-sm font-bold ${riskInfo.color}`}>{contract.overallScore.toFixed(1)}/10</p>
+                        <div className="flex items-center gap-2 sm:gap-6 flex-shrink-0 justify-between sm:justify-end w-full sm:w-auto">
+                          <div className={`text-center ${riskInfo.bg} px-2 sm:px-3 py-1 sm:py-2 rounded-lg`}>
+                            <p className={`text-xs sm:text-sm font-bold ${riskInfo.color}`}>{contract.overallScore.toFixed(1)}/10</p>
                             <p className={`text-xs ${riskInfo.color}`}>{riskInfo.status}</p>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <button className="text-[#b5924c] hover:text-[#1c1a17] text-sm font-medium px-3 py-2 hover:bg-[#f5f0e8] rounded">
+                          <div className="flex items-center gap-1 sm:gap-2">
+                            <button className="text-[#b5924c] hover:text-[#1c1a17] text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 sm:py-2 hover:bg-[#f5f0e8] rounded active:scale-95 transition">
                               View
                             </button>
                             <button
                               onClick={() => deleteContract(contract.id)}
-                              className="text-[#7a7068] hover:text-[#ef4444] text-sm font-medium px-2 py-2 hover:bg-[#ef4444]/10 rounded"
+                              className="text-[#7a7068] hover:text-[#ef4444] text-sm sm:text-base font-medium px-1.5 sm:px-2 py-1 sm:py-2 hover:bg-[#ef4444]/10 rounded active:scale-95 transition"
                             >
                               ×
                             </button>
