@@ -1875,10 +1875,10 @@ function DashboardPage({ user, onLogout }) {
                 <div style={{ fontSize:10,color:"#C49E6C",fontFamily:"IBM Plex Mono,monospace",letterSpacing:"0.1em",marginBottom:14 }}>ORCHESTRATION ARCHITECTURE</div>
                 <div style={{ display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",marginBottom:14 }}>
                   {[{n:"Upload PDF",c:"#3b82f6"},{n:"Parse & Split",c:"#8b5cf6"},{n:"Orchestrator",c:"#C49E6C"},{n:"6 Agents ⚡ Parallel",c:"#C49E6C"},{n:"Synthesize",c:"#22c55e"},{n:"Unified Report",c:"#22c55e"}].map((s,i,arr)=>(
-                    <React.Fragment key={i}>
+                    <div key={i} style={{ display:"flex",alignItems:"center",gap:8 }}>
                       <div style={{ background:`${s.c}10`,border:`1px solid ${s.c}28`,borderRadius:8,padding:"7px 13px",fontSize:12,color:s.c,fontWeight:500 }}>{s.n}</div>
                       {i<arr.length-1 && <span style={{ color:"#222",fontSize:14 }}>→</span>}
-                    </React.Fragment>
+                    </div>
                   ))}
                 </div>
                 <div style={{ fontSize:12,color:"#333",lineHeight:1.8 }}>
